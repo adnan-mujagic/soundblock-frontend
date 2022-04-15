@@ -3,10 +3,10 @@ import React from "react";
 import Header from "../Header/Header";
 import "./Home.css";
 
-function Home() {
+function Home({ token, setToken }) {
   return (
     <div>
-      <Header />
+      <Header token={token} setToken={setToken} />
     </div>
   );
 }
