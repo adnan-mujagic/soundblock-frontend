@@ -7,22 +7,47 @@ import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 
 import colors from "../../utils/colors";
 import Separator from "../Separator/Separator";
-function Sidebar() {
+import contentTypes from "../../utils/contentTypes";
+function Sidebar({ setContentType }) {
+  const handleContentTypeChange = (type) => {
+    setContentType(type);
+  };
+
   return (
     <div className="sidebar">
-      <div style={boxStyle}>
+      <div
+        style={boxStyle}
+        onClick={() => {
+          handleContentTypeChange(contentTypes.home);
+        }}
+      >
         <HomeIcon style={iconStyle} />
         Home
       </div>
-      <div style={boxStyle}>
+      <div
+        style={boxStyle}
+        onClick={() => {
+          handleContentTypeChange(contentTypes.expore);
+        }}
+      >
         <ExploreIcon style={iconStyle} />
         Explore
       </div>
-      <div style={boxStyle}>
+      <div
+        style={boxStyle}
+        onClick={() => {
+          handleContentTypeChange(contentTypes.purchases);
+        }}
+      >
         <LibraryMusicIcon style={iconStyle} />
         Your Purchases
       </div>
-      <div style={boxStyle}>
+      <div
+        style={boxStyle}
+        onClick={() => {
+          handleContentTypeChange(contentTypes.account);
+        }}
+      >
         <AccountCircleIcon style={iconStyle} />
         Account
       </div>
