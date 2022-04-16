@@ -1,12 +1,12 @@
 import React from "react";
-
-import Header from "../Header/Header";
+import Main from "../Main/Main";
 import "./Home.css";
-
+import Header from "../Header/Header";
 function Home({ token, setToken }) {
   return (
-    <div>
+    <div className="home">
       <Header token={token} setToken={setToken} />
+      {token === null ? <div>Explanation of the website</div> : <Main />}
     </div>
   );
 }

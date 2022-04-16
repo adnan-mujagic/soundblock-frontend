@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 
 export default async function connect() {
-  console.log("I happened");
   if (!window.ethereum) return;
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
