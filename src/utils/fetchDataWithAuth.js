@@ -1,4 +1,6 @@
-export default async function fetchData(urlSuffix, method, body) {
+import SessionStorage from "./SessionStorage";
+
+export default async function fetchDataWithAuth(urlSuffix, method, body) {
   let url = `https://soundblock.herokuapp.com/api${urlSuffix}`;
 
   console.log("Fetching from this url: " + url);
@@ -7,6 +9,7 @@ export default async function fetchData(urlSuffix, method, body) {
       method,
       headers: {
         "Content-Type": "application/json",
+        Authorization: SessionStorage.getToken(),
       },
       body: JSON.stringify(body),
     });

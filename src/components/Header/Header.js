@@ -7,7 +7,7 @@ import connect from "../../utils/connectWallet";
 import fetchData from "../../utils/fetchData";
 import SessionStorage from "../../utils/SessionStorage";
 import colors from "../../utils/colors";
-import { Alert } from "@mui/material";
+import DefaultAlert from "../DefaultAlert/DefaultAlert";
 
 function Header({ token, setToken }) {
   const [errorInfo, setErrorInfo] = useState(null);
@@ -23,7 +23,7 @@ function Header({ token, setToken }) {
       SessionStorage.setToken(data.token);
       setToken(data.token);
     } catch (error) {
-      setErrorInfo("Something went wrong with connection");
+      setErrorInfo(error.message);
       setTimeout(() => {
         setErrorInfo(null);
       }, 2000);
@@ -32,11 +32,7 @@ function Header({ token, setToken }) {
 
   return (
     <div className="header">
-      {errorInfo && (
-        <Alert style={alertStyle} severity="error">
-          {errorInfo}
-        </Alert>
-      )}
+      {errorInfo && <DefaultAlert type={"error"} message={errorInfo} />}
       <div
         className="header-title"
         onClick={() => {
@@ -71,13 +67,6 @@ function Header({ token, setToken }) {
 const iconStyle = {
   cursor: "pointer",
   color: colors.green,
-};
-
-const alertStyle = {
-  position: "absolute",
-  zIndex: "10",
-  top: "16px",
-  right: "16px",
 };
 
 export default Header;
