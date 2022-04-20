@@ -1,10 +1,8 @@
-.sidebar {
-  height: calc(92vh - 1px);
-  border-right: 1px solid rgb(246, 246, 246);
-  flex: 0.25;
-  padding: 0 16px;
-  z-index: 0;
+.song-card {
   box-shadow: -1px 0px 20px 5px rgba(0, 0, 0, 0.42);
   -webkit-box-shadow: -1px 0px 20px 5px rgba(0, 0, 0, 0.42);
   -moz-box-shadow: -1px 0px 20px 5px rgba(0, 0, 0, 0.42);
+  padding: 16px;
+  border-radius: 8px;
+  background-color: white;
 }

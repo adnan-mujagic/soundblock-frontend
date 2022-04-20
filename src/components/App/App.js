@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const [token, setToken] = useState(SessionStorage.getToken());
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
         <Route
           path="/"

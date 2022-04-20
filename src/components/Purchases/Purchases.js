@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
-import DefaultCover from "../DefaultCover/DefaultCover";
 import Loading from "../Loading/Loading";
+import SongCard from "../SongCard/SongCard";
 import "./Purchases.css";
 
 function Purchases() {
@@ -23,7 +23,6 @@ function Purchases() {
       );
       if (response?.data) {
         showAlert(response?.message, true);
-        assignBackgroundColors(response.data);
         setPurchases(response.data);
       } else {
         showAlert(response?.message, false);
@@ -32,17 +31,6 @@ function Purchases() {
     }
     getPurchases();
   }, []);
-
-  const assignBackgroundColors = (purchases) => {
-    purchases.forEach((purchase) => {
-      purchase.color = generateColor();
-    });
-  };
-
-  const generateColor = () => {
-    const RGBValue = () => Math.floor(Math.random() * 255);
-    return `rgba(${RGBValue()}, ${RGBValue()}, ${RGBValue()}, 0.8)`;
-  };
 
   const showAlert = (message, isSuccess) => {
     setMessage({
@@ -83,8 +71,8 @@ function Purchases() {
           {`Good ${dateToGreeting()}, here are your purchased songs`}
           <div className="purchase-container">
             {purchases &&
-              purchases.map((purchase) => {
-                return <div>{<DefaultCover backround={purchase.color} />}</div>;
+              purchases.map((purchase, index) => {
+                return <SongCard key={index} song={purchase} />;
               })}
           </div>
         </div>
@@ -92,11 +80,5 @@ function Purchases() {
     </div>
   );
 }
-
-const purchaseContainerStyle = {
-  display: "grid",
-  gridGap: "20px",
-  gridTemplateColumns: "",
-};
 
 export default Purchases;
