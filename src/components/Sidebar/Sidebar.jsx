@@ -16,7 +16,7 @@ function Sidebar() {
       <div
         style={boxStyle}
         onClick={() => {
-          navigate("/home");
+          navigate("/");
         }}
       >
         <HomeIcon style={iconStyle} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import SessionStorage from "../../utils/SessionStorage";
+import Account from "../Account";
 import Explore from "../Explore";
 import Home from "../Home";
 import Purchases from "../Purchases/Purchases";
@@ -22,6 +23,10 @@ function App() {
         <Route
           path="/explore"
           element={<Explore token={token} setToken={setToken} />}
+        ></Route>
+        <Route
+          path="/account"
+          element={<Account token={token} setToken={setToken} />}
         ></Route>
       </Routes>
     </div>
