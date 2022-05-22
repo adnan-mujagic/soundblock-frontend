@@ -1,24 +1,22 @@
 import React from "react";
-import "./Sidebar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-
 import colors from "../../utils/colors";
 import Separator from "../Separator/Separator";
-import contentTypes from "../../utils/contentTypes";
-function Sidebar({ setContentType }) {
-  const handleContentTypeChange = (type) => {
-    setContentType(type);
-  };
+import { useNavigate } from "react-router-dom";
+import styles from "./Sidebar.module.scss";
+
+function Sidebar() {
+  const navigate = useNavigate();
 
   return (
-    <div className="sidebar">
+    <div className={styles["sidebar"]}>
       <div
         style={boxStyle}
         onClick={() => {
-          handleContentTypeChange(contentTypes.home);
+          navigate("/home");
         }}
       >
         <HomeIcon style={iconStyle} />
@@ -27,7 +25,7 @@ function Sidebar({ setContentType }) {
       <div
         style={boxStyle}
         onClick={() => {
-          handleContentTypeChange(contentTypes.expore);
+          navigate("/explore");
         }}
       >
         <ExploreIcon style={iconStyle} />
@@ -36,7 +34,7 @@ function Sidebar({ setContentType }) {
       <div
         style={boxStyle}
         onClick={() => {
-          handleContentTypeChange(contentTypes.purchases);
+          navigate("/purchases");
         }}
       >
         <LibraryMusicIcon style={iconStyle} />
@@ -45,7 +43,7 @@ function Sidebar({ setContentType }) {
       <div
         style={boxStyle}
         onClick={() => {
-          handleContentTypeChange(contentTypes.account);
+          navigate("/account");
         }}
       >
         <AccountCircleIcon style={iconStyle} />

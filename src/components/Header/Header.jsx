@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import "./Header.css";
 import connect from "../../utils/connectWallet";
 import fetchData from "../../utils/fetchData";
 import SessionStorage from "../../utils/SessionStorage";
 import colors from "../../utils/colors";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
+import styles from "./Header.module.scss";
 
 function Header({ token, setToken }) {
   const [errorInfo, setErrorInfo] = useState(null);
@@ -31,10 +31,10 @@ function Header({ token, setToken }) {
   };
 
   return (
-    <div className="header">
+    <div className={styles.header}>
       {errorInfo && <DefaultAlert type={"error"} message={errorInfo} />}
       <div
-        className="header-title"
+        className={styles["header-title"]}
         onClick={() => {
           window.location = "/";
         }}
@@ -42,7 +42,7 @@ function Header({ token, setToken }) {
         <MusicNoteIcon style={iconStyle} />
         SoundBlock
       </div>
-      <div className="header-wallet-section">
+      <div className={styles["header-wallet-section"]}>
         {token === null ? (
           <AccountBalanceWalletIcon
             style={iconStyle}

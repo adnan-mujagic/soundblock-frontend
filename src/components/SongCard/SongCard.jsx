@@ -1,15 +1,16 @@
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import "./SongCard.css";
+
 import getColorFromString from "../../utils/getColorFromString";
 import { useState } from "react";
 import typography from "../../utils/typography";
 import colors from "../../utils/colors";
+import styles from "./SongCard.module.scss";
 
 function SongCard(data) {
   let { song } = data;
 
   return (
-    <div className="song-card">
+    <div className={styles["song-card"]}>
       <div>
         <div
           style={{
