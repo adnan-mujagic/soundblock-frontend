@@ -61,7 +61,7 @@ function Purchases({ token, setToken }) {
 
   return (
     <div className={styles.purchases}>
-      <Header />
+      <Header token={token} setToken={setToken} />
       <div className={styles["content-container"]}>
         <Sidebar />
         {message?.text && (
@@ -71,7 +71,7 @@ function Purchases({ token, setToken }) {
           />
         )}
         {loading ? (
-          <Loading />
+          <Loading margin />
         ) : (
           <div className={styles["main-content-wrapper"]}>
             <ContentType contentType={"Purchases"} />

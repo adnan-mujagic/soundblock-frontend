@@ -1,11 +1,13 @@
 import React from "react";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import "./Loading.css";
+import styles from "./Loading.module.scss";
 
-function Loading() {
+function Loading({ margin = false }) {
   return (
     <div>
-      <MusicNoteIcon className="test" />
+      <MusicNoteIcon
+        className={margin ? styles["load-with-margin"] : styles.load}
+      />
     </div>
   );
 }

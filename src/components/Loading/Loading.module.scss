@@ -1,6 +1,12 @@
-.test {
+.load {
   animation: x 2s infinite;
   color: rgb(67, 181, 129);
+}
+
+.load-with-margin {
+  @extend .load;
+  margin-left: 24px;
+  margin-top: 24px;
 }
 
 @keyframes x {

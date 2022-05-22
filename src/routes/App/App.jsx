@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import SessionStorage from "../../utils/SessionStorage";
+import Explore from "../Explore";
 import Home from "../Home";
 import Purchases from "../Purchases/Purchases";
 import styles from "./App.module.scss";
@@ -17,6 +18,10 @@ function App() {
         <Route
           path="/purchases"
           element={<Purchases token={token} setToken={setToken} />}
+        ></Route>
+        <Route
+          path="/explore"
+          element={<Explore token={token} setToken={setToken} />}
         ></Route>
       </Routes>
     </div>
