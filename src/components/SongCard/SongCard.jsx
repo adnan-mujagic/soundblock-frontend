@@ -16,8 +16,8 @@ function SongCard(data) {
           style={{
             aspectRatio: "1/1",
             background: `url("${
-              song.cover
-                ? song.cover
+              song.image
+                ? song.image
                 : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
             }")`,
             backgroundPosition: "center",
@@ -25,7 +25,6 @@ function SongCard(data) {
             borderRadius: "8px",
             marginBottom: "16px",
           }}
-          className="image-container"
         ></div>
       </div>
       <div className="song-card-info">
