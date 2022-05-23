@@ -8,14 +8,13 @@ import SongCard from "../../components/SongCard";
 import styles from "./Purchases.module.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
+import colors from "../../utils/colors";
 
 function Purchases({ token, setToken }) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({
-    text: null,
-    isSuccess: true,
-  });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     async function getPurchases() {
@@ -25,29 +24,18 @@ function Purchases({ token, setToken }) {
         "GET"
       );
       if (response?.data) {
-        showAlert(response?.message, true);
+        setMessage(response.message);
+        setSnackbarOpen(true);
+
         setPurchases(response.data);
       } else {
-        showAlert(response?.message, false);
+        setMessage(response.message);
+        setSnackbarOpen(true);
       }
       setLoading(false);
     }
     getPurchases();
   }, []);
-
-  const showAlert = (message, isSuccess) => {
-    setMessage({
-      text: message,
-      isSuccess: true,
-    });
-
-    setTimeout(() => {
-      setMessage({
-        text: null,
-        isSuccess: isSuccess,
-      });
-    }, 2000);
-  };
 
   const dateToGreeting = () => {
     const hour = new Date().getUTCHours();
@@ -64,10 +52,12 @@ function Purchases({ token, setToken }) {
       <Header token={token} setToken={setToken} />
       <div className={styles["content-container"]}>
         <Sidebar />
-        {message?.text && (
+        {message && (
           <DefaultAlert
-            message={message.text}
-            severity={message?.isSuccess ? "success" : "error"}
+            message={message}
+            color={colors.green}
+            open={snackbarOpen}
+            setOpen={setSnackbarOpen}
           />
         )}
         {loading ? (
@@ -75,7 +65,7 @@ function Purchases({ token, setToken }) {
         ) : (
           <div className={styles["main-content-wrapper"]}>
             <ContentType contentType={"Purchases"} />
-            <div style={{ fontSize: typography.header }}>
+            <div style={{ fontSize: typography.header, marginTop: "20px" }}>
               {`Good ${dateToGreeting()}, here are your purchased songs`}
               <div className={styles["purchase-container"]}>
                 {purchases &&
