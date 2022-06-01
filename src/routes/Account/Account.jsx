@@ -1,10 +1,20 @@
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Input,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ContentType from "../../components/ContentType/ContentType";
+import CustomTextField from "../../components/CustomTextField/CustomTextField";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import EmptyContent from "../../components/EmptyContent";
 import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import colors from "../../utils/colors";
 import dateToGreeting from "../../utils/dateToGreeting";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
@@ -16,6 +26,7 @@ function Account({ token, setToken }) {
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState(null);
+  const [songUploadModalOpen, setSongUploadModalOpen] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -67,7 +78,7 @@ function Account({ token, setToken }) {
                 user.username
               }, here are the songs that you uploaded`}</div>
               <div className={styles["song-wrapper"]}>
-                {user?.ownedSongs?.length > 0 &&
+                {user?.ownedSongs?.length > 0 ? (
                   user.ownedSongs.map((song) => {
                     let { ownedSongs, ...rest } = user;
                     return (
@@ -76,7 +87,41 @@ function Account({ token, setToken }) {
                         song={{ ...song, artist: [rest] }}
                       />
                     );
-                  })}
+                  })
+                ) : (
+                  <EmptyContent message={"Couldn't find any owned items"} />
+                )}
+              </div>
+              <div>
+                <Button
+                  style={{ fontSize: typography.header }}
+                  onClick={() => setSongUploadModalOpen(true)}
+                >
+                  Upload more songs
+                </Button>
+                <Dialog fullWidth open={songUploadModalOpen}>
+                  <DialogTitle>
+                    <div style={{ fontSize: typography.header }}>
+                      Upload a new song
+                    </div>
+                  </DialogTitle>
+                  <DialogContent>
+                    <CustomTextField
+                      variant="outlined"
+                      placeholder="Song name"
+                    />
+                    <CustomTextField
+                      variant="outlined"
+                      placeholder="Song cover image url"
+                    />
+                  </DialogContent>
+                  <Button
+                    style={{ fontSize: typography.header }}
+                    onClick={() => setSongUploadModalOpen(false)}
+                  >
+                    Close
+                  </Button>
+                </Dialog>
               </div>
             </div>
           ) : (
