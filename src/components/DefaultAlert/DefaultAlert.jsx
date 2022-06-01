@@ -2,7 +2,7 @@ import { IconButton, Snackbar } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 
-function DefaultAlert({ message, color, open, setOpen }) {
+function DefaultAlert({ message, open, setOpen }) {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;

@@ -6,9 +6,7 @@ import typography from "../../utils/typography";
 import colors from "../../utils/colors";
 import styles from "./SongCard.module.scss";
 
-function SongCard(data) {
-  let { song } = data;
-
+function SongCard({ song }) {
   return (
     <div className={styles["song-card"]}>
       <div>

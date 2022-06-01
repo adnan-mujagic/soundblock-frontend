@@ -55,7 +55,6 @@ function Purchases({ token, setToken }) {
         {message && (
           <DefaultAlert
             message={message}
-            color={colors.green}
             open={snackbarOpen}
             setOpen={setSnackbarOpen}
           />
