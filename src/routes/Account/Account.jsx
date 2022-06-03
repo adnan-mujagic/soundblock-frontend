@@ -1,20 +1,11 @@
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Input,
-  TextField,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ContentType from "../../components/ContentType/ContentType";
-import CustomTextField from "../../components/CustomTextField/CustomTextField";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
-import EmptyContent from "../../components/EmptyContent";
 import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import colors from "../../utils/colors";
+import SongUploadDialog from "../../components/SongUploadDialog";
 import dateToGreeting from "../../utils/dateToGreeting";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
@@ -39,7 +30,7 @@ function Account({ token, setToken }) {
           return res.data._id;
         })
         .then((artistId) => {
-          return fetchDataWithAuth(`/songs/getByArtist?${artistId}`);
+          return fetchDataWithAuth(`/songs/getByArtist?artistId=${artistId}`);
         })
         .then((res) => {
           if (res.data) {
@@ -47,7 +38,6 @@ function Account({ token, setToken }) {
               return { ...prevUser, ownedSongs: res.data };
             });
           }
-          console.table(res);
           setMessage(res.message);
           setSnackbarOpen(true);
         });
@@ -78,7 +68,7 @@ function Account({ token, setToken }) {
                 user.username
               }, here are the songs that you uploaded`}</div>
               <div className={styles["song-wrapper"]}>
-                {user?.ownedSongs?.length > 0 ? (
+                {user?.ownedSongs?.length > 0 &&
                   user.ownedSongs.map((song) => {
                     let { ownedSongs, ...rest } = user;
                     return (
@@ -87,10 +77,7 @@ function Account({ token, setToken }) {
                         song={{ ...song, artist: [rest] }}
                       />
                     );
-                  })
-                ) : (
-                  <EmptyContent message={"Couldn't find any owned items"} />
-                )}
+                  })}
               </div>
               <div>
                 <Button
@@ -99,29 +86,10 @@ function Account({ token, setToken }) {
                 >
                   Upload more songs
                 </Button>
-                <Dialog fullWidth open={songUploadModalOpen}>
-                  <DialogTitle>
-                    <div style={{ fontSize: typography.header }}>
-                      Upload a new song
-                    </div>
-                  </DialogTitle>
-                  <DialogContent>
-                    <CustomTextField
-                      variant="outlined"
-                      placeholder="Song name"
-                    />
-                    <CustomTextField
-                      variant="outlined"
-                      placeholder="Song cover image url"
-                    />
-                  </DialogContent>
-                  <Button
-                    style={{ fontSize: typography.header }}
-                    onClick={() => setSongUploadModalOpen(false)}
-                  >
-                    Close
-                  </Button>
-                </Dialog>
+                <SongUploadDialog
+                  open={songUploadModalOpen}
+                  setOpen={setSongUploadModalOpen}
+                />
               </div>
             </div>
           ) : (

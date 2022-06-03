@@ -1,0 +1,19 @@
+.file-upload {
+  margin-top: 24px;
+}
+
+.file-upload-label {
+  margin-top: 24px;
+  color: white;
+  background-color: rgb(67, 181, 129);
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.file-upload-input {
+  margin-top: 20px;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
