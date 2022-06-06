@@ -40,7 +40,7 @@ function Header({ token, setToken }) {
         }}
       >
         <MusicNoteIcon style={iconStyle} />
-        SoundBlock
+        Rattle
       </div>
       <div className={styles["header-wallet-section"]}>
         {token === null ? (
