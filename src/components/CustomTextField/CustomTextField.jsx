@@ -22,7 +22,7 @@ const CssTextField = styled(TextField)({
   },
 });
 
-function CustomTextField({ placeholder, variant }) {
+function CustomTextField({ placeholder, variant, text, setText }) {
   return (
     <div style={{ marginTop: "24px" }}>
       <CssTextField
@@ -30,6 +30,8 @@ function CustomTextField({ placeholder, variant }) {
         label={placeholder}
         variant={variant}
         fullWidth
+        value={text}
+        onChange={(event) => setText(event.target.value)}
       />
     </div>
   );

@@ -10,7 +10,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
 import colors from "../../utils/colors";
 
-function Purchases({ token, setToken }) {
+function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -69,7 +69,15 @@ function Purchases({ token, setToken }) {
               <div className={styles["purchase-container"]}>
                 {purchases &&
                   purchases.map((purchase, index) => {
-                    return <SongCard key={index} song={purchase} />;
+                    return (
+                      <SongCard
+                        audio={audio}
+                        audioDetails={audioDetails}
+                        setAudioDetails={setAudioDetails}
+                        key={index}
+                        song={purchase}
+                      />
+                    );
                   })}
               </div>
             </div>

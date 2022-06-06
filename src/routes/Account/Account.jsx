@@ -12,7 +12,7 @@ import typography from "../../utils/typography";
 import SongCard from "./../../components/SongCard";
 import styles from "./Account.module.scss";
 
-function Account({ token, setToken }) {
+function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -73,6 +73,9 @@ function Account({ token, setToken }) {
                     let { ownedSongs, ...rest } = user;
                     return (
                       <SongCard
+                        audio={audio}
+                        audioDetails={audioDetails}
+                        setAudioDetails={setAudioDetails}
                         key={song._id || song.name}
                         song={{ ...song, artist: [rest] }}
                       />

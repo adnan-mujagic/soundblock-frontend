@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { create } from "ipfs-http-client";
 import React, { useState } from "react";
+import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
@@ -20,7 +21,8 @@ function SongUploadDialog({ open, setOpen }) {
   const [uploading, setUploading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [audioSource, setAudioSource] = useState(null);
+  const [songName, setSongName] = useState("");
+  const [songImage, setSongImage] = useState("");
 
   const client = create("https://ipfs.infura.io:5001/api/v0");
 
@@ -30,8 +32,16 @@ function SongUploadDialog({ open, setOpen }) {
       setUploading(true);
       const added = await client.add(file);
       console.log(added.path);
-      setAudioSource(`https://ipfs.infura.io/ipfs/${added.path}`);
+      const response = await fetchDataWithAuth("/users/song", "POST", {
+        name: songName,
+        songLocation: `https://ipfs.infura.io/ipfs/${added.path}`,
+        price: 1,
+        image: songImage !== null && songImage !== "" ? songImage : null,
+      });
+      setAlertOpen(true);
+      setAlertMessage(response.message);
       setUploading(false);
+      setOpen(false);
     } catch (error) {
       setAlertMessage(
         error?.message || "Something went wrong during song upload"
@@ -45,6 +55,8 @@ function SongUploadDialog({ open, setOpen }) {
     setOpen(false);
   };
 
+  console.log(songName, songImage);
+
   return (
     <>
       <Dialog fullWidth open={open}>
@@ -57,15 +69,27 @@ function SongUploadDialog({ open, setOpen }) {
           <div style={{ fontSize: typography.header }}>Upload a new song</div>
         </DialogTitle>
         <DialogContent>
-          <CustomTextField variant="outlined" placeholder="Song name" />
+          <CustomTextField
+            variant="outlined"
+            placeholder="Song name"
+            text={songName}
+            setText={setSongName}
+          />
           <CustomTextField
             variant="outlined"
             placeholder="Song cover image url"
+            text={songImage}
+            setText={setSongImage}
           />
           <FileUpload file={file} setFile={setFile} />
         </DialogContent>
         <DialogActions>
           <Grid>
+            {uploading && (
+              <div>
+                <Loading />
+              </div>
+            )}
             <Button
               style={{ fontSize: typography.header }}
               onClick={(event) => handleUpload(event)}
@@ -79,15 +103,6 @@ function SongUploadDialog({ open, setOpen }) {
             >
               Close
             </Button>
-            {uploading && <Loading />}
-            {
-              // TODO: Refactor the UI and save to blockchain/db
-              audioSource && (
-                <audio controls>
-                  <source src={audioSource} />
-                </audio>
-              )
-            }
           </Grid>
         </DialogActions>
       </Dialog>

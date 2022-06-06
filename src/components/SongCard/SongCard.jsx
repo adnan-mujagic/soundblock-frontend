@@ -1,12 +1,29 @@
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 import getColorFromString from "../../utils/getColorFromString";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import typography from "../../utils/typography";
 import colors from "../../utils/colors";
 import styles from "./SongCard.module.scss";
+import { PauseCircleFilled } from "@mui/icons-material";
 
-function SongCard({ song }) {
+function SongCard({ audio, audioDetails, setAudioDetails, song }) {
+  let { isPlaying, source } = audioDetails;
+
+  let ownSongLocation = song.songLocation;
+
+  const handlePlay = (event) => {
+    audio.load();
+    audio.src = ownSongLocation;
+    audio.play();
+    setAudioDetails({ isPlaying: true, source: ownSongLocation });
+  };
+
+  const handlePause = (event) => {
+    audio.pause();
+    setAudioDetails({ isPlaying: false, source: ownSongLocation });
+  };
+
   return (
     <div className={styles["song-card"]}>
       <div>
@@ -41,12 +58,21 @@ function SongCard({ song }) {
         )}
       </div>
       <div className="song-card-controls">
-        <PlayCircleIcon
-          style={{ cursor: "pointer", color: colors.green }}
-          onClick={() => {
-            console.log("Play button clicked!");
-          }}
-        />
+        {ownSongLocation && (
+          <>
+            {ownSongLocation === source && isPlaying ? (
+              <PauseCircleFilled
+                style={{ color: colors.green, cursor: "pointer" }}
+                onClick={(event) => handlePause(event)}
+              />
+            ) : (
+              <PlayCircleIcon
+                style={{ cursor: "pointer" }}
+                onClick={(event) => handlePlay(event)}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

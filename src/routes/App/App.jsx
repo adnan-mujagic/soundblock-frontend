@@ -7,26 +7,72 @@ import Home from "../Home";
 import Purchases from "../Purchases/Purchases";
 import styles from "./App.module.scss";
 
+let audio = new Audio();
+
 function App() {
   const [token, setToken] = useState(SessionStorage.getToken());
+  const [audioDetails, setAudioDetails] = useState({
+    isPlaying: false,
+    source: "",
+  });
+
+  // Making sure that when the song ends, the state is altered to not playing
+  audio.addEventListener("ended", (event) => {
+    setAudioDetails((previousDetails) => {
+      return { ...previousDetails, isPlaying: false };
+    });
+  });
+
   return (
     <div className={styles["app"]}>
       <Routes>
         <Route
           path="/"
-          element={<Home token={token} setToken={setToken} />}
+          element={
+            <Home
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
         ></Route>
         <Route
           path="/purchases"
-          element={<Purchases token={token} setToken={setToken} />}
+          element={
+            <Purchases
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
         ></Route>
         <Route
           path="/explore"
-          element={<Explore token={token} setToken={setToken} />}
+          element={
+            <Explore
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
         ></Route>
         <Route
           path="/account"
-          element={<Account token={token} setToken={setToken} />}
+          element={
+            <Account
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
         ></Route>
       </Routes>
     </div>
