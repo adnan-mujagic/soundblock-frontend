@@ -1,7 +1,8 @@
-import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ContentType from "../../components/ContentType/ContentType";
+import CustomButtonFilled from "../../components/CustomButtonFilled";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
+import PublishIcon from "@mui/icons-material/Publish";
 import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -83,12 +84,11 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
                   })}
               </div>
               <div>
-                <Button
-                  style={{ fontSize: typography.header }}
+                <CustomButtonFilled
+                  text={"Upload more songs"}
+                  startIcon={<PublishIcon />}
                   onClick={() => setSongUploadModalOpen(true)}
-                >
-                  Upload more songs
-                </Button>
+                />
                 <SongUploadDialog
                   open={songUploadModalOpen}
                   setOpen={setSongUploadModalOpen}

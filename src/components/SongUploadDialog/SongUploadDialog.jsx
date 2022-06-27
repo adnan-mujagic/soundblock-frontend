@@ -10,6 +10,7 @@ import { create } from "ipfs-http-client";
 import React, { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
+import CustomButtonFilled from "../CustomButtonFilled";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import FileUpload from "../FileUpload";
@@ -51,6 +52,8 @@ function SongUploadDialog({ open, setOpen }) {
   };
 
   const handleClose = () => {
+    setSongName("");
+    setSongImage("");
     setFile(null);
     setOpen(false);
   };
@@ -90,19 +93,14 @@ function SongUploadDialog({ open, setOpen }) {
                 <Loading />
               </div>
             )}
-            <Button
-              style={{ fontSize: typography.header }}
+            <CustomButtonFilled
+              style={{ marginRight: "10px" }}
+              text="Upload"
               onClick={(event) => handleUpload(event)}
               disabled={file == null || uploading}
-            >
-              Upload
-            </Button>
-            <Button
-              style={{ fontSize: typography.header }}
-              onClick={() => handleClose()}
-            >
-              Close
-            </Button>
+            />
+
+            <CustomButtonFilled text={"Close"} onClick={() => handleClose()} />
           </Grid>
         </DialogActions>
       </Dialog>
