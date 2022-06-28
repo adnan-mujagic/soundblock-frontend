@@ -9,6 +9,8 @@ import styles from "./Purchases.module.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
 import colors from "../../utils/colors";
+import EmptyContent from "../../components/EmptyContent/EmptyContent";
+import dateToGreeting from "../../utils/dateToGreeting";
 
 function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [purchases, setPurchases] = useState(null);
@@ -36,16 +38,6 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
     }
     getPurchases();
   }, []);
-
-  const dateToGreeting = () => {
-    const hour = new Date().getUTCHours();
-    if (hour > 2 && hour < 12) {
-      return "morning";
-    } else if (hour > 12 && hour < 6) {
-      return "afternoon";
-    }
-    return "evening";
-  };
 
   return (
     <div className={styles.purchases}>
@@ -80,6 +72,12 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
                     );
                   })}
               </div>
+              {purchases?.length <= 0 && (
+                <EmptyContent
+                  message="Looks like you don't have any purchases yet"
+                  isAnimated={true}
+                />
+              )}
             </div>
           </div>
         )}

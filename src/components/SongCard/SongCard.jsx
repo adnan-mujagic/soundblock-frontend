@@ -1,16 +1,27 @@
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-
 import getColorFromString from "../../utils/getColorFromString";
-import { useRef, useState } from "react";
 import typography from "../../utils/typography";
-import colors from "../../utils/colors";
 import styles from "./SongCard.module.scss";
-import { PauseCircleFilled } from "@mui/icons-material";
+import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
+import DefaultAlert from "../DefaultAlert/DefaultAlert";
+import { useState } from "react";
+import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
-function SongCard({ audio, audioDetails, setAudioDetails, song }) {
+function SongCard({
+  audio,
+  audioDetails,
+  setAudioDetails,
+  song,
+  canBuy = false,
+}) {
   let { isPlaying, source } = audioDetails;
 
   let ownSongLocation = song.songLocation;
+
+  const [message, setMessage] = useState(null);
+
+  const [purchasing, setPurchasing] = useState(false);
+
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const handlePlay = (event) => {
     audio.load();
@@ -24,8 +35,30 @@ function SongCard({ audio, audioDetails, setAudioDetails, song }) {
     setAudioDetails({ isPlaying: false, source: ownSongLocation });
   };
 
+  const handleBuy = async () => {
+    if (!canBuy) {
+      return;
+    }
+
+    // Todo: transfer funds from this account to address used on the backend
+    setPurchasing(true);
+    const response = await fetchDataWithAuth(
+      "/users/purchaseSong/" + song._id,
+      "POST"
+    );
+    setMessage(response.message);
+    setAlertOpen(true);
+  };
+
   return (
     <div className={styles["song-card"]}>
+      {message && (
+        <DefaultAlert
+          message={message}
+          open={alertOpen}
+          setOpen={setAlertOpen}
+        />
+      )}
       <div>
         <div
           style={{
@@ -40,7 +73,16 @@ function SongCard({ audio, audioDetails, setAudioDetails, song }) {
             borderRadius: "8px",
             marginBottom: "16px",
           }}
-        ></div>
+        >
+          <SongCardOverlay
+            canBuy={canBuy && !purchasing}
+            showPlayPause={!!ownSongLocation}
+            isPlaying={ownSongLocation === source && isPlaying}
+            handlePlay={handlePlay}
+            handlePause={handlePause}
+            handleBuy={handleBuy}
+          />
+        </div>
       </div>
       <div className="song-card-info">
         {song?.name && <div>{song.name}</div>}
@@ -48,30 +90,15 @@ function SongCard({ audio, audioDetails, setAudioDetails, song }) {
           <div
             style={{
               fontSize: typography.tiny,
-              color: getColorFromString(song.artist[0].username),
+              color: getColorFromString(
+                song.artist[0].username || song.artist[0].walletAddress
+              ),
             }}
           >
             {song.artist[0].username
               ? song.artist[0].username
               : song.artist[0].walletAddress}
           </div>
-        )}
-      </div>
-      <div className="song-card-controls">
-        {ownSongLocation && (
-          <>
-            {ownSongLocation === source && isPlaying ? (
-              <PauseCircleFilled
-                style={{ color: colors.green, cursor: "pointer" }}
-                onClick={(event) => handlePause(event)}
-              />
-            ) : (
-              <PlayCircleIcon
-                style={{ cursor: "pointer" }}
-                onClick={(event) => handlePlay(event)}
-              />
-            )}
-          </>
         )}
       </div>
     </div>

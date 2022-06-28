@@ -1,0 +1,27 @@
+.song-card-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  background-color: rgba(32, 32, 32, 0.66);
+  top: 0;
+  left: 0;
+}
+
+.song-card-overlay:hover {
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.song-controls {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+}
+
+.song-options {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
