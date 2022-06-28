@@ -12,6 +12,7 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import SongCard from "./../../components/SongCard";
 import styles from "./Account.module.scss";
+import EmptyContent from "../../components/EmptyContent/EmptyContent";
 
 function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [loading, setLoading] = useState(false);
@@ -61,12 +62,12 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
         <Sidebar />
         <div className={styles["main-content-wrapper"]}>
           <ContentType contentType={"Your Account"} />
-          {user && user.username ? (
+          {user ? (
             <div>
               <div
                 style={{ fontSize: typography.header, marginTop: "20px" }}
               >{`Good ${dateToGreeting()} ${
-                user.username
+                user.username ?? "user"
               }, here are the songs that you uploaded`}</div>
               <div className={styles["song-wrapper"]}>
                 {user?.ownedSongs?.length > 0 &&
@@ -83,6 +84,14 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
                     );
                   })}
               </div>
+              {user?.ownedSongs?.length <= 0 && (
+                <div style={{ marginBottom: "24px" }}>
+                  <EmptyContent
+                    message="Looks like you don't have any songs yet..."
+                    isAnimated={true}
+                  />
+                </div>
+              )}
               <div>
                 <CustomButtonFilled
                   text={"Upload more songs"}
