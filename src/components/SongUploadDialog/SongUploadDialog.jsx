@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,6 +23,10 @@ function SongUploadDialog({ open, setOpen }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [songName, setSongName] = useState("");
   const [songImage, setSongImage] = useState("");
+  const [songPrice, setSongPrice] = useState("");
+  const [songPriceValidation, setSongPriceValidation] = useState(
+    "Please enter a valid song price"
+  );
 
   const client = create("https://ipfs.infura.io:5001/api/v0");
 
@@ -36,7 +39,7 @@ function SongUploadDialog({ open, setOpen }) {
       const response = await fetchDataWithAuth("/users/song", "POST", {
         name: songName,
         songLocation: `https://ipfs.infura.io/ipfs/${added.path}`,
-        price: 1,
+        price: parseFloat(songPrice),
         image: songImage !== null && songImage !== "" ? songImage : null,
       });
       setAlertOpen(true);
@@ -56,6 +59,21 @@ function SongUploadDialog({ open, setOpen }) {
     setSongImage("");
     setFile(null);
     setOpen(false);
+    setSongPrice("");
+  };
+
+  const handleSetSongPrice = (text) => {
+    console.log(text);
+    setSongPrice(text);
+    try {
+      if (parseFloat(text) == text && text != "") {
+        setSongPriceValidation(null);
+      } else {
+        throw new Error("Please enter a valid song price");
+      }
+    } catch (error) {
+      setSongPriceValidation(error.message);
+    }
   };
 
   console.log(songName, songImage);
@@ -84,6 +102,17 @@ function SongUploadDialog({ open, setOpen }) {
             text={songImage}
             setText={setSongImage}
           />
+          {songPriceValidation && (
+            <p style={{ color: "crimson", fontSize: typography.tiny }}>
+              {songPriceValidation}
+            </p>
+          )}
+          <CustomTextField
+            variant="outlined"
+            placeholder="Song price (ETH)"
+            text={songPrice}
+            setText={handleSetSongPrice}
+          />
           <FileUpload file={file} setFile={setFile} />
         </DialogContent>
         <DialogActions>
@@ -97,7 +126,9 @@ function SongUploadDialog({ open, setOpen }) {
               style={{ marginRight: "10px" }}
               text="Upload"
               onClick={(event) => handleUpload(event)}
-              disabled={file == null || uploading}
+              disabled={
+                file == null || uploading || songPriceValidation != null
+              }
             />
 
             <CustomButtonFilled text={"Close"} onClick={() => handleClose()} />

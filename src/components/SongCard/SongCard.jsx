@@ -55,7 +55,7 @@ function SongCard({
       ethers.utils.getAddress(contractAddress);
       const tx = await signer.sendTransaction({
         to: contractAddress,
-        value: ethers.utils.parseEther((song.price * 0.01).toString()),
+        value: ethers.utils.parseEther(song.price.toString()),
         gasLimit: ethers.utils.parseEther("0.00000000001"),
       });
       console.log(tx);
