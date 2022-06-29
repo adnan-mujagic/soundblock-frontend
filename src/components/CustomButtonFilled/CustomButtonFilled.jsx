@@ -33,7 +33,7 @@ function CustomButtonFilled({
 
 CustomButtonFilled.propTypes = {
   onClick: PropTypes.func.isRequired,
-  startIcon: PropTypes.element.isRequired,
+  startIcon: PropTypes.element,
   text: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
 };

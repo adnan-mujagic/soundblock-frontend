@@ -11,3 +11,5 @@ export default async function connect() {
     signer,
   };
 }
+
+export const contractAddress = "0x71b386fb4Df9E5D6f84A04F5362Da86E03a89Fd1";

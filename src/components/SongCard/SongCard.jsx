@@ -5,6 +5,9 @@ import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import connect, { contractAddress } from "../../utils/connectWallet";
+import { ethers } from "ethers";
+import shortenString from "../../utils/shortenString";
 
 function SongCard({
   audio,
@@ -36,18 +39,38 @@ function SongCard({
   };
 
   const handleBuy = async () => {
-    if (!canBuy) {
-      return;
-    }
+    try {
+      setPurchasing(true);
+      if (!canBuy) {
+        throw new Error("Can't buy this song");
+      }
+      if (!window.ethereum) {
+        throw new Error(
+          "Looks like you don't have a wallet extension installed. We can't make transactions without it."
+        );
+      }
+      await window.ethereum.send("eth_requestAccounts");
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      ethers.utils.getAddress(contractAddress);
+      const tx = await signer.sendTransaction({
+        to: contractAddress,
+        value: ethers.utils.parseEther((song.price * 0.01).toString()),
+        gasLimit: ethers.utils.parseEther("0.00000000001"),
+      });
+      console.log(tx);
 
-    // Todo: transfer funds from this account to address used on the backend
-    setPurchasing(true);
-    const response = await fetchDataWithAuth(
-      "/users/purchaseSong/" + song._id,
-      "POST"
-    );
-    setMessage(response.message);
-    setAlertOpen(true);
+      const response = await fetchDataWithAuth(
+        "/users/purchaseSong/" + song._id,
+        "POST"
+      );
+      setMessage(response.message);
+      setAlertOpen(true);
+    } catch (error) {
+      setPurchasing(false);
+      setMessage(error.message);
+      setAlertOpen(true);
+    }
   };
 
   return (
@@ -95,9 +118,12 @@ function SongCard({
               ),
             }}
           >
-            {song.artist[0].username
-              ? song.artist[0].username
-              : song.artist[0].walletAddress}
+            {shortenString(
+              song.artist[0].username
+                ? song.artist[0].username
+                : song.artist[0].walletAddress,
+              20
+            )}
           </div>
         )}
       </div>
