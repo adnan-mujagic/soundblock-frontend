@@ -5,7 +5,7 @@ import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
-import connect, { contractAddress } from "../../utils/connectWallet";
+import { contractAddress } from "../../utils/connectWallet";
 import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
 
