@@ -10,6 +10,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { styled } from "@mui/material/styles";
 import colors from "../../utils/colors";
 import { IconButton } from "@mui/material";
+import SongActionsDialog from "../SongActionsDialog";
 
 const headCells = [
   {
@@ -104,7 +105,13 @@ function TableHead({ order, orderBy, onRequestSort }) {
   );
 }
 
-function TableRowOverlay({ isPlaying, handlePlay, handlePause }) {
+function TableRowOverlay({
+  isPlaying,
+  handlePlay,
+  handlePause,
+  song,
+  handleExpandMore,
+}) {
   return (
     <div className={styles["table-row-overlay"]}>
       <div>
@@ -119,7 +126,7 @@ function TableRowOverlay({ isPlaying, handlePlay, handlePause }) {
         )}
       </div>
       <div>
-        <IconButton>
+        <IconButton onClick={(event) => handleExpandMore(event, song)}>
           <MoreHorizIcon />
         </IconButton>
       </div>
@@ -127,7 +134,14 @@ function TableRowOverlay({ isPlaying, handlePlay, handlePause }) {
   );
 }
 
-function TableRow({ song, idx, audio, audioDetails, setAudioDetails }) {
+function TableRow({
+  song,
+  idx,
+  audio,
+  audioDetails,
+  setAudioDetails,
+  handleExpandMore,
+}) {
   let ownSongLocation = song.songLocation;
 
   let { isPlaying, source } = audioDetails;
@@ -150,6 +164,8 @@ function TableRow({ song, idx, audio, audioDetails, setAudioDetails }) {
         isPlaying={source === ownSongLocation && isPlaying}
         handlePlay={handlePlay}
         handlePause={handlePause}
+        handleExpandMore={handleExpandMore}
+        song={song}
       />
       <div style={{ ...tableCellStyles, flex: 0.1 }}>{idx}</div>
       <div style={{ ...tableCellStyles, flex: 1 }}>
@@ -181,6 +197,8 @@ function TableRow({ song, idx, audio, audioDetails, setAudioDetails }) {
 function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
+  const [songInFocus, setSongInFocus] = useState(songs[0]);
+  const [showSongActionsDialog, setShowSongActionsDialog] = useState(false);
 
   const onRequestSort = (event, cellId) => {
     if (orderBy === cellId) {
@@ -195,8 +213,25 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
     }
   };
 
+  const handleExpandMore = (event, song) => {
+    setSongInFocus(song);
+    setShowSongActionsDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setShowSongActionsDialog(false);
+  };
+
   return (
     <React.Fragment>
+      <SongActionsDialog
+        song={songInFocus}
+        open={showSongActionsDialog}
+        audio={audio}
+        audioDetails={audioDetails}
+        setAudioDetails={setAudioDetails}
+        handleClose={handleDialogClose}
+      />
       <TableHead
         order={order}
         orderBy={orderBy}
@@ -211,11 +246,19 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
             audio={audio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
+            handleExpandMore={handleExpandMore}
           />
         ))}
       </div>
     </React.Fragment>
   );
 }
+
+SongsDatatable.propTypes = {
+  songs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  audio: PropTypes.object.isRequired,
+  audioDetails: PropTypes.object.isRequired,
+  setAudioDetails: PropTypes.func.isRequired,
+};
 
 export default SongsDatatable;
