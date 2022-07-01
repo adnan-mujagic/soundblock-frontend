@@ -1,0 +1,40 @@
+.table-head {
+  border-bottom: 1px solid rgb(246, 246, 246);
+  display: flex;
+}
+
+.table-head-row {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+}
+
+.table-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.song-name {
+  margin-left: 10px;
+}
+
+.table-row-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  padding-inline: 10px;
+  background-color: rgba(32, 32, 32, 0.3);
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.table-row-overlay:hover {
+  opacity: 1;
+}

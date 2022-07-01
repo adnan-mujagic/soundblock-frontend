@@ -11,6 +11,7 @@ import ContentType from "../../components/ContentType/ContentType";
 import colors from "../../utils/colors";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
+import SongsDatatable from "../../components/SongsDatatable";
 
 function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [purchases, setPurchases] = useState(null);
@@ -58,20 +59,14 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
             <ContentType contentType={"Purchases"} />
             <div style={{ fontSize: typography.header, marginTop: "20px" }}>
               {`Good ${dateToGreeting()}, here are your purchased songs`}
-              <div className={styles["purchase-container"]}>
-                {purchases &&
-                  purchases.map((purchase, index) => {
-                    return (
-                      <SongCard
-                        audio={audio}
-                        audioDetails={audioDetails}
-                        setAudioDetails={setAudioDetails}
-                        key={index}
-                        song={purchase}
-                      />
-                    );
-                  })}
-              </div>
+              {purchases && (
+                <SongsDatatable
+                  songs={purchases}
+                  audio={audio}
+                  audioDetails={audioDetails}
+                  setAudioDetails={setAudioDetails}
+                />
+              )}
               {purchases?.length <= 0 && (
                 <EmptyContent
                   message="Looks like you don't have any purchases yet"
