@@ -77,10 +77,20 @@ function SongActionsDialog({ open, song, handleClose }) {
             backgroundSize: "cover",
             borderRadius: "8px",
             marginBottom: "16px",
-            height: "84px",
+            height: "112px",
           }}
         />
         <div style={{ flex: "0.5", marginLeft: "16px" }}>
+          {song?.price && (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                alt="ETH"
+                style={{ height: "20px", marginRight: "5px" }}
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png"
+              />
+              {song.price}
+            </div>
+          )}
           <div style={{ fontSize: typography.title }}>{song.name}</div>
           <div style={{ fontSize: typography.tiny }}>
             {song.artist[0].username || song.artist[0].walletAddress}

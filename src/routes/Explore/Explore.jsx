@@ -60,7 +60,7 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
                       setAudioDetails={setAudioDetails}
                       key={index}
                       song={song}
-                      canBuy={true}
+                      canBuy={!!song?.price}
                     />
                   );
                 })

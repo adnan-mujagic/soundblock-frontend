@@ -108,6 +108,16 @@ function SongCard({
         </div>
       </div>
       <div className="song-card-info">
+        {song?.price && (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              alt="ETH"
+              style={{ height: "20px", marginRight: "5px" }}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png"
+            />
+            {song.price}
+          </div>
+        )}
         {song?.name && <div>{song.name}</div>}
         {song?.artist[0] && (
           <div
