@@ -1,0 +1,18 @@
+.intro-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 120px;
+}
+
+.text-content {
+  flex: 0.5;
+}
+
+.topic-title {
+  font-size: 40px;
+  color: rgb(67, 181, 129);
+}
