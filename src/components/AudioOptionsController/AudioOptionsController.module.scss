@@ -1,0 +1,16 @@
+.audio-options-controller {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  z-index: 10;
+  border-top: 1px solid rgb(246, 246, 246);
+  height: 8vh;
+}
+
+.options-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
