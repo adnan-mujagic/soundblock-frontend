@@ -19,7 +19,11 @@ function Home({ token, setToken, audio, audioDetails, setAudioDetails }) {
             token={token}
             setToken={setToken}
           />
-          <AudioOptionsController />
+          <AudioOptionsController
+            audio={audio}
+            setAudioDetails={setAudioDetails}
+            audioDetails={audioDetails}
+          />
         </React.Fragment>
       )}
     </div>

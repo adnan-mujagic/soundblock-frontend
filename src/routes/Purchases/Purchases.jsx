@@ -12,6 +12,7 @@ import colors from "../../utils/colors";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
+import AudioOptionsController from "../../components/AudioOptionsController";
 
 function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [purchases, setPurchases] = useState(null);
@@ -77,6 +78,11 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
           </div>
         )}
       </div>
+      <AudioOptionsController
+        audio={audio}
+        setAudioDetails={setAudioDetails}
+        audioDetails={audioDetails}
+      />
     </div>
   );
 }

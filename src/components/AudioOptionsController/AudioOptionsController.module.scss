@@ -5,7 +5,9 @@
   background-color: white;
   z-index: 10;
   border-top: 1px solid rgb(246, 246, 246);
-  height: 8vh;
+  height: 100px;
+  display: flex;
+  align-items: center;
 }
 
 .options-wrapper {
@@ -13,4 +15,29 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 300px;
+}
+
+.options-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.options-duration,
+.options-current-time {
+  font-size: 12px;
+}
+
+.options-current-time {
+  margin-right: 16px;
+}
+
+.options-duration {
+  margin-left: 16px;
 }

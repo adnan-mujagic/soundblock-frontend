@@ -30,12 +30,23 @@ function SongCard({
     audio.load();
     audio.src = ownSongLocation;
     audio.play();
-    setAudioDetails({ isPlaying: true, source: ownSongLocation });
+    setAudioDetails({
+      isPlaying: true,
+      source: ownSongLocation,
+      name: song.name,
+      image: song.image
+        ? song.image
+        : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+    });
   };
 
   const handlePause = (event) => {
     audio.pause();
-    setAudioDetails({ isPlaying: false, source: ownSongLocation });
+    setAudioDetails({
+      ...audioDetails,
+      isPlaying: false,
+      source: ownSongLocation,
+    });
   };
 
   const handleBuy = async () => {
