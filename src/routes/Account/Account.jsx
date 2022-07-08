@@ -60,7 +60,7 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
       )}
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         <div className={styles["main-content-wrapper"]}>
           <ContentType contentType={"Your Account"} />
           {user ? (

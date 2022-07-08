@@ -7,24 +7,26 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import { IconButton, Slider } from "@mui/material";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { IconButton } from "@mui/material";
 import colors from "../../utils/colors";
 import formatTime from "../../utils/formatTime";
 import CustomSlider from "../CustomSlider";
+import typography from "../../utils/typography";
 
 function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
   const { isPlaying, source, image, name } = audioDetails;
   const [replayOn, setReplayOn] = useState(false);
   const [shuffleOn, setShuffleOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(audio.volume || 0.5);
 
   useEffect(() => {
     setAudioEventHandlers();
   }, []);
 
   const handlePlay = () => {
-    console.log("Current time state: " + currentTime);
-    console.log(audio.duration);
     audio.currentTime = audio.duration - currentTime > 5 ? currentTime : 0;
     audio.play();
     setAudioDetails({ ...audioDetails, isPlaying: true });
@@ -58,8 +60,6 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
   const setAudioEventHandlers = () => {
     console.log("Setting audio event handlers");
 
-    console.log(audio.loop);
-
     audio.addEventListener("ended", () => {
       setAudioDetails((previousDetails) => {
         return { ...previousDetails, isPlaying: false };
@@ -67,16 +67,26 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
     });
 
     audio.addEventListener("timeupdate", () => {
-      console.log(formatTime(audio.currentTime));
       setCurrentTime(audio.currentTime);
     });
   };
+
+  const handleVolumeChange = (event) => {
+    let parsedVolume = event.target.value / 100;
+    audio.volume = parsedVolume;
+    setVolume(parsedVolume);
+  };
+
+  if (!source) {
+    return null;
+  }
+
   return (
     <div className={styles["audio-options-controller"]}>
-      {image && (
+      <div>
         <div
           style={{
-            height: "68px",
+            height: "51px",
             aspectRatio: "1 / 1",
             backgroundImage: `url(${image})`,
             marginLeft: "16px",
@@ -86,7 +96,17 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
             backgroundSize: "cover",
           }}
         />
-      )}
+        <div
+          style={{
+            fontSize: typography.tiny,
+            marginLeft: "16px",
+            marginTop: "5px",
+          }}
+        >
+          {name}
+        </div>
+      </div>
+
       <div className={styles["options-wrapper"]}>
         <div className={styles["options-top"]}>
           <IconButton
@@ -127,10 +147,24 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
             value={(currentTime / audio.duration) * 100}
             onChange={(e) => handleSliderChange(e)}
           />
-          <div className={styles["options-duration"]}>
-            {formatTime(audio.duration)}
-          </div>
+          {audio.duration && (
+            <div className={styles["options-duration"]}>
+              {formatTime(audio.duration)}
+            </div>
+          )}
         </div>
+      </div>
+      <div className={styles["options-volume"]}>
+        {volume === 0 ? (
+          <IconButton style={{ marginRight: "16px" }}>
+            <VolumeOffIcon />
+          </IconButton>
+        ) : (
+          <IconButton style={{ marginRight: "16px" }}>
+            <VolumeUpIcon />
+          </IconButton>
+        )}
+        <CustomSlider value={volume * 100} onChange={handleVolumeChange} />
       </div>
     </div>
   );

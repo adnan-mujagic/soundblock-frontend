@@ -45,7 +45,7 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
     <div className={styles.purchases}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-container"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         {message && (
           <DefaultAlert
             message={message}

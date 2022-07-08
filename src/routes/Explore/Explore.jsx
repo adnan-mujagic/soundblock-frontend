@@ -39,7 +39,7 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
     <div className={styles.explore}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         {message && (
           <DefaultAlert
             message={message}
