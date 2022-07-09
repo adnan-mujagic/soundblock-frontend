@@ -73,8 +73,19 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
 
   const handleVolumeChange = (event) => {
     let parsedVolume = event.target.value / 100;
+    console.log("Current volume: " + volume + ", new volume: " + parsedVolume);
     audio.volume = parsedVolume;
     setVolume(parsedVolume);
+  };
+
+  const handleMute = () => {
+    setVolume(0);
+    audio.volume = 0;
+  };
+
+  const handleUnmute = () => {
+    setVolume(0.5);
+    audio.volume = 0.5;
   };
 
   if (!source) {
@@ -156,11 +167,11 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
       </div>
       <div className={styles["options-volume"]}>
         {volume === 0 ? (
-          <IconButton style={{ marginRight: "16px" }}>
+          <IconButton onClick={handleUnmute} style={{ marginRight: "16px" }}>
             <VolumeOffIcon />
           </IconButton>
         ) : (
-          <IconButton style={{ marginRight: "16px" }}>
+          <IconButton onClick={handleMute} style={{ marginRight: "16px" }}>
             <VolumeUpIcon />
           </IconButton>
         )}
