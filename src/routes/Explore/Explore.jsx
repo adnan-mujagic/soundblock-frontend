@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AudioOptionsController from "../../components/AudioOptionsController/AudioOptionsController";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
@@ -38,7 +39,7 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
     <div className={styles.explore}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         {message && (
           <DefaultAlert
             message={message}
@@ -77,6 +78,11 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
           </div>
         </div>
       </div>
+      <AudioOptionsController
+        audio={audio}
+        setAudioDetails={setAudioDetails}
+        audioDetails={audioDetails}
+      />
     </div>
   );
 }

@@ -12,6 +12,7 @@ import colors from "../../utils/colors";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
+import AudioOptionsController from "../../components/AudioOptionsController";
 
 function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [purchases, setPurchases] = useState(null);
@@ -44,7 +45,7 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
     <div className={styles.purchases}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-container"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         {message && (
           <DefaultAlert
             message={message}
@@ -77,6 +78,11 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
           </div>
         )}
       </div>
+      <AudioOptionsController
+        audio={audio}
+        setAudioDetails={setAudioDetails}
+        audioDetails={audioDetails}
+      />
     </div>
   );
 }

@@ -14,14 +14,13 @@ function App() {
   const [audioDetails, setAudioDetails] = useState({
     isPlaying: false,
     source: "",
+    name: "",
+    image: "",
   });
 
+  const [queue, setQueue] = useState([]);
+
   // Making sure that when the song ends, the state is altered to not playing
-  audio.addEventListener("ended", (event) => {
-    setAudioDetails((previousDetails) => {
-      return { ...previousDetails, isPlaying: false };
-    });
-  });
 
   return (
     <div className={styles["app"]}>

@@ -13,6 +13,7 @@ import typography from "../../utils/typography";
 import SongCard from "./../../components/SongCard";
 import styles from "./Account.module.scss";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
+import AudioOptionsController from "../../components/AudioOptionsController";
 
 function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [loading, setLoading] = useState(false);
@@ -59,7 +60,7 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
       )}
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar />
+        <Sidebar audioDetails={audioDetails} />
         <div className={styles["main-content-wrapper"]}>
           <ContentType contentType={"Your Account"} />
           {user ? (
@@ -109,6 +110,11 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
           )}
         </div>
       </div>
+      <AudioOptionsController
+        audio={audio}
+        setAudioDetails={setAudioDetails}
+        audioDetails={audioDetails}
+      />
     </div>
   );
 }

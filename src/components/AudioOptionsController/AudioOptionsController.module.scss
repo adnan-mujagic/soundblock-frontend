@@ -1,0 +1,51 @@
+.audio-options-controller {
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  z-index: 10;
+  border-top: 1px solid rgb(246, 246, 246);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.options-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+}
+
+.options-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.options-duration,
+.options-current-time {
+  font-size: 12px;
+}
+
+.options-current-time {
+  margin-right: 16px;
+}
+
+.options-duration {
+  margin-left: 16px;
+}
+
+.options-volume {
+  margin-right: 24px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+}

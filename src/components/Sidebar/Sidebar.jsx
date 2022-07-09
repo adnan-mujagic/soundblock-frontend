@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
 import typography from "../../utils/typography";
 
-function Sidebar() {
+function Sidebar({ audioDetails }) {
   const navigate = useNavigate();
 
   return (
-    <div className={styles["sidebar"]}>
+    <div
+      className={styles["sidebar"]}
+      style={{ height: `calc(92vh - ${audioDetails.source ? "102" : "1"}px)` }}
+    >
       <div
         style={boxStyle}
         onClick={() => {

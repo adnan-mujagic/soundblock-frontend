@@ -33,7 +33,7 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
 
   return (
     <div className={styles.dashboard}>
-      <Sidebar />
+      <Sidebar audioDetails={audioDetails} />
       <div className={styles["dashboard-wrapper"]}>
         <ContentType contentType={"Dashboard"} />
         {purchasedSongs.length > 0 && (
