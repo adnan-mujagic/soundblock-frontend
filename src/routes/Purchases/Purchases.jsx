@@ -31,7 +31,7 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
         setMessage(response.message);
         setSnackbarOpen(true);
 
-        setPurchases(response.data);
+        setPurchases(response.data.map((purchase) => purchase.song));
       } else {
         setMessage(response.message);
         setSnackbarOpen(true);

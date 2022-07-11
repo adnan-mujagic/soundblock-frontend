@@ -8,6 +8,7 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import { contractAddress } from "../../utils/connectWallet";
 import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
+import { defaultSongImage } from "../../utils/defaultImage";
 
 function SongCard({
   audio,
@@ -34,9 +35,7 @@ function SongCard({
       isPlaying: true,
       source: ownSongLocation,
       name: song.name,
-      image: song.image
-        ? song.image
-        : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+      image: song.image ? song.image : defaultSongImage,
     });
   };
 
@@ -97,11 +96,7 @@ function SongCard({
         <div
           style={{
             aspectRatio: "1/1",
-            background: `url("${
-              song.image
-                ? song.image
-                : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            }")`,
+            background: `url("${song.image ?? defaultSongImage}")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             borderRadius: "8px",

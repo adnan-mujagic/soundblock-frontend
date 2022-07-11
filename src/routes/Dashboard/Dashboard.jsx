@@ -16,9 +16,11 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
   }, []);
 
   const getPurchasedSongs = async () => {
-    const response = await fetchDataWithAuth("/users/songs/getPurchasedSongs");
+    const response = await fetchDataWithAuth(
+      "/users/songs/getPurchasedSongs?limit=5"
+    );
     if (response?.data) {
-      setPurchasedSongs(response.data);
+      setPurchasedSongs(response.data.map((purchase) => purchase.song));
     }
   };
 
