@@ -4,6 +4,7 @@ import SessionStorage from "../../utils/SessionStorage";
 import Account from "../Account";
 import Explore from "../Explore";
 import Home from "../Home";
+import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
 import styles from "./App.module.scss";
 
@@ -65,6 +66,19 @@ function App() {
           path="/account"
           element={
             <Account
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
+        ></Route>
+
+        <Route
+          path="/playlists/:id"
+          element={
+            <Playlist
               audio={audio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}

@@ -1,0 +1,26 @@
+.playlists-datatable {
+  margin-bottom: 24px;
+}
+
+.playlist-datatable-row {
+  display: flex;
+  position: relative;
+  font-size: 16px;
+}
+
+.playlist-datatable-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: 0.15s;
+  padding-inline: 10px;
+}
+
+.playlist-datatable-overlay:hover {
+  opacity: 1;
+  background-color: rgba(32, 32, 32, 0.3);
+}
