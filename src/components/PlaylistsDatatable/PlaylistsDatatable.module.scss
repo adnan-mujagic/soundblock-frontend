@@ -15,9 +15,9 @@
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   opacity: 0;
   transition: 0.15s;
-  padding-inline: 10px;
 }
 
 .playlist-datatable-overlay:hover {

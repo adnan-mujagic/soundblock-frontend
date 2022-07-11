@@ -35,6 +35,8 @@ function Playlist({ audio, audioDetails, setAudioDetails, token, setToken }) {
               audio={audio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
+              playlistId={playlist._id}
+              refreshSongs={getPlaylistInfo}
             />
           )}
         </div>
