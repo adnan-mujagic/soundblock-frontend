@@ -11,7 +11,6 @@ import PauseIcon from "@mui/icons-material/Pause";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./PlaylistsDatatable.module.scss";
 import shortenString from "../../utils/shortenString";
-import typography from "../../utils/typography";
 import getColorFromString from "../../utils/getColorFromString";
 import { defaultSongImage } from "../../utils/defaultImage";
 import { IconButton, Tooltip } from "@mui/material";
@@ -55,12 +54,22 @@ function PlaylistDatatableRow({
   audioDetails,
   setAudioDetails,
   handleRemove,
+  generateSongQueue,
 }) {
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
 
   const handlePlay = () => {
-    console.log("Playing...");
+    audio.src = ownSongLocation;
+    audio.load();
+    audio.play();
+    setAudioDetails({
+      isPlaying: true,
+      source: ownSongLocation,
+      name: song.name,
+      image: song.image,
+    });
+    generateSongQueue(song._id);
   };
 
   const handlePause = () => {
@@ -119,6 +128,7 @@ function PlaylistsDatatable({
   setAudioDetails,
   playlistId,
   refreshSongs,
+  setQueue,
 }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
@@ -154,6 +164,23 @@ function PlaylistsDatatable({
     );
   }
 
+  let sortedSongs = songs.sort(getComparator(order, orderBy));
+
+  const generateSongQueue = (playedSongId) => {
+    const indexOfPlayedSong = sortedSongs
+      .map((song) => song._id)
+      .indexOf(playedSongId);
+    const nextChunk = sortedSongs.slice(indexOfPlayedSong + 1);
+
+    const previousChunk = sortedSongs.slice(0, indexOfPlayedSong);
+
+    const generatedSongQueue = nextChunk.concat(previousChunk);
+
+    console.log(generatedSongQueue);
+
+    setQueue(generatedSongQueue);
+  };
+
   return (
     <div className={styles["playlists-datatable"]}>
       <TableHead
@@ -161,8 +188,9 @@ function PlaylistsDatatable({
         orderBy={orderBy}
         onRequestSort={onRequestSort}
       />
-      {songs.sort(getComparator(order, orderBy)).map((song, idx) => (
+      {sortedSongs.map((song, idx) => (
         <PlaylistDatatableRow
+          generateSongQueue={generateSongQueue}
           key={idx}
           idx={idx + 1}
           song={song}

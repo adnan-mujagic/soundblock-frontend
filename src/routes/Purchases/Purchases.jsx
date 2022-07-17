@@ -4,17 +4,23 @@ import typography from "../../utils/typography";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading/Loading";
-import SongCard from "../../components/SongCard";
 import styles from "./Purchases.module.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
-import colors from "../../utils/colors";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
 import AudioOptionsController from "../../components/AudioOptionsController";
 
-function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Purchases({
+  audio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+  queue,
+  setQueue,
+}) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -79,6 +85,8 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
         )}
       </div>
       <AudioOptionsController
+        queue={queue}
+        setQueue={setQueue}
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}

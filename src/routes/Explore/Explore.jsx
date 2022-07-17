@@ -12,7 +12,15 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import styles from "./Explore.module.scss";
 
-function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Explore({
+  audio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+  queue,
+  setQueue,
+}) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -79,6 +87,8 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
         </div>
       </div>
       <AudioOptionsController
+        queue={queue}
+        setQueue={setQueue}
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}

@@ -15,7 +15,13 @@ import formatTime from "../../utils/formatTime";
 import CustomSlider from "../CustomSlider";
 import typography from "../../utils/typography";
 
-function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
+function AudioOptionsController({
+  audioDetails,
+  setAudioDetails,
+  audio,
+  queue,
+  setQueue,
+}) {
   const { isPlaying, source, image, name } = audioDetails;
   const [replayOn, setReplayOn] = useState(false);
   const [shuffleOn, setShuffleOn] = useState(false);
@@ -24,7 +30,16 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
 
   useEffect(() => {
     setAudioEventHandlers();
-  }, []);
+
+    // Cleanup
+    return () => {
+      console.log("Unmounting... performing cleanup");
+
+      audio.removeEventListener("ended", handleSongEnded);
+
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+    };
+  }, [queue]);
 
   const handlePlay = () => {
     audio.currentTime = audio.duration - currentTime > 5 ? currentTime : 0;
@@ -60,20 +75,47 @@ function AudioOptionsController({ audioDetails, setAudioDetails, audio }) {
   const setAudioEventHandlers = () => {
     console.log("Setting audio event handlers");
 
-    audio.addEventListener("ended", () => {
+    audio.addEventListener("ended", handleSongEnded);
+
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+  };
+
+  const handleTimeUpdate = () => {
+    setCurrentTime(audio.currentTime);
+  };
+
+  const handleSongEnded = () => {
+    if (replayOn) {
+      console.log("Replay is on... returning");
+      return;
+    }
+
+    if (queue && queue.length <= 0) {
       setAudioDetails((previousDetails) => {
         return { ...previousDetails, isPlaying: false };
       });
-    });
+    } else {
+      console.log("There are songs in the queue", queue);
+      let poppedSong = queue[0];
+      console.log("Popping the song...", poppedSong);
+      audio.src = poppedSong.songLocation;
+      audio.load();
+      audio.play();
+      setAudioDetails({
+        source: poppedSong.songLocation,
+        name: poppedSong.name,
+        image: poppedSong.image,
+        isPlaying: true,
+      });
 
-    audio.addEventListener("timeupdate", () => {
-      setCurrentTime(audio.currentTime);
-    });
+      let remainingQueue = queue.slice(1);
+      console.log("Remaining songs in the queue", remainingQueue);
+      setQueue(remainingQueue);
+    }
   };
 
   const handleVolumeChange = (event) => {
     let parsedVolume = event.target.value / 100;
-    console.log("Current volume: " + volume + ", new volume: " + parsedVolume);
     audio.volume = parsedVolume;
     setVolume(parsedVolume);
   };
