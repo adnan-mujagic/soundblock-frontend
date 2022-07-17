@@ -73,7 +73,10 @@ function PlaylistDatatableRow({
   };
 
   const handlePause = () => {
-    console.log("Pausing...");
+    audio.pause();
+    setAudioDetails((previous) => {
+      return { ...previous, isPlaying: false };
+    });
   };
 
   const onRemoveRequest = () => {
