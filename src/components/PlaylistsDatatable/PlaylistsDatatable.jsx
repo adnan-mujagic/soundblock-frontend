@@ -16,6 +16,7 @@ import getColorFromString from "../../utils/getColorFromString";
 import { defaultSongImage } from "../../utils/defaultImage";
 import { IconButton, Tooltip } from "@mui/material";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import EmptyContent from "../EmptyContent/EmptyContent";
 
 function PlaylistDatatableOverlay({
   isPlaying,
@@ -141,6 +142,17 @@ function PlaylistsDatatable({
     });
     refreshSongs();
   };
+
+  if (songs.length <= 0) {
+    return (
+      <div style={{ marginTop: "24px" }}>
+        <EmptyContent
+          message="Oops, looks like this playlist is currently empty."
+          isAnimated
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={styles["playlists-datatable"]}>

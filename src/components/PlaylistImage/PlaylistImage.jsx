@@ -46,7 +46,7 @@ function PlaylistImage({ songImages }) {
       }}
     >
       {getImageSources().map((_, idx) => (
-        <div style={getGridProperties(idx, 120, 120)}></div>
+        <div key={idx} style={getGridProperties(idx, 120, 120)}></div>
       ))}
     </div>
   );

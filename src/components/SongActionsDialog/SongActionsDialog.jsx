@@ -51,6 +51,17 @@ function SongActionsDialog({ open, song, handleClose }) {
     handleClose(e);
   };
 
+  const handleAddNewPlaylist = async () => {
+    const body = {
+      name: "New Playlist (" + song.name + ")",
+      songs: [song._id],
+    };
+    const response = await fetchDataWithAuth("/playlists", "POST", body);
+    setAlertMessage(response?.message);
+    setAlertOpen(true);
+    getUserPlaylists();
+  };
+
   return (
     <Dialog open={open} fullWidth>
       <DefaultAlert
@@ -101,7 +112,6 @@ function SongActionsDialog({ open, song, handleClose }) {
             text={"Add to playlist"}
           />
         )}
-
         <Collapse in={showPlaylists} style={{ marginTop: "16px" }}>
           {userPlaylists.map((playlist) => (
             <PlaylistItem
@@ -111,6 +121,11 @@ function SongActionsDialog({ open, song, handleClose }) {
               songId={song._id}
             />
           ))}
+          <CustomButtonFilled
+            text={"Add to a new playlist"}
+            style={{ marginTop: "16px" }}
+            onClick={handleAddNewPlaylist}
+          />
         </Collapse>
       </div>
 

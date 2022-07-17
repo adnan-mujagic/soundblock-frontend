@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
+import Loading from "../../components/Loading/Loading";
 import PlaylistHeader from "../../components/PlaylistHeader";
 import PlaylistsDatatable from "../../components/PlaylistsDatatable";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -29,7 +30,7 @@ function Playlist({ audio, audioDetails, setAudioDetails, token, setToken }) {
         <Sidebar audioDetails={audioDetails} />
         <div className={styles["playlist-content"]}>
           {playlist && <PlaylistHeader playlist={playlist} />}
-          {playlist && (
+          {playlist ? (
             <PlaylistsDatatable
               songs={playlist.songs}
               audio={audio}
@@ -38,6 +39,8 @@ function Playlist({ audio, audioDetails, setAudioDetails, token, setToken }) {
               playlistId={playlist._id}
               refreshSongs={getPlaylistInfo}
             />
+          ) : (
+            <Loading />
           )}
         </div>
       </div>
