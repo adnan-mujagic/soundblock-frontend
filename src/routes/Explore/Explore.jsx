@@ -61,7 +61,7 @@ function Explore({
             {`Good ${dateToGreeting()}, here are some new songs to explore...`}
             <div
               className={
-                songsToExplore?.legnth > 0
+                songsToExplore?.length > 0
                   ? styles["explore-container"]
                   : styles["explore-container-empty"]
               }
