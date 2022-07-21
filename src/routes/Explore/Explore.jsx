@@ -59,7 +59,13 @@ function Explore({
           <ContentType contentType={"Explore"} />
           <div style={{ fontSize: typography.header, marginTop: "20px" }}>
             {`Good ${dateToGreeting()}, here are some new songs to explore...`}
-            <div className={styles["explore-container"]}>
+            <div
+              className={
+                songsToExplore?.legnth > 0
+                  ? styles["explore-container"]
+                  : styles["explore-container-empty"]
+              }
+            >
               {songsToExplore && !loading ? (
                 songsToExplore.map((song, index) => {
                   return (

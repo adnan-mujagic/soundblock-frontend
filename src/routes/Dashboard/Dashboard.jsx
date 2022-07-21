@@ -48,7 +48,7 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
             setAudioDetails={setAudioDetails}
           />
         )}
-        {songsToExplore.length > 0 && (
+        {songsToExplore.length > 0 ? (
           <DashboardShowcasePanel
             title={"Explore new songs..."}
             songs={songsToExplore}
@@ -57,6 +57,8 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
           />
+        ) : (
+          <div>It's quiet for now!</div>
         )}
       </div>
     </div>

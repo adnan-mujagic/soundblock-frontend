@@ -64,15 +64,27 @@ function Purchases({
         ) : (
           <div className={styles["main-content-wrapper"]}>
             <ContentType contentType={"Purchases"} />
-            <div style={{ fontSize: typography.header, marginTop: "20px" }}>
-              {`Good ${dateToGreeting()}, here are your purchased songs`}
+            <div
+              style={{
+                fontSize: typography.header,
+                marginTop: "20px",
+                marginBottom: "50px",
+              }}
+            >
+              {`Good ${dateToGreeting()}${
+                purchases?.length > 0 ? ", here are your purchased songs" : ""
+              }`}
               {purchases && (
-                <SongsDatatable
-                  songs={purchases}
-                  audio={audio}
-                  audioDetails={audioDetails}
-                  setAudioDetails={setAudioDetails}
-                />
+                <div
+                  style={{ marginBottom: purchases.length == 0 ? "20px" : "0" }}
+                >
+                  <SongsDatatable
+                    songs={purchases}
+                    audio={audio}
+                    audioDetails={audioDetails}
+                    setAudioDetails={setAudioDetails}
+                  />
+                </div>
               )}
               {purchases?.length <= 0 && (
                 <EmptyContent

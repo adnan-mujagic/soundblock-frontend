@@ -231,6 +231,10 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
     setShowSongActionsDialog(false);
   };
 
+  if (songs.length <= 0) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <SongActionsDialog
