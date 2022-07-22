@@ -4,7 +4,15 @@ import styles from "./Home.module.scss";
 import Dashboard from "../Dashboard";
 import WebsiteIntro from "../../components/WebsiteIntro";
 import AudioOptionsController from "../../components/AudioOptionsController";
-function Home({ token, setToken, audio, audioDetails, setAudioDetails }) {
+function Home({
+  token,
+  setToken,
+  audio,
+  audioDetails,
+  setAudioDetails,
+  queue,
+  setQueue,
+}) {
   return (
     <div className={styles.home}>
       <Header token={token} setToken={setToken} />
@@ -20,6 +28,8 @@ function Home({ token, setToken, audio, audioDetails, setAudioDetails }) {
             setToken={setToken}
           />
           <AudioOptionsController
+            queue={queue}
+            setQueue={setQueue}
             audio={audio}
             setAudioDetails={setAudioDetails}
             audioDetails={audioDetails}

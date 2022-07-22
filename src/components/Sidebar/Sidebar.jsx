@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -8,9 +8,26 @@ import Separator from "../Separator/Separator";
 import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
 import typography from "../../utils/typography";
+import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
 function Sidebar({ audioDetails }) {
   const navigate = useNavigate();
+
+  const [playlists, setPlaylists] = useState([]);
+
+  useEffect(() => {
+    getUserPlaylists();
+  }, []);
+
+  const getUserPlaylists = async () => {
+    const response = await fetchDataWithAuth(
+      "/users/playlists/getPlaylists",
+      "GET"
+    );
+    if (response?.data) {
+      setPlaylists(response.data);
+    }
+  };
 
   return (
     <div
@@ -54,6 +71,16 @@ function Sidebar({ audioDetails }) {
         Account
       </div>
       <Separator />
+      {playlists.map((playlist) => {
+        return (
+          <div
+            className={styles["sidebar-playlist-item"]}
+            onClick={(e) => navigate("/playlists/" + playlist._id)}
+          >
+            {playlist.name}
+          </div>
+        );
+      })}
     </div>
   );
 }

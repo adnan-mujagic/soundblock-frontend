@@ -4,17 +4,23 @@ import typography from "../../utils/typography";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading/Loading";
-import SongCard from "../../components/SongCard";
 import styles from "./Purchases.module.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
-import colors from "../../utils/colors";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
 import AudioOptionsController from "../../components/AudioOptionsController";
 
-function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Purchases({
+  audio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+  queue,
+  setQueue,
+}) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -31,7 +37,7 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
         setMessage(response.message);
         setSnackbarOpen(true);
 
-        setPurchases(response.data);
+        setPurchases(response.data.map((purchase) => purchase.song));
       } else {
         setMessage(response.message);
         setSnackbarOpen(true);
@@ -58,15 +64,27 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
         ) : (
           <div className={styles["main-content-wrapper"]}>
             <ContentType contentType={"Purchases"} />
-            <div style={{ fontSize: typography.header, marginTop: "20px" }}>
-              {`Good ${dateToGreeting()}, here are your purchased songs`}
+            <div
+              style={{
+                fontSize: typography.header,
+                marginTop: "20px",
+                marginBottom: "50px",
+              }}
+            >
+              {`Good ${dateToGreeting()}${
+                purchases?.length > 0 ? ", here are your purchased songs" : ""
+              }`}
               {purchases && (
-                <SongsDatatable
-                  songs={purchases}
-                  audio={audio}
-                  audioDetails={audioDetails}
-                  setAudioDetails={setAudioDetails}
-                />
+                <div
+                  style={{ marginBottom: purchases.length == 0 ? "20px" : "0" }}
+                >
+                  <SongsDatatable
+                    songs={purchases}
+                    audio={audio}
+                    audioDetails={audioDetails}
+                    setAudioDetails={setAudioDetails}
+                  />
+                </div>
               )}
               {purchases?.length <= 0 && (
                 <EmptyContent
@@ -79,6 +97,8 @@ function Purchases({ audio, audioDetails, setAudioDetails, token, setToken }) {
         )}
       </div>
       <AudioOptionsController
+        queue={queue}
+        setQueue={setQueue}
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}

@@ -12,7 +12,15 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import styles from "./Explore.module.scss";
 
-function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Explore({
+  audio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+  queue,
+  setQueue,
+}) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -51,7 +59,13 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
           <ContentType contentType={"Explore"} />
           <div style={{ fontSize: typography.header, marginTop: "20px" }}>
             {`Good ${dateToGreeting()}, here are some new songs to explore...`}
-            <div className={styles["explore-container"]}>
+            <div
+              className={
+                songsToExplore?.length > 0
+                  ? styles["explore-container"]
+                  : styles["explore-container-empty"]
+              }
+            >
               {songsToExplore && !loading ? (
                 songsToExplore.map((song, index) => {
                   return (
@@ -79,6 +93,8 @@ function Explore({ audio, audioDetails, setAudioDetails, token, setToken }) {
         </div>
       </div>
       <AudioOptionsController
+        queue={queue}
+        setQueue={setQueue}
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}

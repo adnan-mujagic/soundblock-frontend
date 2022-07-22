@@ -67,10 +67,18 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
             <div>
               <div
                 style={{ fontSize: typography.header, marginTop: "20px" }}
-              >{`Good ${dateToGreeting()} ${
-                user.username ?? "user"
-              }, here are the songs that you uploaded`}</div>
-              <div className={styles["song-wrapper"]}>
+              >{`Good ${dateToGreeting()}${
+                user?.ownedSongs?.length > 0
+                  ? ", here are the songs that you uploaded"
+                  : ""
+              }`}</div>
+              <div
+                className={
+                  user?.ownedSongs?.length > 0
+                    ? styles["song-wrapper"]
+                    : styles["song-wrapper-empty"]
+                }
+              >
                 {user?.ownedSongs?.length > 0 &&
                   user.ownedSongs.map((song) => {
                     let { ownedSongs, ...rest } = user;

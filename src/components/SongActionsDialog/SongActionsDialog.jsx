@@ -1,5 +1,6 @@
 import { Collapse, Dialog, DialogActions } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
 import typography from "../../utils/typography";
@@ -50,6 +51,17 @@ function SongActionsDialog({ open, song, handleClose }) {
     handleClose(e);
   };
 
+  const handleAddNewPlaylist = async () => {
+    const body = {
+      name: "New Playlist (" + song.name + ")",
+      songs: [song._id],
+    };
+    const response = await fetchDataWithAuth("/playlists", "POST", body);
+    setAlertMessage(response?.message);
+    setAlertOpen(true);
+    getUserPlaylists();
+  };
+
   return (
     <Dialog open={open} fullWidth>
       <DefaultAlert
@@ -68,11 +80,7 @@ function SongActionsDialog({ open, song, handleClose }) {
         <div
           style={{
             aspectRatio: "1/1",
-            backgroundImage: `url("${
-              song.image
-                ? song.image
-                : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            }")`,
+            backgroundImage: `url("${song.image ?? defaultSongImage}")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             borderRadius: "8px",
@@ -104,7 +112,6 @@ function SongActionsDialog({ open, song, handleClose }) {
             text={"Add to playlist"}
           />
         )}
-
         <Collapse in={showPlaylists} style={{ marginTop: "16px" }}>
           {userPlaylists.map((playlist) => (
             <PlaylistItem
@@ -114,6 +121,11 @@ function SongActionsDialog({ open, song, handleClose }) {
               songId={song._id}
             />
           ))}
+          <CustomButtonFilled
+            text={"Add to a new playlist"}
+            style={{ marginTop: "16px" }}
+            onClick={handleAddNewPlaylist}
+          />
         </Collapse>
       </div>
 

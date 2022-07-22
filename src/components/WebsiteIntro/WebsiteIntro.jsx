@@ -9,7 +9,6 @@ import MetamaskIntegrationImage from "./../../images/metamask_integration.PNG";
 import Footer from "../Footer";
 
 function WebsiteIntro() {
-  console.log(DashImage);
   return (
     <div>
       <IntroPanel

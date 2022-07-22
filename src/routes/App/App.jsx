@@ -4,6 +4,7 @@ import SessionStorage from "../../utils/SessionStorage";
 import Account from "../Account";
 import Explore from "../Explore";
 import Home from "../Home";
+import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
 import styles from "./App.module.scss";
 
@@ -20,8 +21,6 @@ function App() {
 
   const [queue, setQueue] = useState([]);
 
-  // Making sure that when the song ends, the state is altered to not playing
-
   return (
     <div className={styles["app"]}>
       <Routes>
@@ -34,6 +33,8 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              queue={queue}
+              setQueue={setQueue}
             />
           }
         ></Route>
@@ -41,6 +42,8 @@ function App() {
           path="/purchases"
           element={
             <Purchases
+              queue={queue}
+              setQueue={setQueue}
               audio={audio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
@@ -53,6 +56,8 @@ function App() {
           path="/explore"
           element={
             <Explore
+              queue={queue}
+              setQueue={setQueue}
               audio={audio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
@@ -65,6 +70,23 @@ function App() {
           path="/account"
           element={
             <Account
+              queue={queue}
+              setQueue={setQueue}
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
+        ></Route>
+
+        <Route
+          path="/playlists/:id"
+          element={
+            <Playlist
+              queue={queue}
+              setQueue={setQueue}
               audio={audio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}

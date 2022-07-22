@@ -11,8 +11,10 @@ import { styled } from "@mui/material/styles";
 import colors from "../../utils/colors";
 import { IconButton } from "@mui/material";
 import SongActionsDialog from "../SongActionsDialog";
+import { defaultSongImage } from "../../utils/defaultImage";
+import getColorFromString from "../../utils/getColorFromString";
 
-const headCells = [
+export const headCells = [
   {
     id: "number",
     label: "#",
@@ -35,7 +37,7 @@ const headCells = [
   },
 ];
 
-const tableCellStyles = {
+export const tableCellStyles = {
   display: "flex",
   alignItems: "center",
   padding: "24px",
@@ -67,13 +69,13 @@ export const CustomIconButton = styled(IconButton)({
   },
 });
 
-function getComparator(order, orderBy) {
+export function getComparator(order, orderBy) {
   return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function TableHead({ order, orderBy, onRequestSort }) {
+export function TableHead({ order, orderBy, onRequestSort }) {
   return (
     <div className={styles["table-head"]}>
       {headCells.map((cell) => {
@@ -154,9 +156,7 @@ function TableRow({
       isPlaying: true,
       source: ownSongLocation,
       name: song.name,
-      image: song.image
-        ? song.image
-        : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+      image: song.image ?? defaultSongImage,
     });
   };
 
@@ -178,13 +178,9 @@ function TableRow({
       <div style={{ ...tableCellStyles, flex: 1 }}>
         <div
           style={{
-            height: "60px",
+            height: "40px",
             aspectRatio: "1/1",
-            backgroundImage: `url("${
-              song.image
-                ? song.image
-                : "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            }")`,
+            backgroundImage: `url("${song.image ?? defaultSongImage}")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             borderRadius: "4px",
@@ -192,7 +188,13 @@ function TableRow({
         />
         <p className={styles["song-name"]}>{song.name}</p>
       </div>
-      <div style={{ ...tableCellStyles, flex: 1 }}>
+      <div
+        style={{
+          ...tableCellStyles,
+          flex: 1,
+          color: getColorFromString(song.artist[0].walletAddress),
+        }}
+      >
         {song.artist[0]?.username ||
           shortenString(song.artist[0].walletAddress, 20)}
       </div>
@@ -228,6 +230,10 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
   const handleDialogClose = () => {
     setShowSongActionsDialog(false);
   };
+
+  if (songs.length <= 0) {
+    return null;
+  }
 
   return (
     <React.Fragment>
