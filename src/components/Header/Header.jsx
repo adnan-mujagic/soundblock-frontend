@@ -8,8 +8,10 @@ import SessionStorage from "../../utils/SessionStorage";
 import colors from "../../utils/colors";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import styles from "./Header.module.scss";
+import { useNavigate } from "react-router-dom";
 
 function Header({ token, setToken }) {
+  const navigate = useNavigate();
   const [errorInfo, setErrorInfo] = useState(null);
 
   const authenticate = async () => {
@@ -30,6 +32,12 @@ function Header({ token, setToken }) {
     }
   };
 
+  const disconnect = () => {
+    SessionStorage.removeToken();
+    setToken(null);
+    navigate("/");
+  };
+
   return (
     <div className={styles.header}>
       {errorInfo && <DefaultAlert type={"error"} message={errorInfo} />}
@@ -44,20 +52,9 @@ function Header({ token, setToken }) {
       </div>
       <div className={styles["header-wallet-section"]}>
         {token === null ? (
-          <AccountBalanceWalletIcon
-            style={iconStyle}
-            onClick={() => {
-              authenticate();
-            }}
-          />
+          <AccountBalanceWalletIcon style={iconStyle} onClick={authenticate} />
         ) : (
-          <LogoutIcon
-            style={iconStyle}
-            onClick={() => {
-              SessionStorage.removeToken();
-              setToken(null);
-            }}
-          />
+          <LogoutIcon style={iconStyle} onClick={disconnect} />
         )}
       </div>
     </div>
