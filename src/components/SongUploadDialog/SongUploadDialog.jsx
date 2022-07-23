@@ -63,7 +63,6 @@ function SongUploadDialog({ open, setOpen }) {
   };
 
   const handleSetSongPrice = (text) => {
-    console.log(text);
     setSongPrice(text);
     try {
       if (parseFloat(text) == text && text != "") {
@@ -75,8 +74,6 @@ function SongUploadDialog({ open, setOpen }) {
       setSongPriceValidation(error.message);
     }
   };
-
-  console.log(songName, songImage);
 
   return (
     <>

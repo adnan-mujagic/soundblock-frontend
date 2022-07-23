@@ -3,7 +3,6 @@ import { defaultSongImage } from "../../utils/defaultImage";
 import styles from "./SoldSong.module.scss";
 
 function SoldSong({ soldItem }) {
-  console.log(soldItem);
   return (
     <div className={styles["sold-song"]}>
       <div

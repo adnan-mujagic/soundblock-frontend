@@ -42,10 +42,7 @@ function SongCardOverlay({
       </div>
       {canBuy && (
         <div className={styles["song-options"]}>
-          <CustomButtonFilled
-            text="Buy"
-            onClick={handleBuy || console.log("Hello")}
-          />
+          <CustomButtonFilled text="Buy" onClick={handleBuy} />
         </div>
       )}
     </div>

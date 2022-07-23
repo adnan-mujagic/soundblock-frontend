@@ -9,9 +9,7 @@ import { IconButton } from "@mui/material";
 
 function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
   const getLastPage = () => {
-    const lastPage = Math.ceil(totalItems / limit);
-    console.log(lastPage);
-    return lastPage;
+    return Math.ceil(totalItems / limit);
   };
 
   const handleFirstPage = () => {};
