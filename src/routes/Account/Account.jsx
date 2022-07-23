@@ -14,6 +14,7 @@ import SongCard from "./../../components/SongCard";
 import styles from "./Account.module.scss";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import AudioOptionsController from "../../components/AudioOptionsController";
+import SoldSongs from "../../components/SoldSongs";
 
 function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
   const [loading, setLoading] = useState(false);
@@ -103,7 +104,9 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
               )}
               <div>
                 <CustomButtonFilled
-                  text={"Upload more songs"}
+                  text={`Upload ${
+                    user?.ownedSongs?.length ? "more songs" : "your first song"
+                  }`}
                   startIcon={<PublishIcon />}
                   onClick={() => setSongUploadModalOpen(true)}
                 />
@@ -112,6 +115,7 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
                   setOpen={setSongUploadModalOpen}
                 />
               </div>
+              <SoldSongs />
             </div>
           ) : (
             <Loading />

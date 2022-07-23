@@ -67,7 +67,7 @@ function PlaylistDatatableRow({
       isPlaying: true,
       source: ownSongLocation,
       name: song.name,
-      image: song.image,
+      image: song.image || defaultSongImage,
     });
     generateSongQueue(song._id);
   };

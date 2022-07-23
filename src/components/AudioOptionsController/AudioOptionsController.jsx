@@ -14,6 +14,7 @@ import colors from "../../utils/colors";
 import formatTime from "../../utils/formatTime";
 import CustomSlider from "../CustomSlider";
 import typography from "../../utils/typography";
+import { defaultSongImage } from "../../utils/defaultImage";
 
 function AudioOptionsController({
   audioDetails,
@@ -90,7 +91,7 @@ function AudioOptionsController({
       return;
     }
 
-    if (queue && queue.length <= 0) {
+    if (queue && !queue.length) {
       setAudioDetails((previousDetails) => {
         return { ...previousDetails, isPlaying: false };
       });
@@ -104,7 +105,7 @@ function AudioOptionsController({
       setAudioDetails({
         source: poppedSong.songLocation,
         name: poppedSong.name,
-        image: poppedSong.image,
+        image: poppedSong.image || defaultSongImage,
         isPlaying: true,
       });
 
