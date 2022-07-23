@@ -1,0 +1,11 @@
+.sold-songs-title {
+  margin-top: 24px;
+  font-size: 20px;
+}
+
+.sold-songs-container {
+  margin-top: 20px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+}
