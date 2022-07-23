@@ -1,0 +1,31 @@
+.close-icon-button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.metamask-link {
+  padding: 16px;
+  background-color: rgb(67, 181, 129);
+  border-radius: 4px;
+  display: block;
+  margin-top: 24px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.metamask-explanation {
+  flex: 0.5;
+  font-size: 16px;
+}
+
+.metamask-picture {
+  flex: 0.5;
+  background-image: url("https://play-lh.googleusercontent.com/8rzHJpfkdFwA0Lo6_CHUjoNt8OU3EyIe9BZNKGqj0C8BhleguW9LhXHbS46FAtLAJ9r2");
+  aspect-ratio: 1 / 1;
+  background-size: contain;
+  margin-right: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
