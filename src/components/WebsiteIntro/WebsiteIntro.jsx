@@ -3,7 +3,6 @@ import IntroPanel from "../IntroPanel";
 import DashImage from "./../../images/dashboard.PNG";
 import AddToPlaylistImage from "./../../images/add_to_playlist.PNG";
 import ExploreImage from "./../../images/explore.PNG";
-import PurchasesImage from "./../../images/purchases.PNG";
 import UploadImage from "./../../images/upload.PNG";
 import MetamaskIntegrationImage from "./../../images/metamask_integration.PNG";
 import Footer from "../Footer";

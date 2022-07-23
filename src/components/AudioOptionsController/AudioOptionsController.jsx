@@ -22,7 +22,7 @@ function AudioOptionsController({
   queue,
   setQueue,
 }) {
-  const { isPlaying, source, image, name } = audioDetails;
+  const { source, image, name } = audioDetails;
   const [replayOn, setReplayOn] = useState(false);
   const [shuffleOn, setShuffleOn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
