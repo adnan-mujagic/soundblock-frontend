@@ -9,15 +9,16 @@ function SoldSongs() {
   const [soldSongs, setSoldSongs] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
     getSoldSongs();
-  }, []);
+  }, [page]);
 
   const getSoldSongs = async () => {
     setLoading(true);
     const response = await fetchDataWithAuth(
-      `/users/songs/getSoldSongs?page=${page}&limit=5`,
+      `/users/songs/getSoldSongs?page=${page}&limit=${limit}`,
       "GET"
     );
     if (response?.soldItems) {
@@ -39,7 +40,13 @@ function SoldSongs() {
         ))}
       </div>
 
-      <Pagination totalItems={soldSongs.count} page={page} setPage={setPage} />
+      <Pagination
+        totalItems={soldSongs.count}
+        page={page}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+      />
     </div>
   );
 }

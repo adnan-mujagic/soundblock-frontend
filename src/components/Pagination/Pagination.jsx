@@ -12,13 +12,22 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
     return Math.ceil(totalItems / limit);
   };
 
-  const handleFirstPage = () => {};
+  const handleFirstPage = () => {
+    setPage(1);
+  };
 
-  const handlePreviousPage = () => {};
+  const handlePreviousPage = () => {
+    setPage(page - 1);
+  };
 
-  const handleNextPage = () => {};
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
 
-  const handleLastPage = () => {};
+  const handleLastPage = () => {
+    setPage(getLastPage());
+  };
+
   return (
     <div className={styles["pagination"]}>
       Showing page {page} of {getLastPage()}
