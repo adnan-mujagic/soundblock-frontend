@@ -29,6 +29,8 @@ function SoldSongs() {
 
   if (loading) {
     return <Loading />;
+  } else if (soldSongs.count === 0) {
+    return null;
   }
 
   return (

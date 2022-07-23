@@ -9,10 +9,12 @@ import colors from "../../utils/colors";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
+import InstallMetamaskInstructions from "../InstallMetamaskInstructions";
 
 function Header({ token, setToken }) {
   const navigate = useNavigate();
-  const [errorInfo, setErrorInfo] = useState(null);
+  const [installMetamaskDialogOpen, setInstallMetamaskDialogOpen] =
+    useState(false);
 
   const authenticate = async () => {
     try {
@@ -25,10 +27,9 @@ function Header({ token, setToken }) {
       SessionStorage.setToken(data.token);
       setToken(data.token);
     } catch (error) {
-      setErrorInfo(error.message);
-      setTimeout(() => {
-        setErrorInfo(null);
-      }, 2000);
+      if (error.message === "Metamask required") {
+        setInstallMetamaskDialogOpen(true);
+      }
     }
   };
 
@@ -40,7 +41,10 @@ function Header({ token, setToken }) {
 
   return (
     <div className={styles.header}>
-      {errorInfo && <DefaultAlert type={"error"} message={errorInfo} />}
+      <InstallMetamaskInstructions
+        open={installMetamaskDialogOpen}
+        setOpen={setInstallMetamaskDialogOpen}
+      />
       <div
         className={styles["header-title"]}
         onClick={() => {
