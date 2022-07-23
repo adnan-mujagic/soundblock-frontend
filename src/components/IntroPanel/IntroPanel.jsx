@@ -52,7 +52,7 @@ IntroPanel.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string,
   imageUrl: PropTypes.string.isRequired,
-  imagePosition: PropTypes.arrayOf(PropTypes.oneOf(["left", "right"])),
+  imagePosition: PropTypes.oneOf(["left", "right"]),
 };
 
 export default IntroPanel;

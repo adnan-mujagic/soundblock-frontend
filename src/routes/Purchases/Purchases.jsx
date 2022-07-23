@@ -76,7 +76,9 @@ function Purchases({
               }`}
               {purchases && (
                 <div
-                  style={{ marginBottom: purchases.length == 0 ? "20px" : "0" }}
+                  style={{
+                    marginBottom: purchases.length === 0 ? "20px" : "0",
+                  }}
                 >
                   <SongsDatatable
                     songs={purchases}

@@ -74,6 +74,7 @@ function Sidebar({ audioDetails }) {
       {playlists.map((playlist) => {
         return (
           <div
+            key={playlist._id}
             className={styles["sidebar-playlist-item"]}
             onClick={(e) => navigate("/playlists/" + playlist._id)}
           >
