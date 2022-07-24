@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import colors from "../../utils/colors";
 import Separator from "../Separator/Separator";
 import { useNavigate } from "react-router-dom";
@@ -69,6 +70,15 @@ function Sidebar({ audioDetails }) {
       >
         <AccountCircleIcon style={iconStyle} />
         Account
+      </div>
+      <div
+        style={boxStyle}
+        onClick={() => {
+          navigate("/purchase-status");
+        }}
+      >
+        <MonitorHeartIcon style={iconStyle} />
+        Purchase Status
       </div>
       <Separator />
       {playlists.map((playlist) => {

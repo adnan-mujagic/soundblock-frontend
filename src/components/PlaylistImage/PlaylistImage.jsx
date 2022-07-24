@@ -23,6 +23,16 @@ function PlaylistImage({ songImages }) {
     let left = (col * width) / grid.cols;
     let top = (row * height) / grid.rows;
 
+    console.log({
+      position: "absolute",
+      left,
+      top,
+      backgroundImage: `url(${getImageSources()[element]})`,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      height: height / grid.rows + "px",
+      width: width / grid.cols + "px",
+    });
     return {
       position: "absolute",
       left,
