@@ -3,6 +3,8 @@ const colors = {
   lightgreen: "rgb(176, 255, 219)",
   text: "rgb(35, 39, 42)",
   border: "rgb(246, 246, 246)",
+  error: "crimson",
+  warning: "orange",
 };
 
 export default colors;

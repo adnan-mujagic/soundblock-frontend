@@ -1,9 +1,6 @@
 .song-card {
-  box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
-  -webkit-box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
-  -moz-box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
   padding: 16px;
-  border-radius: 8px;
+  border: 1px solid rgb(35, 39, 42);
   background-color: white;
   position: relative;
   overflow: hidden;

@@ -6,6 +6,7 @@ import Explore from "../Explore";
 import Home from "../Home";
 import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
+import PurchaseStatus from "../PurchaseStatus";
 import styles from "./App.module.scss";
 
 let audio = new Audio();
@@ -80,7 +81,20 @@ function App() {
             />
           }
         ></Route>
-
+        <Route
+          path="/purchase-status"
+          element={
+            <PurchaseStatus
+              queue={queue}
+              setQueue={setQueue}
+              audio={audio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+            />
+          }
+        ></Route>
         <Route
           path="/playlists/:id"
           element={

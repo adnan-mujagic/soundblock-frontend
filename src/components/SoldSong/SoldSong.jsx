@@ -12,7 +12,7 @@ function SoldSong({ soldItem }) {
           backgroundPosition: "center",
           backgroundSize: "cover",
           flex: "0.5",
-          border: "1px solid black",
+          border: "1px solid rgb(35, 39, 42)",
           marginRight: "20px",
         }}
         className="image-container"

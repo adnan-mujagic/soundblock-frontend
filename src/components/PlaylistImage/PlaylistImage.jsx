@@ -1,4 +1,5 @@
 import React from "react";
+import colors from "../../utils/colors";
 import { defaultSongImage } from "../../utils/defaultImage";
 
 function PlaylistImage({ songImages }) {
@@ -50,9 +51,9 @@ function PlaylistImage({ songImages }) {
       style={{
         aspectRatio: "1 / 1",
         height: "120px",
-        borderRadius: "4px",
         overflow: "hidden",
         position: "relative",
+        border: `1px solid ${colors.text}`,
       }}
     >
       {getImageSources().map((_, idx) => (
