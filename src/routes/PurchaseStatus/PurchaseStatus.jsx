@@ -23,6 +23,7 @@ function PurchaseStatus({
   const [alertMessage, setAlertMessage] = useState("");
   const [purchases, setPurchases] = useState(null);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
     getUserPurchases();
@@ -31,7 +32,7 @@ function PurchaseStatus({
   const getUserPurchases = async () => {
     setLoading(true);
     const response = await fetchDataWithAuth(
-      `/users/songs/getPurchasedSongs?page=${page}&limit=1`,
+      `/users/songs/getPurchasedSongs?page=${page}&limit=${limit}`,
       "GET"
     );
     if (response?.data && response?.count) {
@@ -71,7 +72,7 @@ function PurchaseStatus({
                   totalItems={purchases.count}
                   page={page}
                   setPage={setPage}
-                  limit={1}
+                  limit={limit}
                 />
               )}
             </React.Fragment>
