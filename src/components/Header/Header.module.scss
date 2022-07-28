@@ -24,3 +24,15 @@
 .header-wallet-section {
   margin-right: 24px;
 }
+
+.header-sidebar-expand-button {
+  display: none;
+}
+
+@media screen and (max-width: 750px) {
+  .header-sidebar-expand-button {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
+}

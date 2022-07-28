@@ -105,7 +105,7 @@ const boxStyle = {
   fontSize: typography.normal,
 };
 
-const iconStyle = {
+export const iconStyle = {
   paddingRight: "10px",
   fontSize: "30px",
   color: colors.green,

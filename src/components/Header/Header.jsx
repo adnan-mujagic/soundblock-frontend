@@ -6,15 +6,22 @@ import connect from "../../utils/connectWallet";
 import fetchData from "../../utils/fetchData";
 import SessionStorage from "../../utils/SessionStorage";
 import colors from "../../utils/colors";
-import DefaultAlert from "../DefaultAlert/DefaultAlert";
+import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
 import InstallMetamaskInstructions from "../InstallMetamaskInstructions";
+import CollapsableMenu from "../CollapsableMenu";
 
 function Header({ token, setToken }) {
   const navigate = useNavigate();
   const [installMetamaskDialogOpen, setInstallMetamaskDialogOpen] =
     useState(false);
+
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleMenuIconClick = () => {
+    setOpenMenu(!openMenu);
+  };
 
   const authenticate = async () => {
     try {
@@ -40,28 +47,39 @@ function Header({ token, setToken }) {
   };
 
   return (
-    <div className={styles.header}>
-      <InstallMetamaskInstructions
-        open={installMetamaskDialogOpen}
-        setOpen={setInstallMetamaskDialogOpen}
-      />
-      <div
-        className={styles["header-title"]}
-        onClick={() => {
-          window.location = "/";
-        }}
-      >
-        <MusicNoteIcon style={iconStyle} />
-        Rattle
+    <React.Fragment>
+      <div className={styles.header}>
+        <InstallMetamaskInstructions
+          open={installMetamaskDialogOpen}
+          setOpen={setInstallMetamaskDialogOpen}
+        />
+        <div
+          className={styles["header-title"]}
+          onClick={() => {
+            window.location = "/";
+          }}
+        >
+          <MusicNoteIcon style={iconStyle} />
+          Rattle
+        </div>
+        <div className={styles["header-wallet-section"]}>
+          {token === null ? (
+            <AccountBalanceWalletIcon
+              style={iconStyle}
+              onClick={authenticate}
+            />
+          ) : (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <LogoutIcon style={iconStyle} onClick={disconnect} />
+              <div className={styles["header-sidebar-expand-button"]}>
+                <MenuIcon style={iconStyle} onClick={handleMenuIconClick} />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className={styles["header-wallet-section"]}>
-        {token === null ? (
-          <AccountBalanceWalletIcon style={iconStyle} onClick={authenticate} />
-        ) : (
-          <LogoutIcon style={iconStyle} onClick={disconnect} />
-        )}
-      </div>
-    </div>
+      <CollapsableMenu open={openMenu} />
+    </React.Fragment>
   );
 }
 
