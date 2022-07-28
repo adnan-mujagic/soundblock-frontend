@@ -15,4 +15,6 @@ body {
   --warning: orange;
   --text: rgb(35, 39, 42);
   --lightgray: rgb(248, 250, 249);
+
+  --page-height: calc(100vh - 8vh - 102px);
 }
