@@ -1,7 +1,7 @@
 .song-card {
   padding: 16px;
-  border: 1px solid rgb(35, 39, 42);
-  background-color: white;
+  border: 1px solid var(--border);
+  background-color: var(--lightgray);
   position: relative;
   overflow: hidden;
 }

@@ -1,5 +1,6 @@
 import { Collapse, Dialog, DialogActions } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import colors from "../../utils/colors.js";
 import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
@@ -83,7 +84,7 @@ function SongActionsDialog({ open, song, handleClose }) {
             backgroundImage: `url("${song.image ?? defaultSongImage}")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
-            borderRadius: "8px",
+            border: `1px solid ${colors.border}`,
             marginBottom: "16px",
             height: "112px",
           }}

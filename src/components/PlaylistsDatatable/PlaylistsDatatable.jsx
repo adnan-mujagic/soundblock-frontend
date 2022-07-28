@@ -96,6 +96,7 @@ function PlaylistDatatableRow({
       <div style={{ ...tableCellStyles, flex: 0.1 }}>{idx}</div>
       <div style={{ ...tableCellStyles, flex: 1 }}>
         <div
+          className={styles["playlist-datatable-removable-item"]}
           style={{
             aspectRatio: "1 / 1",
             height: "40px",

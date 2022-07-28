@@ -1,13 +1,10 @@
 .sidebar {
   position: sticky;
   top: calc(8vh + 1px);
-  border-right: 1px solid rgb(246, 246, 246);
+  border-right: 1px solid var(--border);
   flex: 0.1;
   padding: 0 16px;
   z-index: 0;
-  box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
-  -webkit-box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
-  -moz-box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
 }
 
 .sidebar-playlist-item {
@@ -20,5 +17,5 @@
 }
 
 .sidebar-playlist-item:hover {
-  color: rgb(67, 181, 129);
+  color: var(--green);
 }
