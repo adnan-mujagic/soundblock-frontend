@@ -53,7 +53,7 @@ function PlaylistImage({ songImages }) {
         height: "120px",
         overflow: "hidden",
         position: "relative",
-        border: `1px solid ${colors.text}`,
+        border: `1px solid ${colors.border}`,
       }}
     >
       {getImageSources().map((_, idx) => (

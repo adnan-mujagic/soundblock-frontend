@@ -120,7 +120,6 @@ function PlaylistDatatableRow({
         {song.artist[0].username ||
           shortenString(song.artist[0].walletAddress, 20)}
       </div>
-      <div style={{ ...tableCellStyles, flex: 1 }}></div>
     </div>
   );
 }
