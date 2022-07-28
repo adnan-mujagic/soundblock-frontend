@@ -7,7 +7,7 @@ function PlaylistHeader({ playlist }) {
     <div className={styles["playlist-header"]}>
       <PlaylistImage
         songImages={playlist.songs
-          .filter((song) => song.image !== undefined)
+          .filter((song) => song.image !== null)
           .map((song) => song.image)}
       />
       <div className={styles["playlist-header-title"]}>

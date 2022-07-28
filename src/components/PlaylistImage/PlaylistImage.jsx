@@ -1,4 +1,5 @@
 import React from "react";
+import colors from "../../utils/colors";
 import { defaultSongImage } from "../../utils/defaultImage";
 
 function PlaylistImage({ songImages }) {
@@ -23,6 +24,16 @@ function PlaylistImage({ songImages }) {
     let left = (col * width) / grid.cols;
     let top = (row * height) / grid.rows;
 
+    console.log({
+      position: "absolute",
+      left,
+      top,
+      backgroundImage: `url(${getImageSources()[element]})`,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      height: height / grid.rows + "px",
+      width: width / grid.cols + "px",
+    });
     return {
       position: "absolute",
       left,
@@ -40,9 +51,9 @@ function PlaylistImage({ songImages }) {
       style={{
         aspectRatio: "1 / 1",
         height: "120px",
-        borderRadius: "4px",
         overflow: "hidden",
         position: "relative",
+        border: `1px solid ${colors.text}`,
       }}
     >
       {getImageSources().map((_, idx) => (
