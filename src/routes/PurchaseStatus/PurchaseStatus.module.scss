@@ -15,3 +15,14 @@
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
 }
+
+@media screen and (max-width: 750px) {
+  .purchase-status-content {
+    flex: 1;
+    margin-right: 24px;
+  }
+
+  .purchase-status-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}

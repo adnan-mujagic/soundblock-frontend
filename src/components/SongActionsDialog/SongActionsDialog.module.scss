@@ -9,3 +9,20 @@
 .playlist-item:hover {
   background-color: var(--border);
 }
+
+.actions-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 16px;
+}
+
+@media screen and (max-width: 750px) {
+  .actions-dialog-header {
+    flex-direction: column;
+  }
+
+  .actions-dialog-header-text {
+    padding: 20px;
+  }
+}

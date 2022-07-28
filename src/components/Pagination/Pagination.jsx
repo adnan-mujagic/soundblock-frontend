@@ -30,7 +30,10 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
 
   return (
     <div className={styles["pagination"]}>
-      Showing page {page} of {getLastPage()}
+      <div className={styles["removable"]}>
+        Showing page {page} of {getLastPage()}
+      </div>
+
       <IconButton disabled={page === 1} onClick={handleFirstPage}>
         <FirstPageIcon />
       </IconButton>

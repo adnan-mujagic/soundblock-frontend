@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import colors from "../../utils/colors.js";
 import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import shortenString from "../../utils/shortenString.js";
 
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
@@ -70,14 +71,7 @@ function SongActionsDialog({ open, song, handleClose }) {
         open={alertOpen}
         setOpen={setAlertOpen}
       />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          margin: "16px",
-        }}
-      >
+      <div className={styles["actions-dialog-header"]}>
         <div
           style={{
             aspectRatio: "1/1",
@@ -89,7 +83,7 @@ function SongActionsDialog({ open, song, handleClose }) {
             height: "112px",
           }}
         />
-        <div style={{ flex: "0.5", marginLeft: "16px" }}>
+        <div className={styles["actions-dialog-header-text"]}>
           {song?.price && (
             <div style={{ display: "flex", alignItems: "center" }}>
               <img
@@ -102,7 +96,8 @@ function SongActionsDialog({ open, song, handleClose }) {
           )}
           <div style={{ fontSize: typography.title }}>{song.name}</div>
           <div style={{ fontSize: typography.tiny }}>
-            {song.artist[0].username || song.artist[0].walletAddress}
+            {song.artist[0].username ||
+              shortenString(song.artist[0].walletAddress, 15)}
           </div>
         </div>
       </div>
