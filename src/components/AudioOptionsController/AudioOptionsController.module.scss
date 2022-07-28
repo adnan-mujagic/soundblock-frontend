@@ -49,3 +49,13 @@
   display: flex;
   align-items: center;
 }
+
+@media screen and (max-width: 750px) {
+  .options-volume {
+    display: none;
+  }
+
+  .song-image {
+    display: none;
+  }
+}

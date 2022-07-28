@@ -137,7 +137,7 @@ function AudioOptionsController({
 
   return (
     <div className={styles["audio-options-controller"]}>
-      <div>
+      <div className={styles["song-image"]}>
         <div
           style={{
             height: "51px",
