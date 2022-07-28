@@ -42,3 +42,13 @@
 .table-row-overlay:hover {
   opacity: 1;
 }
+
+@media screen and (max-width: 750px) {
+  .removable {
+    display: none;
+  }
+
+  .table-row {
+    font-size: 12px;
+  }
+}

@@ -30,11 +30,6 @@ export const headCells = [
     label: "ARTIST",
     sortable: true,
   },
-  {
-    id: "actions",
-    label: "",
-    sortable: false,
-  },
 ];
 
 export const tableCellStyles = {
@@ -177,6 +172,7 @@ function TableRow({
       <div style={{ ...tableCellStyles, flex: 0.1 }}>{idx}</div>
       <div style={{ ...tableCellStyles, flex: 1 }}>
         <div
+          className={styles["removable"]}
           style={{
             height: "40px",
             aspectRatio: "1/1",
@@ -198,7 +194,6 @@ function TableRow({
         {song.artist[0]?.username ||
           shortenString(song.artist[0].walletAddress, 20)}
       </div>
-      <div style={{ ...tableCellStyles, flex: 1 }}></div>
     </div>
   );
 }
