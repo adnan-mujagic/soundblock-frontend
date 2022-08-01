@@ -1,5 +1,6 @@
 .content-wrapper {
   display: flex;
+  min-height: var(--page-height);
 }
 
 .main-content-wrapper {
@@ -20,4 +21,11 @@
 
 .song-wrapper-empty {
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 750px) {
+  .main-content-wrapper {
+    flex: 1;
+    margin-right: 24px;
+  }
 }

@@ -1,5 +1,5 @@
 .header {
-  border-bottom: 1px solid rgb(246, 246, 246);
+  border-bottom: 1px solid var(--border);
   height: 8vh;
   display: flex;
   align-items: center;
@@ -23,4 +23,16 @@
 
 .header-wallet-section {
   margin-right: 24px;
+}
+
+.header-sidebar-expand-button {
+  display: none;
+}
+
+@media screen and (max-width: 750px) {
+  .header-sidebar-expand-button {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
 }

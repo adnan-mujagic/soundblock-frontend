@@ -31,47 +31,35 @@ function PurchaseStatusCard({ purchase }) {
       ></div>
       <div className={styles["purchase-status-cart-info"]}>
         <div>{purchase.song.name}</div>
+
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
         >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <EthereumLogo />
-            <div style={{ marginLeft: "5px", fontSize: typography.normal }}>
-              {purchase.song.price}
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ fontSize: typography.normal, marginRight: "5px" }}>
-              STATUS
-            </div>
-            <div
-              style={{ fontSize: typography.normal, color: getStatusColor() }}
-            >
-              {purchase.status}
-            </div>
+          <EthereumLogo />
+          <div style={{ marginLeft: "5px", fontSize: typography.normal }}>
+            {purchase.song.price}
           </div>
         </div>
         <div
-          style={{
-            display: "flex",
-            marginTop: "5px",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
         >
-          <AnchorButton
-            text={"Transaction Link"}
-            link={purchase.purchaseTransactionLink}
-          />
-          <AnchorButton
-            text={"Owner Transaction Link"}
-            link={purchase.purchaseTransactionLink}
-          />
+          <div style={{ fontSize: typography.normal, marginRight: "5px" }}>
+            Status
+          </div>
+          <div style={{ fontSize: typography.normal, color: getStatusColor() }}>
+            {purchase.status}
+          </div>
         </div>
+
+        <AnchorButton
+          style={{ margin: "10px 0" }}
+          text={"Transaction"}
+          link={purchase.purchaseTransactionLink}
+        />
+        <AnchorButton
+          text={"Owner transaction"}
+          link={purchase.purchaseTransactionLink}
+        />
       </div>
     </div>
   );

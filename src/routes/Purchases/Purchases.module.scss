@@ -1,5 +1,6 @@
 .content-container {
   display: flex;
+  min-height: var(--page-height);
 }
 
 .main-content-wrapper {

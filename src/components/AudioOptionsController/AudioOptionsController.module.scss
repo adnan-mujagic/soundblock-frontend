@@ -4,7 +4,7 @@
   left: 0px;
   background-color: white;
   z-index: 10;
-  border-top: 1px solid rgb(246, 246, 246);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,4 +48,14 @@
   width: 180px;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 750px) {
+  .options-volume {
+    display: none;
+  }
+
+  .song-image {
+    display: none;
+  }
 }

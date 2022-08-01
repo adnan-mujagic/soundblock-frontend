@@ -31,6 +31,7 @@ function IntroPanel({
         )}
       </div>
       <div
+        className={styles["image-mobile"]}
         style={{
           flex: 0.5,
           aspectRatio: "16/9",

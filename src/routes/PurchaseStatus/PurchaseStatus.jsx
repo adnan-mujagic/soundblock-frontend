@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AudioOptionsController from "../../components/AudioOptionsController";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import Header from "../../components/Header";
@@ -79,6 +80,11 @@ function PurchaseStatus({
           )}
         </div>
       </div>
+      <AudioOptionsController
+        audio={audio}
+        setAudioDetails={setAudioDetails}
+        audioDetails={audioDetails}
+      />
     </div>
   );
 }

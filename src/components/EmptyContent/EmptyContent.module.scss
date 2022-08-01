@@ -1,42 +1,31 @@
 .empty-content {
+  position: relative;
   height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  border: 1px solid rgb(246, 246, 246);
-  background-color: rgb(250, 250, 250);
+  border: 1px solid var(--border);
+  background-color: var(--lightgray);
+  overflow: hidden;
 }
 
 .empty-content-message {
-  font-size: 30px;
+  font-size: 16px;
+  margin: 0 16px;
   color: rgb(35, 39, 42);
-}
-
-.empty-icons {
-  position: relative;
-  height: 50px;
-  width: 50px;
-}
-
-.library-icon {
-  position: absolute;
-}
-
-.search-icon {
-  position: absolute;
-  top: -18px;
-  left: -16px;
 }
 
 .search-icon-animation {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   animation: z 10s infinite;
 }
 
 @keyframes z {
   0% {
-    transform: translateY(0px);
+    transform: translate(-50%, -50%);
   }
 
   20% {
@@ -53,5 +42,37 @@
 
   80% {
     transform: translateY(-80px);
+  }
+}
+
+@keyframes phone-z {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+
+  20% {
+    transform: translate(100px);
+  }
+
+  40% {
+    transform: translateX(-27px);
+  }
+
+  60% {
+    transform: rotate(-10deg);
+  }
+
+  80% {
+    transform: translateY(-27px);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .search-icon-animation {
+    animation: phone-z 10s infinite;
+  }
+
+  .library-icon {
+    margin-left: 24px;
   }
 }

@@ -2,22 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import colors from "../../utils/colors";
 import typography from "../../utils/typography";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
 
-function AnchorButton({ text, link, display = "block" }) {
+function AnchorButton({ style, text, link }) {
   return (
     <a
       style={{
-        backgroundColor: colors.green,
-        padding: "12px",
-        display: display,
-        borderRadius: "4px",
+        ...style,
+        display: "flex",
+        alignItems: "center",
         textDecoration: "none",
         fontSize: typography.normal,
-        color: "white",
+        color: colors.text,
       }}
       target={"_blank"}
       href={link}
     >
+      <InsertLinkIcon style={{ marginRight: "5px" }} />
       {text}
     </a>
   );

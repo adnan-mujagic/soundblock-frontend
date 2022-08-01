@@ -14,5 +14,24 @@
 
 .topic-title {
   font-size: 40px;
-  color: rgb(67, 181, 129);
+  color: var(--green);
+}
+
+@media screen and (max-width: 750px) {
+  .intro-panel {
+    flex-direction: column !important;
+    padding: 20px;
+  }
+
+  .image-mobile {
+    width: 100%;
+    margin: 50px 0 !important;
+    transform: skew(0) !important;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .intro-panel {
+    padding: 20px;
+  }
 }

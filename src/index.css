@@ -7,3 +7,14 @@ body {
   font-size: 1.5em;
   color: "rgba(35, 39, 42)";
 }
+
+:root {
+  --green: rgb(67, 181, 129);
+  --border: rgb(216, 216, 216);
+  --error: crimson;
+  --warning: orange;
+  --text: rgb(35, 39, 42);
+  --lightgray: rgb(248, 250, 249);
+
+  --page-height: calc(100vh - 8vh - 102px);
+}
