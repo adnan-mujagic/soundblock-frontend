@@ -3,7 +3,7 @@ import typography from "../../utils/typography";
 import styles from "./SongCard.module.scss";
 import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import { contractAddress } from "../../utils/connectWallet";
 import { ethers } from "ethers";
@@ -17,19 +17,30 @@ function SongCard({
   song,
   canBuy = false,
 }) {
-  let { isPlaying, source } = audioDetails;
+  const [message, setMessage] = useState(null);
+  const [purchasing, setPurchasing] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [backgroundLoadedAudio, setBackgroundLoadedAudio] = useState(null);
 
+  useEffect(() => {
+    // loadAudioInTheBackground();
+  }, []);
+
+  let { isPlaying, source } = audioDetails;
   let ownSongLocation = song.songLocation;
 
-  const [message, setMessage] = useState(null);
-
-  const [purchasing, setPurchasing] = useState(false);
-
-  const [alertOpen, setAlertOpen] = useState(false);
+  const loadAudioInTheBackground = () => {
+    console.log("Loading audio in the background for song: " + song.name);
+    let audio = new Audio(ownSongLocation);
+    audio.load();
+    setBackgroundLoadedAudio(audio);
+  };
 
   const handlePlay = (event) => {
-    audio.load();
-    audio.src = ownSongLocation;
+    if (audio.src !== ownSongLocation) {
+      audio.load();
+      audio.src = ownSongLocation;
+    }
     audio.play();
     setAudioDetails({
       isPlaying: true,
