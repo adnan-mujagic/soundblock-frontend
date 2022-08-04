@@ -14,6 +14,7 @@ import AudioOptionsController from "../../components/AudioOptionsController";
 
 function Purchases({
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   token,
@@ -83,6 +84,7 @@ function Purchases({
                   <SongsDatatable
                     songs={purchases}
                     audio={audio}
+                    setAudio={setAudio}
                     audioDetails={audioDetails}
                     setAudioDetails={setAudioDetails}
                   />

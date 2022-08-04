@@ -46,6 +46,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -60,6 +61,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -74,6 +76,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -88,6 +91,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -102,6 +106,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import shortenString from "../../utils/shortenString";
 import styles from "./SongsDatatable.module.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -135,18 +135,36 @@ function TableRow({
   song,
   idx,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   handleExpandMore,
 }) {
-  let ownSongLocation = song.songLocation;
+  const [backgroundLoadingAudio, setBackgroundLoadingAudio] = useState(null);
 
+  let ownSongLocation = song.songLocation;
   let { isPlaying, source } = audioDetails;
 
+  useEffect(() => {
+    loadAudio();
+  }, []);
+
+  const loadAudio = () => {
+    console.log("Purchases datatable loading a following song: " + song.name);
+    let loadedAudio = new Audio();
+    loadedAudio.src = ownSongLocation;
+    loadedAudio.load();
+    setBackgroundLoadingAudio(loadedAudio);
+  };
+
   const handlePlay = (event) => {
-    audio.load();
-    audio.src = ownSongLocation;
-    audio.play();
+    console.log("Handling play from purchases datatable...");
+    if (audio.src !== ownSongLocation) {
+      pauseAndRewindCurrentAudio();
+      replaceWithNewAudioAndStartPlaying();
+    } else {
+      audio.play();
+    }
     setAudioDetails({
       isPlaying: true,
       source: ownSongLocation,
@@ -155,9 +173,21 @@ function TableRow({
     });
   };
 
+  const pauseAndRewindCurrentAudio = () => {
+    audio.pause();
+    audio.currentTime = 0;
+  };
+
+  const replaceWithNewAudioAndStartPlaying = () => {
+    backgroundLoadingAudio.play();
+    backgroundLoadingAudio.volume = audio.volume;
+    backgroundLoadingAudio.loop = audio.loop;
+    setAudio(backgroundLoadingAudio);
+  };
+
   const handlePause = (event) => {
     audio.pause();
-    setAudioDetails({ isPlaying: false, source: ownSongLocation });
+    setAudioDetails({ ...audioDetails, isPlaying: false });
   };
 
   return (
@@ -198,7 +228,13 @@ function TableRow({
   );
 }
 
-function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
+function SongsDatatable({
+  songs,
+  audio,
+  setAudio,
+  audioDetails,
+  setAudioDetails,
+}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
   const [songInFocus, setSongInFocus] = useState(songs[0]);
@@ -252,6 +288,7 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
             song={song}
             idx={idx + 1}
             audio={audio}
+            setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             handleExpandMore={handleExpandMore}
