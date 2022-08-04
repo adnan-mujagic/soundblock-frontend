@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CustomIconButton,
   getComparator,
@@ -51,18 +51,37 @@ function PlaylistDatatableRow({
   idx,
   song,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   handleRemove,
   generateSongQueue,
 }) {
+  const [backgroundLoadingAudio, setBackgroundLoadingAudio] = useState(null);
+
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
 
+  useEffect(() => {
+    loadAudio();
+  }, []);
+
+  const loadAudio = () => {
+    console.log("Purchases datatable loading a following song: " + song.name);
+    let loadedAudio = new Audio();
+    loadedAudio.src = ownSongLocation;
+    loadedAudio.load();
+    setBackgroundLoadingAudio(loadedAudio);
+  };
+
   const handlePlay = () => {
-    audio.src = ownSongLocation;
-    audio.load();
-    audio.play();
+    console.log("Handling play from playlist datatable...");
+    if (audio.src !== ownSongLocation) {
+      pauseAndRewindCurrentAudio();
+      replaceWithNewAudioAndStartPlaying();
+    } else {
+      audio.play();
+    }
     setAudioDetails({
       isPlaying: true,
       source: ownSongLocation,
@@ -70,6 +89,18 @@ function PlaylistDatatableRow({
       image: song.image || defaultSongImage,
     });
     generateSongQueue(song._id);
+  };
+
+  const pauseAndRewindCurrentAudio = () => {
+    audio.pause();
+    audio.currentTime = 0;
+  };
+
+  const replaceWithNewAudioAndStartPlaying = () => {
+    backgroundLoadingAudio.play();
+    backgroundLoadingAudio.volume = audio.volume;
+    backgroundLoadingAudio.loop = audio.loop;
+    setAudio(backgroundLoadingAudio);
   };
 
   const handlePause = () => {
@@ -127,6 +158,7 @@ function PlaylistDatatableRow({
 function PlaylistsDatatable({
   songs,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   playlistId,
@@ -198,6 +230,7 @@ function PlaylistsDatatable({
           idx={idx + 1}
           song={song}
           audio={audio}
+          setAudio={setAudio}
           audioDetails={audioDetails}
           setAudioDetails={setAudioDetails}
           handleRemove={handleRemove}

@@ -61,6 +61,8 @@ function SongCard({
   const replaceWithNewAudioAndStartPlaying = () => {
     console.log("Replacing and starting to play...");
     backgroundLoadedAudio.play();
+    backgroundLoadedAudio.volume = audio.volume;
+    backgroundLoadedAudio.loop = audio.loop;
     setAudio(backgroundLoadedAudio);
   };
 

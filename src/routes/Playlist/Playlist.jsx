@@ -11,6 +11,7 @@ import styles from "./Playlist.module.scss";
 
 function Playlist({
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   token,
@@ -44,6 +45,7 @@ function Playlist({
               setQueue={setQueue}
               songs={playlist.songs}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               playlistId={playlist._id}
