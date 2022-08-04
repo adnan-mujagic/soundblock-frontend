@@ -12,6 +12,7 @@ import { defaultSongImage } from "../../utils/defaultImage";
 
 function SongCard({
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   song,
@@ -23,7 +24,7 @@ function SongCard({
   const [backgroundLoadedAudio, setBackgroundLoadedAudio] = useState(null);
 
   useEffect(() => {
-    // loadAudioInTheBackground();
+    loadAudioInTheBackground();
   }, []);
 
   let { isPlaying, source } = audioDetails;
@@ -31,23 +32,36 @@ function SongCard({
 
   const loadAudioInTheBackground = () => {
     console.log("Loading audio in the background for song: " + song.name);
-    let audio = new Audio(ownSongLocation);
-    audio.load();
-    setBackgroundLoadedAudio(audio);
+    let loadedAudio = new Audio(ownSongLocation);
+    loadedAudio.load();
+    setBackgroundLoadedAudio(loadedAudio);
   };
 
   const handlePlay = (event) => {
     if (audio.src !== ownSongLocation) {
-      audio.load();
-      audio.src = ownSongLocation;
+      pauseAndRewindCurrentAudio();
+      replaceWithNewAudioAndStartPlaying();
+    } else {
+      audio.play();
     }
-    audio.play();
     setAudioDetails({
       isPlaying: true,
       source: ownSongLocation,
       name: song.name,
       image: song.image ? song.image : defaultSongImage,
     });
+  };
+
+  const pauseAndRewindCurrentAudio = () => {
+    console.log("Pausing and rewinding current audio...");
+    audio.currentTime = 0;
+    audio.pause();
+  };
+
+  const replaceWithNewAudioAndStartPlaying = () => {
+    console.log("Replacing and starting to play...");
+    backgroundLoadedAudio.play();
+    setAudio(backgroundLoadedAudio);
   };
 
   const handlePause = (event) => {

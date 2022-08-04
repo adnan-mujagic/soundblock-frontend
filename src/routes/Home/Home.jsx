@@ -8,6 +8,7 @@ function Home({
   token,
   setToken,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   queue,
@@ -22,6 +23,7 @@ function Home({
         <React.Fragment>
           <Dashboard
             audio={audio}
+            setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             token={token}
@@ -31,6 +33,7 @@ function Home({
             queue={queue}
             setQueue={setQueue}
             audio={audio}
+            setAudio={setAudio}
             setAudioDetails={setAudioDetails}
             audioDetails={audioDetails}
           />
