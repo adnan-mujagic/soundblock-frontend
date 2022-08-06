@@ -3,12 +3,13 @@ import typography from "../../utils/typography";
 import styles from "./SongCard.module.scss";
 import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import { contractAddress } from "../../utils/connectWallet";
 import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
 import { defaultSongImage } from "../../utils/defaultImage";
+import useAudio from "../../hooks/useAudio";
 
 function SongCard({
   audio,
@@ -21,59 +22,15 @@ function SongCard({
   const [message, setMessage] = useState(null);
   const [purchasing, setPurchasing] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
-  const [backgroundLoadedAudio, setBackgroundLoadedAudio] = useState(null);
-
-  useEffect(() => {
-    loadAudioInTheBackground();
-  }, []);
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
 
   let { isPlaying, source } = audioDetails;
   let ownSongLocation = song.songLocation;
-
-  const loadAudioInTheBackground = () => {
-    console.log("Loading audio in the background for song: " + song.name);
-    let loadedAudio = new Audio(ownSongLocation);
-    loadedAudio.load();
-    setBackgroundLoadedAudio(loadedAudio);
-  };
-
-  const handlePlay = (event) => {
-    if (audio.src !== ownSongLocation) {
-      pauseAndRewindCurrentAudio();
-      replaceWithNewAudioAndStartPlaying();
-    } else {
-      audio.play();
-    }
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image ? song.image : defaultSongImage,
-    });
-  };
-
-  const pauseAndRewindCurrentAudio = () => {
-    console.log("Pausing and rewinding current audio...");
-    audio.currentTime = 0;
-    audio.pause();
-  };
-
-  const replaceWithNewAudioAndStartPlaying = () => {
-    console.log("Replacing and starting to play...");
-    backgroundLoadedAudio.play();
-    backgroundLoadedAudio.volume = audio.volume;
-    backgroundLoadedAudio.loop = audio.loop;
-    setAudio(backgroundLoadedAudio);
-  };
-
-  const handlePause = (event) => {
-    audio.pause();
-    setAudioDetails({
-      ...audioDetails,
-      isPlaying: false,
-      source: ownSongLocation,
-    });
-  };
 
   const handleBuy = async () => {
     try {

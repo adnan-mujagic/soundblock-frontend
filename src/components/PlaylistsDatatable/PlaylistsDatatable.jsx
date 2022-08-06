@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   CustomIconButton,
   getComparator,
@@ -16,6 +16,7 @@ import { defaultSongImage } from "../../utils/defaultImage";
 import { IconButton, Tooltip } from "@mui/material";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import EmptyContent from "../EmptyContent/EmptyContent";
+import useAudio from "../../hooks/useAudio";
 
 function PlaylistDatatableOverlay({
   isPlaying,
@@ -57,57 +58,18 @@ function PlaylistDatatableRow({
   handleRemove,
   generateSongQueue,
 }) {
-  const [backgroundLoadingAudio, setBackgroundLoadingAudio] = useState(null);
-
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
 
-  useEffect(() => {
-    loadAudio();
-  }, []);
-
-  const loadAudio = () => {
-    console.log("Purchases datatable loading a following song: " + song.name);
-    let loadedAudio = new Audio();
-    loadedAudio.src = ownSongLocation;
-    loadedAudio.load();
-    setBackgroundLoadingAudio(loadedAudio);
-  };
-
-  const handlePlay = () => {
-    console.log("Handling play from playlist datatable...");
-    if (audio.src !== ownSongLocation) {
-      pauseAndRewindCurrentAudio();
-      replaceWithNewAudioAndStartPlaying();
-    } else {
-      audio.play();
-    }
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image || defaultSongImage,
-    });
+  const handlePlayAndGenerateQueue = () => {
+    handlePlay();
     generateSongQueue(song._id);
-  };
-
-  const pauseAndRewindCurrentAudio = () => {
-    audio.pause();
-    audio.currentTime = 0;
-  };
-
-  const replaceWithNewAudioAndStartPlaying = () => {
-    backgroundLoadingAudio.play();
-    backgroundLoadingAudio.volume = audio.volume;
-    backgroundLoadingAudio.loop = audio.loop;
-    setAudio(backgroundLoadingAudio);
-  };
-
-  const handlePause = () => {
-    audio.pause();
-    setAudioDetails((previous) => {
-      return { ...previous, isPlaying: false };
-    });
   };
 
   const onRemoveRequest = () => {
@@ -118,7 +80,7 @@ function PlaylistDatatableRow({
     <div className={styles["playlist-datatable-row"]}>
       {
         <PlaylistDatatableOverlay
-          handlePlay={handlePlay}
+          handlePlay={handlePlayAndGenerateQueue}
           handlePause={handlePause}
           isPlaying={ownSongLocation === source && isPlaying}
           handleRemove={onRemoveRequest}

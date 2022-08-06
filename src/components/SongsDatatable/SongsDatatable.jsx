@@ -13,6 +13,7 @@ import { IconButton } from "@mui/material";
 import SongActionsDialog from "../SongActionsDialog";
 import { defaultSongImage } from "../../utils/defaultImage";
 import getColorFromString from "../../utils/getColorFromString";
+import useAudio from "../../hooks/useAudio";
 
 export const headCells = [
   {
@@ -140,55 +141,15 @@ function TableRow({
   setAudioDetails,
   handleExpandMore,
 }) {
-  const [backgroundLoadingAudio, setBackgroundLoadingAudio] = useState(null);
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
 
   let ownSongLocation = song.songLocation;
   let { isPlaying, source } = audioDetails;
-
-  useEffect(() => {
-    loadAudio();
-  }, []);
-
-  const loadAudio = () => {
-    console.log("Purchases datatable loading a following song: " + song.name);
-    let loadedAudio = new Audio();
-    loadedAudio.src = ownSongLocation;
-    loadedAudio.load();
-    setBackgroundLoadingAudio(loadedAudio);
-  };
-
-  const handlePlay = (event) => {
-    console.log("Handling play from purchases datatable...");
-    if (audio.src !== ownSongLocation) {
-      pauseAndRewindCurrentAudio();
-      replaceWithNewAudioAndStartPlaying();
-    } else {
-      audio.play();
-    }
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image ?? defaultSongImage,
-    });
-  };
-
-  const pauseAndRewindCurrentAudio = () => {
-    audio.pause();
-    audio.currentTime = 0;
-  };
-
-  const replaceWithNewAudioAndStartPlaying = () => {
-    backgroundLoadingAudio.play();
-    backgroundLoadingAudio.volume = audio.volume;
-    backgroundLoadingAudio.loop = audio.loop;
-    setAudio(backgroundLoadingAudio);
-  };
-
-  const handlePause = (event) => {
-    audio.pause();
-    setAudioDetails({ ...audioDetails, isPlaying: false });
-  };
 
   return (
     <div className={styles["table-row"]}>
