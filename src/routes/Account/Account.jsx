@@ -16,7 +16,14 @@ import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import AudioOptionsController from "../../components/AudioOptionsController";
 import SoldSongs from "../../components/SoldSongs";
 
-function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Account({
+  audio,
+  setAudio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+}) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -86,6 +93,7 @@ function Account({ audio, audioDetails, setAudioDetails, token, setToken }) {
                     return (
                       <SongCard
                         audio={audio}
+                        setAudio={setAudio}
                         audioDetails={audioDetails}
                         setAudioDetails={setAudioDetails}
                         key={song._id || song.name}

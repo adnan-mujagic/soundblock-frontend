@@ -17,6 +17,10 @@
   margin: 16px;
 }
 
+.actions-dialog-header-text {
+  margin-left: 20px;
+}
+
 @media screen and (max-width: 750px) {
   .actions-dialog-header {
     flex-direction: column;
@@ -24,6 +28,6 @@
   }
 
   .actions-dialog-header-text {
-    padding: 0;
+    margin-left: 0;
   }
 }

@@ -40,20 +40,23 @@ function AudioOptionsController({
 
       audio.removeEventListener("timeupdate", handleTimeUpdate);
     };
-  }, [queue]);
+  }, [queue, audio]);
 
   const handlePlay = () => {
     audio.currentTime = audio.duration - currentTime > 5 ? currentTime : 0;
     audio.play();
     setAudioDetails({ ...audioDetails, isPlaying: true });
   };
+
   const handlePause = () => {
     audio.pause();
     setAudioDetails({ ...audioDetails, isPlaying: false });
   };
+
   const handleSkip = () => {
     audio.currentTime = audio.duration;
   };
+
   const handleRewind = () => {
     audio.currentTime = 0;
   };

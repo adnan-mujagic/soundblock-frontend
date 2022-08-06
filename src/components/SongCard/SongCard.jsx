@@ -9,44 +9,28 @@ import { contractAddress } from "../../utils/connectWallet";
 import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
 import { defaultSongImage } from "../../utils/defaultImage";
+import useAudio from "../../hooks/useAudio";
 
 function SongCard({
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   song,
   canBuy = false,
 }) {
-  let { isPlaying, source } = audioDetails;
-
-  let ownSongLocation = song.songLocation;
-
   const [message, setMessage] = useState(null);
-
   const [purchasing, setPurchasing] = useState(false);
-
   const [alertOpen, setAlertOpen] = useState(false);
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
 
-  const handlePlay = (event) => {
-    audio.load();
-    audio.src = ownSongLocation;
-    audio.play();
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image ? song.image : defaultSongImage,
-    });
-  };
-
-  const handlePause = (event) => {
-    audio.pause();
-    setAudioDetails({
-      ...audioDetails,
-      isPlaying: false,
-      source: ownSongLocation,
-    });
-  };
+  let { isPlaying, source } = audioDetails;
+  let ownSongLocation = song.songLocation;
 
   const handleBuy = async () => {
     try {

@@ -9,6 +9,7 @@ function DashboardShowcasePanel({
   songs,
   moreInfoLink,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   moreInfoLabel = "View more like this...",
@@ -33,6 +34,7 @@ function DashboardShowcasePanel({
               song={song}
               key={song?._id}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
             />

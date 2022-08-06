@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import shortenString from "../../utils/shortenString";
 import styles from "./SongsDatatable.module.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -13,6 +13,7 @@ import { IconButton } from "@mui/material";
 import SongActionsDialog from "../SongActionsDialog";
 import { defaultSongImage } from "../../utils/defaultImage";
 import getColorFromString from "../../utils/getColorFromString";
+import useAudio from "../../hooks/useAudio";
 
 export const headCells = [
   {
@@ -135,30 +136,20 @@ function TableRow({
   song,
   idx,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   handleExpandMore,
 }) {
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
+
   let ownSongLocation = song.songLocation;
-
   let { isPlaying, source } = audioDetails;
-
-  const handlePlay = (event) => {
-    audio.load();
-    audio.src = ownSongLocation;
-    audio.play();
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image ?? defaultSongImage,
-    });
-  };
-
-  const handlePause = (event) => {
-    audio.pause();
-    setAudioDetails({ isPlaying: false, source: ownSongLocation });
-  };
 
   return (
     <div className={styles["table-row"]}>
@@ -198,7 +189,13 @@ function TableRow({
   );
 }
 
-function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
+function SongsDatatable({
+  songs,
+  audio,
+  setAudio,
+  audioDetails,
+  setAudioDetails,
+}) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
   const [songInFocus, setSongInFocus] = useState(songs[0]);
@@ -252,6 +249,7 @@ function SongsDatatable({ songs, audio, audioDetails, setAudioDetails }) {
             song={song}
             idx={idx + 1}
             audio={audio}
+            setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             handleExpandMore={handleExpandMore}

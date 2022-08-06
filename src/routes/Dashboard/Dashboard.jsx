@@ -6,7 +6,14 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./Dashboard.module.scss";
 
-function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
+function Dashboard({
+  audio,
+  setAudio,
+  audioDetails,
+  setAudioDetails,
+  token,
+  setToken,
+}) {
   const [purchasedSongs, setPurchasedSongs] = useState([]);
   const [songsToExplore, setSongsToExplore] = useState([]);
 
@@ -44,6 +51,7 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
             songs={purchasedSongs}
             moreInfoLink={"/purchases"}
             audio={audio}
+            setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
           />
@@ -54,6 +62,7 @@ function Dashboard({ audio, audioDetails, setAudioDetails, token, setToken }) {
             songs={songsToExplore}
             moreInfoLink={"/explore"}
             audio={audio}
+            setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
           />

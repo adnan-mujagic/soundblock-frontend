@@ -16,6 +16,7 @@ import { defaultSongImage } from "../../utils/defaultImage";
 import { IconButton, Tooltip } from "@mui/material";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import EmptyContent from "../EmptyContent/EmptyContent";
+import useAudio from "../../hooks/useAudio";
 
 function PlaylistDatatableOverlay({
   isPlaying,
@@ -51,6 +52,7 @@ function PlaylistDatatableRow({
   idx,
   song,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   handleRemove,
@@ -58,25 +60,16 @@ function PlaylistDatatableRow({
 }) {
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails
+  );
 
-  const handlePlay = () => {
-    audio.src = ownSongLocation;
-    audio.load();
-    audio.play();
-    setAudioDetails({
-      isPlaying: true,
-      source: ownSongLocation,
-      name: song.name,
-      image: song.image || defaultSongImage,
-    });
+  const handlePlayAndGenerateQueue = () => {
+    handlePlay();
     generateSongQueue(song._id);
-  };
-
-  const handlePause = () => {
-    audio.pause();
-    setAudioDetails((previous) => {
-      return { ...previous, isPlaying: false };
-    });
   };
 
   const onRemoveRequest = () => {
@@ -87,7 +80,7 @@ function PlaylistDatatableRow({
     <div className={styles["playlist-datatable-row"]}>
       {
         <PlaylistDatatableOverlay
-          handlePlay={handlePlay}
+          handlePlay={handlePlayAndGenerateQueue}
           handlePause={handlePause}
           isPlaying={ownSongLocation === source && isPlaying}
           handleRemove={onRemoveRequest}
@@ -127,6 +120,7 @@ function PlaylistDatatableRow({
 function PlaylistsDatatable({
   songs,
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   playlistId,
@@ -198,6 +192,7 @@ function PlaylistsDatatable({
           idx={idx + 1}
           song={song}
           audio={audio}
+          setAudio={setAudio}
           audioDetails={audioDetails}
           setAudioDetails={setAudioDetails}
           handleRemove={handleRemove}

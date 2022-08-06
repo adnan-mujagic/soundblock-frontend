@@ -14,6 +14,7 @@ import styles from "./Explore.module.scss";
 
 function Explore({
   audio,
+  setAudio,
   audioDetails,
   setAudioDetails,
   token,
@@ -71,6 +72,7 @@ function Explore({
                   return (
                     <SongCard
                       audio={audio}
+                      setAudio={setAudio}
                       audioDetails={audioDetails}
                       setAudioDetails={setAudioDetails}
                       key={index}

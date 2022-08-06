@@ -9,8 +9,6 @@ import Purchases from "../Purchases/Purchases";
 import PurchaseStatus from "../PurchaseStatus";
 import styles from "./App.module.scss";
 
-let audio = new Audio();
-
 function App() {
   const [token, setToken] = useState(SessionStorage.getToken());
   const [audioDetails, setAudioDetails] = useState({
@@ -20,6 +18,7 @@ function App() {
     image: "",
   });
 
+  const [audio, setAudio] = useState(new Audio());
   const [queue, setQueue] = useState([]);
 
   return (
@@ -30,6 +29,7 @@ function App() {
           element={
             <Home
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -46,6 +46,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -60,6 +61,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -74,6 +76,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -88,6 +91,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
@@ -102,6 +106,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               audio={audio}
+              setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
               token={token}
