@@ -15,6 +15,8 @@ import styles from "./Account.module.scss";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import AudioOptionsController from "../../components/AudioOptionsController";
 import SoldSongs from "../../components/SoldSongs";
+import EditProfileDialog from "../../components/EditProfileDialog";
+import AccountHeader from "../../components/AccountHeader";
 
 function Account({
   audio,
@@ -29,33 +31,39 @@ function Account({
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState(null);
   const [songUploadModalOpen, setSongUploadModalOpen] = useState(false);
+  const [editProfileDialogOpen, setEditProfileDialogOpen] = useState(false);
 
   useEffect(() => {
-    async function getUser() {
-      setLoading(true);
-      fetchDataWithAuth("/users", "GET")
-        .then((res) => {
-          if (res?.data) {
-            setUser(res.data);
-          }
-          return res.data._id;
-        })
-        .then((artistId) => {
-          return fetchDataWithAuth(`/songs/getByArtist?artistId=${artistId}`);
-        })
-        .then((res) => {
-          if (res.data) {
-            setUser((prevUser) => {
-              return { ...prevUser, ownedSongs: res.data };
-            });
-          }
-          setMessage(res.message);
-          setSnackbarOpen(true);
-        });
-      setLoading(false);
-    }
     getUser();
   }, []);
+
+  const getUser = async () => {
+    setLoading(true);
+    fetchDataWithAuth("/users", "GET")
+      .then((res) => {
+        if (res?.data) {
+          setUser(res.data);
+        }
+        return res.data._id;
+      })
+      .then((artistId) => {
+        return fetchDataWithAuth(`/songs/getByArtist?artistId=${artistId}`);
+      })
+      .then((res) => {
+        if (res.data) {
+          setUser((prevUser) => {
+            return { ...prevUser, ownedSongs: res.data };
+          });
+        }
+        setMessage(res.message);
+        setSnackbarOpen(true);
+      });
+    setLoading(false);
+  };
+
+  const handleEditProfile = () => {
+    setEditProfileDialogOpen(true);
+  };
 
   return (
     <div className={styles.account}>
@@ -73,6 +81,16 @@ function Account({
           <ContentType contentType={"Your Account"} />
           {user ? (
             <div>
+              <AccountHeader
+                artistAddress={user.walletAddress}
+                username={user.username}
+                imageUrl={user.image}
+                numberOfSongs={user.ownedSongs?.length || 0}
+              />
+              <CustomButtonFilled
+                text="Edit Profile"
+                onClick={handleEditProfile}
+              />
               <div
                 style={{ fontSize: typography.header, marginTop: "20px" }}
               >{`Good ${dateToGreeting()}${
@@ -121,6 +139,14 @@ function Account({
                 <SongUploadDialog
                   open={songUploadModalOpen}
                   setOpen={setSongUploadModalOpen}
+                />
+                <EditProfileDialog
+                  open={editProfileDialogOpen}
+                  setOpen={setEditProfileDialogOpen}
+                  getUser={getUser}
+                  currentUsername={user.username}
+                  currentEmail={user.email}
+                  currentImage={user.image}
                 />
               </div>
               <SoldSongs />

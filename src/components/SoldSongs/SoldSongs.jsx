@@ -38,7 +38,7 @@ function SoldSongs() {
       <div className={styles["sold-songs-title"]}>Top selling songs</div>
       <div className={styles["sold-songs-container"]}>
         {soldSongs?.soldItems?.map((soldItem) => (
-          <SoldSong soldItem={soldItem} />
+          <SoldSong key={soldItem.song._id} soldItem={soldItem} />
         ))}
       </div>
 
