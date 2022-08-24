@@ -2,6 +2,7 @@ import React from "react";
 import getDefaultUserImageUrl from "../../utils/getDefaultUserImageUrl";
 import PropTypes from "prop-types";
 import styles from "./AccountHeader.module.scss";
+import shortenString from "../../utils/shortenString";
 
 function AccountHeader({ artistAddress, username, imageUrl, numberOfSongs }) {
   return (
@@ -20,9 +21,11 @@ function AccountHeader({ artistAddress, username, imageUrl, numberOfSongs }) {
         }}
       />
       <div className={styles["user-data"]}>
-        {!!username ? username : artistAddress}
+        {shortenString(!!username ? username : artistAddress, 20)}
         {!!username && (
-          <div className={styles["account-address-bar"]}>{artistAddress}</div>
+          <div className={styles["account-address-bar"]}>
+            {shortenString(artistAddress, 20)}
+          </div>
         )}
         <div className={styles["number-of-songs"]}>
           Number of songs: {numberOfSongs}

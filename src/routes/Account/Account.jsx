@@ -81,12 +81,14 @@ function Account({
           <ContentType contentType={"Your Account"} />
           {user ? (
             <div>
-              <AccountHeader
-                artistAddress={user.walletAddress}
-                username={user.username}
-                imageUrl={user.image}
-                numberOfSongs={user.ownedSongs?.length || 0}
-              />
+              {user.walletAddress && (
+                <AccountHeader
+                  artistAddress={user.walletAddress}
+                  username={user.username}
+                  imageUrl={user.image}
+                  numberOfSongs={user.ownedSongs?.length || 0}
+                />
+              )}
               <CustomButtonFilled
                 text="Edit Profile"
                 onClick={handleEditProfile}
@@ -116,6 +118,7 @@ function Account({
                         setAudioDetails={setAudioDetails}
                         key={song._id || song.name}
                         song={{ ...song, artist: [rest] }}
+                        showViewArtist={false}
                       />
                     );
                   })}

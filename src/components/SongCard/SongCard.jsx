@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
 import { defaultSongImage } from "../../utils/defaultImage";
 import useAudio from "../../hooks/useAudio";
+import { useNavigate } from "react-router-dom";
 
 function SongCard({
   audio,
@@ -18,6 +19,7 @@ function SongCard({
   setAudioDetails,
   song,
   canBuy = false,
+  showViewArtist = true,
 }) {
   const [message, setMessage] = useState(null);
   const [purchasing, setPurchasing] = useState(false);
@@ -28,6 +30,12 @@ function SongCard({
     setAudio,
     setAudioDetails
   );
+
+  const navigate = useNavigate();
+
+  const handleArtistClick = () => {
+    navigate("/artists/" + song.artist[0]._id);
+  };
 
   let { isPlaying, source } = audioDetails;
   let ownSongLocation = song.songLocation;
@@ -94,6 +102,8 @@ function SongCard({
             handlePlay={handlePlay}
             handlePause={handlePause}
             handleBuy={handleBuy}
+            handleArtistClick={handleArtistClick}
+            showViewArtist={showViewArtist}
           />
         </div>
       </div>
@@ -111,12 +121,8 @@ function SongCard({
         {song?.name && <div>{song.name}</div>}
         {song?.artist[0] && (
           <div
-            style={{
-              fontSize: typography.tiny,
-              color: getColorFromString(
-                song.artist[0].username || song.artist[0].walletAddress
-              ),
-            }}
+            className={styles["artist-username"]}
+            onClick={handleArtistClick}
           >
             {shortenString(
               song.artist[0].username

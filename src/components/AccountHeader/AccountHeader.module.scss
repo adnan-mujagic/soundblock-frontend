@@ -18,3 +18,14 @@
 .number-of-songs {
   font-size: 16px;
 }
+
+@media screen and (max-width: 750px) {
+  .account-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-data {
+    margin: 0;
+  }
+}

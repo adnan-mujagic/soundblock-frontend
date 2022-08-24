@@ -4,10 +4,11 @@ import colors from "../../utils/colors.js";
 import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import shortenString from "../../utils/shortenString.js";
-
+import { useNavigate } from "react-router-dom";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
+import getDefaultUserImageUrl from "../../utils/getDefaultUserImageUrl";
 import styles from "./SongActionsDialog.module.scss";
 
 function SongActionsDialog({ open, song, handleClose }) {
@@ -17,9 +18,15 @@ function SongActionsDialog({ open, song, handleClose }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getUserPlaylists();
   }, []);
+
+  const viewArtist = () => {
+    navigate("/artists/" + song.artist[0]._id);
+  };
 
   const getUserPlaylists = async () => {
     setLoadingPlaylists(true);
@@ -95,7 +102,27 @@ function SongActionsDialog({ open, song, handleClose }) {
             </div>
           )}
           <div style={{ fontSize: typography.title }}>{song.name}</div>
-          <div style={{ fontSize: typography.tiny }}>
+          <div
+            style={{
+              fontSize: typography.tiny,
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={viewArtist}
+          >
+            <div
+              style={{
+                aspectRatio: "1 / 1",
+                height: "20px",
+                backgroundImage: `url(${
+                  song.artist[0].image || getDefaultUserImageUrl()
+                })`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginRight: "4px",
+              }}
+            />
             {song.artist[0].username ||
               shortenString(song.artist[0].walletAddress, 15)}
           </div>

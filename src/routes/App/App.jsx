@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import SessionStorage from "../../utils/SessionStorage";
 import Account from "../Account";
+import Artist from "../Artist";
 import Explore from "../Explore";
 import Home from "../Home";
 import Playlist from "../Playlist";
@@ -111,6 +112,21 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+            />
+          }
+        ></Route>
+        <Route
+          path="/artists/:id"
+          element={
+            <Artist
+              token={token}
+              setToken={setToken}
+              audio={audio}
+              setAudio={setAudio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              queue={queue}
+              setQueue={setQueue}
             />
           }
         ></Route>

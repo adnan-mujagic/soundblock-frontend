@@ -6,6 +6,11 @@
   overflow: hidden;
 }
 
+.artist-username {
+  color: var(--green);
+  font-size: 16px;
+}
+
 @media screen and (max-width: 750px) {
   .song-card {
     font-size: 12px !important;
