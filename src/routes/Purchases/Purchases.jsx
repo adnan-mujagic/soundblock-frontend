@@ -21,6 +21,8 @@ function Purchases({
   setToken,
   queue,
   setQueue,
+  playlists,
+  getOwnPlaylists,
 }) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,7 @@ function Purchases({
     <div className={styles.purchases}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-container"]}>
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         {message && (
           <DefaultAlert
             message={message}
@@ -87,6 +89,8 @@ function Purchases({
                     setAudio={setAudio}
                     audioDetails={audioDetails}
                     setAudioDetails={setAudioDetails}
+                    playlists={playlists}
+                    getOwnPlaylists={getOwnPlaylists}
                   />
                 </div>
               )}

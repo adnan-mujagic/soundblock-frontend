@@ -27,7 +27,7 @@ function DifferenceIndicator({ current, next }) {
     <div className={styles["difference-indicator"]}>
       <div className={styles["current"]}>
         {Object.keys(current).map((key) => (
-          <Line text={`${key}: "${current[key]}"`} />
+          <Line key={key} text={`${key}: "${current[key]}"`} />
         ))}
       </div>
       <div className={styles["middle"]}>
@@ -36,6 +36,7 @@ function DifferenceIndicator({ current, next }) {
       <div className={styles["next"]}>
         {Object.keys(current).map((key) => (
           <Line
+            key={key}
             text={`${key}: "${next[key]}"`}
             backgroundColor={hasChanged(key) ? colors.lightgreen : "white"}
           />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -9,26 +9,9 @@ import Separator from "../Separator/Separator";
 import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
 import typography from "../../utils/typography";
-import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
-function Sidebar({ audioDetails }) {
+function Sidebar({ audioDetails, playlists }) {
   const navigate = useNavigate();
-
-  const [playlists, setPlaylists] = useState([]);
-
-  useEffect(() => {
-    getUserPlaylists();
-  }, []);
-
-  const getUserPlaylists = async () => {
-    const response = await fetchDataWithAuth(
-      "/users/playlists/getPlaylists",
-      "GET"
-    );
-    if (response?.data) {
-      setPlaylists(response.data);
-    }
-  };
 
   return (
     <div
@@ -81,7 +64,7 @@ function Sidebar({ audioDetails }) {
         Purchase Status
       </div>
       <Separator />
-      {playlists.map((playlist) => {
+      {playlists?.map((playlist) => {
         return (
           <div
             key={playlist._id}

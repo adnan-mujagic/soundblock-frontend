@@ -13,6 +13,7 @@ function Home({
   setAudioDetails,
   queue,
   setQueue,
+  playlists,
 }) {
   return (
     <div className={styles.home}>
@@ -26,8 +27,7 @@ function Home({
             setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
-            token={token}
-            setToken={setToken}
+            playlists={playlists}
           />
           <AudioOptionsController
             queue={queue}

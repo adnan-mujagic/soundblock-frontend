@@ -21,6 +21,7 @@ function Artist({
   setAudioDetails,
   queue,
   setQueue,
+  playlists,
 }) {
   const { id } = useParams();
   const [artist, setArtist] = useState(null);
@@ -58,7 +59,7 @@ function Artist({
     <div className={styles["artist"]}>
       <Header token={token} setToken={setToken} />
       <div className={styles["artist-content"]}>
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["artist-main-content"]}>
           {artist ? (
             <AccountHeader

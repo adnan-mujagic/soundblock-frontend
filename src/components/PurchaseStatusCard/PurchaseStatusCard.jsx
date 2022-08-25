@@ -7,8 +7,6 @@ import EthereumLogo from "../EthereumLogo";
 import styles from "./PurchaseStatusCard.module.scss";
 
 function PurchaseStatusCard({ purchase }) {
-  console.log(purchase);
-
   const getStatusColor = () => {
     if (purchase.status === "SUCCESSFUL") {
       return colors.green;

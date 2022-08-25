@@ -25,6 +25,8 @@ function Account({
   setAudioDetails,
   token,
   setToken,
+  playlists,
+  getOwnPlaylists,
 }) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
@@ -76,7 +78,7 @@ function Account({
       )}
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content-wrapper"]}>
           <ContentType contentType={"Your Account"} />
           {user ? (

@@ -144,7 +144,7 @@ function PlaylistsDatatable({
   };
 
   const handleRemove = async (songId) => {
-    await fetchDataWithAuth(`/playlists/${playlistId}`, "DELETE", {
+    await fetchDataWithAuth(`/playlists/removeSong/${playlistId}`, "DELETE", {
       songId: songId,
     });
     refreshSongs();

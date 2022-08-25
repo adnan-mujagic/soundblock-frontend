@@ -1,5 +1,5 @@
 import { Collapse, Dialog, DialogActions } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import colors from "../../utils/colors.js";
 import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
@@ -11,33 +11,21 @@ import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import getDefaultUserImageUrl from "../../utils/getDefaultUserImageUrl";
 import styles from "./SongActionsDialog.module.scss";
 
-function SongActionsDialog({ open, song, handleClose }) {
-  const [loadingPlaylists, setLoadingPlaylists] = useState(true);
-  const [userPlaylists, setUserPlaylists] = useState([]);
+function SongActionsDialog({
+  open,
+  song,
+  handleClose,
+  playlists,
+  getOwnPlaylists,
+}) {
   const [showPlaylists, setShowPlaylists] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getUserPlaylists();
-  }, []);
-
   const viewArtist = () => {
     navigate("/artists/" + song.artist[0]._id);
-  };
-
-  const getUserPlaylists = async () => {
-    setLoadingPlaylists(true);
-    const response = await fetchDataWithAuth(
-      "/users/playlists/getPlaylists",
-      "GET"
-    );
-    if (response.data) {
-      setUserPlaylists(response.data);
-    }
-    setLoadingPlaylists(false);
   };
 
   const handlePlaylistSelect = async (playlistId, songId) => {
@@ -68,7 +56,7 @@ function SongActionsDialog({ open, song, handleClose }) {
     const response = await fetchDataWithAuth("/playlists", "POST", body);
     setAlertMessage(response?.message);
     setAlertOpen(true);
-    getUserPlaylists();
+    getOwnPlaylists();
   };
 
   return (
@@ -121,6 +109,8 @@ function SongActionsDialog({ open, song, handleClose }) {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 marginRight: "4px",
+                borderRadius: "50%",
+                overflow: "hidden",
               }}
             />
             {song.artist[0].username ||
@@ -129,14 +119,14 @@ function SongActionsDialog({ open, song, handleClose }) {
         </div>
       </div>
       <div style={{ marginLeft: "16px", marginRight: "16px" }}>
-        {!loadingPlaylists && (
+        {playlists && (
           <CustomButtonFilled
             onClick={() => setShowPlaylists(!showPlaylists)}
             text={"Add to playlist"}
           />
         )}
         <Collapse in={showPlaylists} style={{ marginTop: "16px" }}>
-          {userPlaylists.map((playlist) => (
+          {playlists?.map((playlist) => (
             <PlaylistItem
               key={playlist._id}
               handleClick={handlePlaylistSelect}
