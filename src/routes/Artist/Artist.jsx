@@ -30,8 +30,6 @@ function Artist({
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
 
-  console.log(audioDetails);
-
   useEffect(() => {
     getArtist();
   }, []);
@@ -50,7 +48,6 @@ function Artist({
       `/songs/getByArtist?artistId=${id}&page=${page}&limit=${limit}`,
       "GET"
     );
-    console.log(data, count);
     setArtistSongs(data);
     setTotal(count);
   };
