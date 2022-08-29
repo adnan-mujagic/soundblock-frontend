@@ -11,13 +11,12 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./PurchaseStatus.module.scss";
 
 function PurchaseStatus({
-  queue,
-  setQueue,
   audio,
   audioDetails,
   setAudioDetails,
   token,
   setToken,
+  playlists,
 }) {
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -56,7 +55,7 @@ function PurchaseStatus({
           open={alertOpen}
           setOpen={setAlertOpen}
         />
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["purchase-status-content"]}>
           <ContentType contentType={"Purchase Status"} />
           {loading ? (

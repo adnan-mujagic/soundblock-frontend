@@ -11,8 +11,7 @@ function Dashboard({
   setAudio,
   audioDetails,
   setAudioDetails,
-  token,
-  setToken,
+  playlists,
 }) {
   const [purchasedSongs, setPurchasedSongs] = useState([]);
   const [songsToExplore, setSongsToExplore] = useState([]);
@@ -42,7 +41,7 @@ function Dashboard({
 
   return (
     <div className={styles.dashboard}>
-      <Sidebar audioDetails={audioDetails} />
+      <Sidebar audioDetails={audioDetails} playlists={playlists} />
       <div className={styles["dashboard-wrapper"]}>
         <ContentType contentType={"Dashboard"} />
         {purchasedSongs.length > 0 && (

@@ -195,6 +195,8 @@ function SongsDatatable({
   setAudio,
   audioDetails,
   setAudioDetails,
+  playlists,
+  getOwnPlaylists,
 }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
@@ -236,6 +238,8 @@ function SongsDatatable({
         audioDetails={audioDetails}
         setAudioDetails={setAudioDetails}
         handleClose={handleDialogClose}
+        playlists={playlists}
+        getOwnPlaylists={getOwnPlaylists}
       />
       <TableHead
         order={order}

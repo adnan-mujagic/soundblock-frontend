@@ -13,6 +13,10 @@
   color: var(--green);
 }
 
+.edit-profile-container {
+  margin-top: 24px;
+}
+
 @media screen and (max-width: 750px) {
   .playlist-header {
     align-items: flex-start;
@@ -24,5 +28,10 @@
     margin-left: 0;
     font-size: 16px;
     margin-top: 24px;
+  }
+
+  .edit-profile-container {
+    margin-left: 24px;
+    margin-top: 0;
   }
 }

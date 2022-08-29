@@ -1,0 +1,18 @@
+.difference-indicator {
+  display: flex;
+}
+
+.current {
+  flex: 0.4;
+}
+
+.middle {
+  flex: 0.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next {
+  flex: 0.4;
+}

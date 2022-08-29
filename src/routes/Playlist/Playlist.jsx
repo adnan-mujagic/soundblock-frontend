@@ -18,6 +18,8 @@ function Playlist({
   setToken,
   queue,
   setQueue,
+  playlists,
+  getOwnPlaylists,
 }) {
   const { id } = useParams();
   const [playlist, setPlaylist] = useState(null);
@@ -37,9 +39,15 @@ function Playlist({
     <div>
       <Header token={token} setToken={setToken} />
       <div className={styles["playlist-route-container"]}>
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["playlist-content"]}>
-          {playlist && <PlaylistHeader playlist={playlist} />}
+          {playlist && (
+            <PlaylistHeader
+              getOwnPlaylists={getOwnPlaylists}
+              getPlaylistInfo={getPlaylistInfo}
+              playlist={playlist}
+            />
+          )}
           {playlist ? (
             <PlaylistsDatatable
               setQueue={setQueue}
@@ -50,6 +58,7 @@ function Playlist({
               setAudioDetails={setAudioDetails}
               playlistId={playlist._id}
               refreshSongs={getPlaylistInfo}
+              getOwnPlaylists={getOwnPlaylists}
             />
           ) : (
             <Loading />

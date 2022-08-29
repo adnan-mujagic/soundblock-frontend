@@ -1,0 +1,31 @@
+.account-header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.user-data {
+  margin-left: 24px;
+}
+
+.account-address-bar {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.number-of-songs {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 750px) {
+  .account-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-data {
+    margin: 0;
+  }
+}

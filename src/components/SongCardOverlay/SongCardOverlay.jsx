@@ -12,6 +12,8 @@ function SongCardOverlay({
   handlePause,
   showPlayPause,
   handleBuy,
+  handleArtistClick,
+  showViewArtist,
 }) {
   return (
     <div className={styles["song-card-overlay"]}>
@@ -43,6 +45,22 @@ function SongCardOverlay({
       {canBuy && (
         <div className={styles["song-options"]}>
           <CustomButtonFilled text="Buy" onClick={handleBuy} />
+        </div>
+      )}
+      {showViewArtist && (
+        <div
+          style={{
+            position: "absolute",
+            top: "32px",
+            left: "12px",
+            fontSize: "12px",
+            cursor: "pointer",
+            color: colors.green,
+            textDecoration: "underline",
+          }}
+          onClick={handleArtistClick}
+        >
+          Artist Profile
         </div>
       )}
     </div>

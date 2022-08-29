@@ -21,6 +21,7 @@ function Explore({
   setToken,
   queue,
   setQueue,
+  playlists,
 }) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
@@ -48,7 +49,7 @@ function Explore({
     <div className={styles.explore}>
       <Header token={token} setToken={setToken} />
       <div className={styles["content-wrapper"]}>
-        <Sidebar audioDetails={audioDetails} />
+        <Sidebar audioDetails={audioDetails} playlists={playlists} />
         {message && (
           <DefaultAlert
             message={message}

@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import SessionStorage from "../../utils/SessionStorage";
 import Account from "../Account";
+import Artist from "../Artist";
 import Explore from "../Explore";
 import Home from "../Home";
 import Playlist from "../Playlist";
@@ -20,6 +23,21 @@ function App() {
 
   const [audio, setAudio] = useState(new Audio());
   const [queue, setQueue] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+
+  useEffect(() => {
+    getUserPlaylists();
+  }, []);
+
+  const getUserPlaylists = async () => {
+    const response = await fetchDataWithAuth(
+      "/users/playlists/getPlaylists",
+      "GET"
+    );
+    if (response?.data) {
+      setPlaylists(response.data);
+    }
+  };
 
   return (
     <div className={styles["app"]}>
@@ -36,6 +54,7 @@ function App() {
               setToken={setToken}
               queue={queue}
               setQueue={setQueue}
+              playlists={playlists}
             />
           }
         ></Route>
@@ -51,6 +70,8 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              playlists={playlists}
+              getOwnPlaylists={getUserPlaylists}
             />
           }
         ></Route>
@@ -66,6 +87,8 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              playlists={playlists}
+              getOwnPlaylists={getUserPlaylists}
             />
           }
         ></Route>
@@ -81,6 +104,7 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              playlists={playlists}
             />
           }
         ></Route>
@@ -96,6 +120,7 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              playlists={playlists}
             />
           }
         ></Route>
@@ -111,6 +136,24 @@ function App() {
               setAudioDetails={setAudioDetails}
               token={token}
               setToken={setToken}
+              playlists={playlists}
+              getOwnPlaylists={getUserPlaylists}
+            />
+          }
+        ></Route>
+        <Route
+          path="/artists/:id"
+          element={
+            <Artist
+              token={token}
+              setToken={setToken}
+              audio={audio}
+              setAudio={setAudio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              queue={queue}
+              setQueue={setQueue}
+              playlists={playlists}
             />
           }
         ></Route>
