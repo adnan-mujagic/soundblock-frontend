@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
+import CustomDropdown from "../CustomDropdown";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import FileUpload from "../FileUpload";
@@ -27,8 +28,10 @@ function SongUploadDialog({ open, setOpen }) {
   const [songPriceValidation, setSongPriceValidation] = useState(
     "Please enter a valid song price"
   );
+  const [songCategory, setSongCategory] = useState("");
 
-  const client = create("https://ipfs.infura.io:5001/api/v0");
+  // need to add new ipfs api here
+  const client = create("https://ipfs.io/api/v0");
 
   const handleUpload = async (event) => {
     console.log("Uploading, please wait...");
@@ -38,9 +41,10 @@ function SongUploadDialog({ open, setOpen }) {
       console.log(added.path);
       const response = await fetchDataWithAuth("/users/song", "POST", {
         name: songName,
-        songLocation: `https://ipfs.infura.io/ipfs/${added.path}`,
+        songLocation: `https://ipfs.io/ipfs/${added.path}`,
         price: parseFloat(songPrice),
         image: songImage !== null && songImage !== "" ? songImage : null,
+        category: songCategory,
       });
       setAlertOpen(true);
       setAlertMessage(response.message);
@@ -60,6 +64,7 @@ function SongUploadDialog({ open, setOpen }) {
     setFile(null);
     setOpen(false);
     setSongPrice("");
+    setSongCategory("");
   };
 
   const handleSetSongPrice = (text) => {
@@ -110,6 +115,12 @@ function SongUploadDialog({ open, setOpen }) {
             text={songPrice}
             setText={handleSetSongPrice}
           />
+          <CustomDropdown
+            placeholder={"Select category"}
+            selectedOption={songCategory}
+            setSelectedOption={setSongCategory}
+            options={["Pop", "Rock", "Classic", "Soul", "R & B", "House"]}
+          />
           <FileUpload file={file} setFile={setFile} />
         </DialogContent>
         <DialogActions>
@@ -124,7 +135,10 @@ function SongUploadDialog({ open, setOpen }) {
               text="Upload"
               onClick={(event) => handleUpload(event)}
               disabled={
-                file == null || uploading || songPriceValidation != null
+                file == null ||
+                uploading ||
+                songPriceValidation != null ||
+                songCategory == null
               }
             />
 
