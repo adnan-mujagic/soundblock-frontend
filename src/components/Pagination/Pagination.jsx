@@ -28,6 +28,10 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
     setPage(getLastPage());
   };
 
+  if (getLastPage() === 1) {
+    return null;
+  }
+
   return (
     <div className={styles["pagination"]}>
       <div className={styles["removable"]}>

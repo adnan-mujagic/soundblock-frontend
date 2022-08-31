@@ -88,7 +88,7 @@ function SongCard({
         <div
           style={{
             aspectRatio: "1/1",
-            background: `url("${song.image ?? defaultSongImage}")`,
+            backgroundImage: `url("${song.image ?? defaultSongImage}")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             borderRadius: "8px",

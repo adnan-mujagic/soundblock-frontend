@@ -1,4 +1,5 @@
 import React from "react";
+import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -18,6 +19,15 @@ function Sidebar({ audioDetails, playlists }) {
       className={styles["sidebar"]}
       style={{ height: `calc(92vh - ${audioDetails.source ? "102" : "1"}px)` }}
     >
+      <div
+        style={boxStyle}
+        onClick={() => {
+          navigate("/search");
+        }}
+      >
+        <SearchIcon style={iconStyle} />
+        Search
+      </div>
       <div
         style={boxStyle}
         onClick={() => {
