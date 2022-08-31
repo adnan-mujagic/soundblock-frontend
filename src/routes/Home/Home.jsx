@@ -17,7 +17,7 @@ function Home({
 }) {
   return (
     <div className={styles.home}>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       {token === null ? (
         <WebsiteIntro />
       ) : (

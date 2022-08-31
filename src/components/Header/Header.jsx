@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import InstallMetamaskInstructions from "../InstallMetamaskInstructions";
 import CollapsableMenu from "../CollapsableMenu";
 
-function Header({ token, setToken }) {
+function Header({ token, setToken, playlists }) {
   const navigate = useNavigate();
   const [installMetamaskDialogOpen, setInstallMetamaskDialogOpen] =
     useState(false);
@@ -78,7 +78,7 @@ function Header({ token, setToken }) {
           )}
         </div>
       </div>
-      <CollapsableMenu open={openMenu} />
+      <CollapsableMenu open={openMenu} playlists={playlists} />
     </React.Fragment>
   );
 }

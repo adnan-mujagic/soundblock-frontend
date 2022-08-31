@@ -48,7 +48,7 @@ function PurchaseStatus({
 
   return (
     <div>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["purchase-status-container"]}>
         <DefaultAlert
           message={alertMessage}

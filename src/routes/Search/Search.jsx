@@ -25,7 +25,7 @@ function Search({
 
   return (
     <div>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["search-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content"]}>

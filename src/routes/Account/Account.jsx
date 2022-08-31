@@ -76,7 +76,7 @@ function Account({
           setOpen={setSnackbarOpen}
         />
       )}
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["content-wrapper"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content-wrapper"]}>

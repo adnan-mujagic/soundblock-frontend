@@ -37,7 +37,7 @@ function Playlist({
 
   return (
     <div>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["playlist-route-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["playlist-content"]}>
