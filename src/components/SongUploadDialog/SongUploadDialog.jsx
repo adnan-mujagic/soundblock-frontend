@@ -5,9 +5,9 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { create } from "ipfs-http-client";
 import React, { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import upload, { ipfsGatewayBaseUrl } from "../../utils/ipfsApi";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
 import CustomDropdown from "../CustomDropdown";
@@ -30,18 +30,15 @@ function SongUploadDialog({ open, setOpen }) {
   );
   const [songCategory, setSongCategory] = useState("");
 
-  // need to add new ipfs api here
-  const client = create("https://ipfs.io/api/v0");
-
   const handleUpload = async (event) => {
     console.log("Uploading, please wait...");
     try {
       setUploading(true);
-      const added = await client.add(file);
-      console.log(added.path);
+      const { cid } = await upload(file);
+      console.log(cid);
       const response = await fetchDataWithAuth("/users/song", "POST", {
         name: songName,
-        songLocation: `https://ipfs.io/ipfs/${added.path}`,
+        songLocation: `${ipfsGatewayBaseUrl}/${cid}`,
         price: parseFloat(songPrice),
         image: songImage !== null && songImage !== "" ? songImage : null,
         category: songCategory,
