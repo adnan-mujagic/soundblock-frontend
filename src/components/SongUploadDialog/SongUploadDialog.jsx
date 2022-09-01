@@ -17,7 +17,7 @@ import FileUpload from "../FileUpload";
 import Loading from "../Loading/Loading";
 import styles from "./SongUploadDialog.module.scss";
 
-function SongUploadDialog({ open, setOpen }) {
+function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -46,6 +46,7 @@ function SongUploadDialog({ open, setOpen }) {
       setAlertOpen(true);
       setAlertMessage(response.message);
       setUploading(false);
+      await updateUserSongs(userId);
       setOpen(false);
     } catch (error) {
       setAlertMessage(
