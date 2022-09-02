@@ -10,6 +10,7 @@ import Home from "../Home";
 import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
 import PurchaseStatus from "../PurchaseStatus";
+import Search from "../Search";
 import styles from "./App.module.scss";
 
 function App() {
@@ -153,6 +154,20 @@ function App() {
               setAudioDetails={setAudioDetails}
               queue={queue}
               setQueue={setQueue}
+              playlists={playlists}
+            />
+          }
+        ></Route>
+        <Route
+          path="/search"
+          element={
+            <Search
+              audio={audio}
+              setAudio={setAudio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
               playlists={playlists}
             />
           }

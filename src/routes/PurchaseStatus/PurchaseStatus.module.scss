@@ -6,6 +6,7 @@
 
 .purchase-status-container {
   display: flex;
+  min-height: var(--page-height);
 }
 
 .purchase-status-grid {

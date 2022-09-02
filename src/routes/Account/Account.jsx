@@ -41,30 +41,29 @@ function Account({
 
   const getUser = async () => {
     setLoading(true);
-    fetchDataWithAuth("/users", "GET")
-      .then((res) => {
-        if (res?.data) {
-          setUser(res.data);
-        }
-        return res.data._id;
-      })
-      .then((artistId) => {
-        return fetchDataWithAuth(`/songs/getByArtist?artistId=${artistId}`);
-      })
-      .then((res) => {
-        if (res.data) {
-          setUser((prevUser) => {
-            return { ...prevUser, ownedSongs: res.data };
-          });
-        }
-        setMessage(res.message);
-        setSnackbarOpen(true);
-      });
+    const response = await fetchDataWithAuth("/users", "GET");
+    if (response?.data) {
+      setUser(response.data);
+    }
+    await updateUserSongs(response.data._id);
+    setMessage(response.message);
+    setSnackbarOpen(true);
     setLoading(false);
   };
 
   const handleEditProfile = () => {
     setEditProfileDialogOpen(true);
+  };
+
+  const updateUserSongs = async (id) => {
+    const response = await fetchDataWithAuth(
+      `/songs/getByArtist?artistId=${id}`
+    );
+    if (response.data) {
+      setUser((previous) => {
+        return { ...previous, ownedSongs: response.data };
+      });
+    }
   };
 
   return (
@@ -76,7 +75,7 @@ function Account({
           setOpen={setSnackbarOpen}
         />
       )}
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["content-wrapper"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content-wrapper"]}>
@@ -144,6 +143,8 @@ function Account({
                 <SongUploadDialog
                   open={songUploadModalOpen}
                   setOpen={setSongUploadModalOpen}
+                  updateUserSongs={updateUserSongs}
+                  userId={user._id}
                 />
                 <EditProfileDialog
                   open={editProfileDialogOpen}

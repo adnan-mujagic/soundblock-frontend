@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Collapse } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -10,7 +11,6 @@ import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import { iconStyle } from "../Sidebar/Sidebar";
 import colors from "../../utils/colors";
 import styles from "./CollapsableMenu.module.scss";
-import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
 function Item({ text, icon, route }) {
   const navigate = useNavigate();
@@ -35,29 +35,18 @@ function Item({ text, icon, route }) {
   );
 }
 
-function CollapsableMenu({ open }) {
-  const [playlists, setPlaylists] = useState([]);
-
-  useEffect(() => {
-    getUserPlaylists();
-  }, []);
-
-  const getUserPlaylists = async () => {
-    const response = await fetchDataWithAuth(
-      "/users/playlists/getPlaylists",
-      "GET"
-    );
-    if (response?.data) {
-      setPlaylists(response.data);
-    }
-  };
-
+function CollapsableMenu({ open, playlists }) {
   return (
     <Collapse in={open}>
       <div
         className={styles["removable"]}
         style={{ padding: "20px", borderBottom: `1px solid ${colors.border}` }}
       >
+        <Item
+          text={"Search"}
+          route={"/search"}
+          icon={<SearchIcon style={iconStyle} />}
+        />
         <Item text={"Home"} route={"/"} icon={<HomeIcon style={iconStyle} />} />
         <Item
           text={"Explore"}
@@ -79,7 +68,7 @@ function CollapsableMenu({ open }) {
           route={"/purchase-status"}
           icon={<MonitorHeartIcon style={iconStyle} />}
         />
-        {playlists.map((playlist) => (
+        {playlists?.map((playlist) => (
           <Item
             key={playlist._id}
             text={playlist.name}

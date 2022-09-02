@@ -54,7 +54,7 @@ function Artist({
 
   return (
     <div className={styles["artist"]}>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["artist-content"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["artist-main-content"]}>

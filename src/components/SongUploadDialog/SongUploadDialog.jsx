@@ -5,18 +5,19 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { create } from "ipfs-http-client";
 import React, { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import upload, { ipfsGatewayBaseUrl } from "../../utils/ipfsApi";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
+import CustomDropdown from "../CustomDropdown";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import FileUpload from "../FileUpload";
 import Loading from "../Loading/Loading";
 import styles from "./SongUploadDialog.module.scss";
 
-function SongUploadDialog({ open, setOpen }) {
+function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -27,24 +28,25 @@ function SongUploadDialog({ open, setOpen }) {
   const [songPriceValidation, setSongPriceValidation] = useState(
     "Please enter a valid song price"
   );
-
-  const client = create("https://ipfs.infura.io:5001/api/v0");
+  const [songCategory, setSongCategory] = useState("");
 
   const handleUpload = async (event) => {
     console.log("Uploading, please wait...");
     try {
       setUploading(true);
-      const added = await client.add(file);
-      console.log(added.path);
+      const { cid } = await upload(file);
+      console.log(cid);
       const response = await fetchDataWithAuth("/users/song", "POST", {
         name: songName,
-        songLocation: `https://ipfs.infura.io/ipfs/${added.path}`,
+        songLocation: `${ipfsGatewayBaseUrl}/${cid}`,
         price: parseFloat(songPrice),
         image: songImage !== null && songImage !== "" ? songImage : null,
+        category: songCategory,
       });
       setAlertOpen(true);
       setAlertMessage(response.message);
       setUploading(false);
+      await updateUserSongs(userId);
       setOpen(false);
     } catch (error) {
       setAlertMessage(
@@ -60,6 +62,7 @@ function SongUploadDialog({ open, setOpen }) {
     setFile(null);
     setOpen(false);
     setSongPrice("");
+    setSongCategory("");
   };
 
   const handleSetSongPrice = (text) => {
@@ -110,6 +113,12 @@ function SongUploadDialog({ open, setOpen }) {
             text={songPrice}
             setText={handleSetSongPrice}
           />
+          <CustomDropdown
+            placeholder={"Select category"}
+            selectedOption={songCategory}
+            setSelectedOption={setSongCategory}
+            options={["Pop", "Rock", "Classic", "Soul", "R & B", "House"]}
+          />
           <FileUpload file={file} setFile={setFile} />
         </DialogContent>
         <DialogActions>
@@ -124,7 +133,10 @@ function SongUploadDialog({ open, setOpen }) {
               text="Upload"
               onClick={(event) => handleUpload(event)}
               disabled={
-                file == null || uploading || songPriceValidation != null
+                file == null ||
+                uploading ||
+                songPriceValidation != null ||
+                songCategory == null
               }
             />
 

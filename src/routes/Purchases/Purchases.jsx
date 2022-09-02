@@ -52,7 +52,7 @@ function Purchases({
 
   return (
     <div className={styles.purchases}>
-      <Header token={token} setToken={setToken} />
+      <Header token={token} setToken={setToken} playlists={playlists} />
       <div className={styles["content-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         {message && (

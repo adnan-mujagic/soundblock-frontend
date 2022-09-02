@@ -13,7 +13,9 @@ export default function useAudio(song, audio, setAudio, setAudioDetails) {
   const loadAudio = () => {
     console.log("Background loading audio for song: " + song.name);
     let loadingAudio = new Audio();
-    loadingAudio.src = songSource;
+    // cutting infura from the link because they are no longer a public IPFS gateway :/
+    let modifiedSource = songSource.replace(".infura", "");
+    loadingAudio.src = modifiedSource;
     loadingAudio.load();
     setBackgroundAudio(loadingAudio);
   };
