@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="basic.ecosia"
+    errors="0" failures="0" hostname="" id="" package="basic" skipped="0"
+    tests="1" time="1.892" timestamp="">
+  
+    <testcase name="Demo test ecosia.org" classname="basic.ecosia" time="1.892" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+       → Error
+
+    Missing url parameter.
+    </system-err>
+  
+
+    
+
+  
+  </testsuite>
+</testsuites>
