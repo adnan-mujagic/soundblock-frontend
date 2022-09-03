@@ -23,10 +23,16 @@ function Header({ token, setToken, playlists }) {
     setOpenMenu(!openMenu);
   };
 
-  const authenticate = async () => {
+  const authenticate = async (withMetamask = true) => {
     try {
-      const { signer } = await connect();
-      const signerAddress = await signer.getAddress();
+      let signerAddress;
+      if (withMetamask) {
+        const { signer } = await connect();
+        signerAddress = await signer.getAddress();
+      }
+
+      signerAddress = "123test";
+
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,
         "POST"
@@ -78,6 +84,11 @@ function Header({ token, setToken, playlists }) {
           )}
         </div>
       </div>
+      {process.env.environment !== "PRODUCTION" &&
+        process.env.environment !== "PREVIEW" &&
+        token === null && (
+          <button onClick={() => authenticate(false)}>TEST</button>
+        )}
       <CollapsableMenu open={openMenu} playlists={playlists} />
     </React.Fragment>
   );
