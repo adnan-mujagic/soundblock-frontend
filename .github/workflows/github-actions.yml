@@ -1,4 +1,4 @@
-name: "Github Actions"
+name: "Continuous Integration with Github Actions"
 on: [push]
 jobs:
   Run-Tests:
