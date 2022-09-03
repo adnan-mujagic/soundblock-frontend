@@ -52,9 +52,6 @@ function Header({ token, setToken, playlists }) {
     navigate("/");
   };
 
-  console.log(process.env);
-  console.log(process.env.NODE_ENV);
-
   return (
     <React.Fragment>
       <div className={styles.header}>
@@ -87,11 +84,9 @@ function Header({ token, setToken, playlists }) {
           )}
         </div>
       </div>
-      {process.env.NODE_ENV !== "production" &&
-        process.env.NODE_ENV !== "staging" &&
-        token === null && (
-          <button onClick={() => authenticate(false)}>TEST</button>
-        )}
+      {process.env.NODE_ENV !== "production" && token === null && (
+        <button onClick={() => authenticate(false)}>TEST</button>
+      )}
       {token && <CollapsableMenu open={openMenu} playlists={playlists} />}
     </React.Fragment>
   );
