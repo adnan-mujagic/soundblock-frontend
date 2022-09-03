@@ -3,7 +3,7 @@ import styles from "./Footer.module.scss";
 
 function Footer() {
   return (
-    <div className={styles["footer"]}>
+    <div data-testid="footer" className={styles["footer"]}>
       ©{new Date().getFullYear()} Rattle, by Adnan Mujagic
     </div>
   );
