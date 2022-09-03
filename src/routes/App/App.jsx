@@ -31,6 +31,7 @@ function App() {
   }, []);
 
   const getUserPlaylists = async () => {
+    if (!token) return;
     const response = await fetchDataWithAuth(
       "/users/playlists/getPlaylists",
       "GET"

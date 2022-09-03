@@ -29,9 +29,9 @@ function Header({ token, setToken, playlists }) {
       if (withMetamask) {
         const { signer } = await connect();
         signerAddress = await signer.getAddress();
+      } else {
+        signerAddress = "123test";
       }
-
-      signerAddress = "123test";
 
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,
@@ -51,6 +51,9 @@ function Header({ token, setToken, playlists }) {
     setToken(null);
     navigate("/");
   };
+
+  console.log(process.env);
+  console.log(process.env.NODE_ENV);
 
   return (
     <React.Fragment>
@@ -84,12 +87,12 @@ function Header({ token, setToken, playlists }) {
           )}
         </div>
       </div>
-      {process.env.environment !== "PRODUCTION" &&
-        process.env.environment !== "PREVIEW" &&
+      {process.env.NODE_ENV !== "production" &&
+        process.env.NODE_ENV !== "staging" &&
         token === null && (
           <button onClick={() => authenticate(false)}>TEST</button>
         )}
-      <CollapsableMenu open={openMenu} playlists={playlists} />
+      {token && <CollapsableMenu open={openMenu} playlists={playlists} />}
     </React.Fragment>
   );
 }
