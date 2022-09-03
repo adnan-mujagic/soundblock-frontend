@@ -36,7 +36,7 @@ module.exports = {
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: "${REACT_APP_PREVIEW_URL}",
+      launch_url: "https://soundblock-frontend.vercel.app/",
 
       screenshots: {
         enabled: false,
@@ -65,7 +65,7 @@ module.exports = {
           args: [
             //'--no-sandbox',
             //'--ignore-certificate-errors',
-            //'--allow-insecure-localhost',
+            "--allow-insecure-localhost",
             //'--headless'
           ],
         },
