@@ -22,10 +22,17 @@ const CssTextField = styled(TextField)({
   },
 });
 
-function CustomTextField({ placeholder, variant, text, setText }) {
+function CustomTextField({
+  placeholder,
+  variant,
+  text,
+  setText,
+  testId = null,
+}) {
   return (
     <div style={{ marginTop: "24px" }}>
       <CssTextField
+        data-testid={testId === null ? "text-field" : testId}
         style={{ borderColor: colors.green }}
         label={placeholder}
         variant={variant}

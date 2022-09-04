@@ -17,7 +17,7 @@ function FileUpload({ file, setFile }) {
   };
 
   return (
-    <div className={styles["file-upload"]}>
+    <div data-testid="file-upload" className={styles["file-upload"]}>
       <DefaultAlert
         open={alertOpen}
         setOpen={setAlertOpen}

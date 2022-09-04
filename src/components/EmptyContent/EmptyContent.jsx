@@ -22,7 +22,12 @@ function EmptyContent({ message, isAnimated }) {
         </div>
       </div>
 
-      <div className={styles["empty-content-message"]}>{message}</div>
+      <div
+        data-testid={"empty-content-message"}
+        className={styles["empty-content-message"]}
+      >
+        {message}
+      </div>
     </div>
   );
 }

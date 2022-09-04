@@ -20,6 +20,7 @@ function CustomButtonFilled({
 }) {
   return (
     <CustomButton
+      data-testid="custom-button"
       style={style ?? style}
       variant="contained"
       onClick={onClick}

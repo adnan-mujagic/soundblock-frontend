@@ -91,12 +91,14 @@ function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
         </DialogTitle>
         <DialogContent>
           <CustomTextField
+            testId={"song-name"}
             variant="outlined"
             placeholder="Song name"
             text={songName}
             setText={setSongName}
           />
           <CustomTextField
+            testId={"song-image"}
             variant="outlined"
             placeholder="Song cover image url"
             text={songImage}
@@ -108,6 +110,7 @@ function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
             </p>
           )}
           <CustomTextField
+            testId={"song-price"}
             variant="outlined"
             placeholder="Song price (ETH)"
             text={songPrice}

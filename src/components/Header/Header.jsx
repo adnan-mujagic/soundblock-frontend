@@ -27,6 +27,7 @@ function Header({ token, setToken, playlists }) {
     try {
       const { signer } = await connect();
       const signerAddress = await signer.getAddress();
+
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,
         "POST"
@@ -48,7 +49,7 @@ function Header({ token, setToken, playlists }) {
 
   return (
     <React.Fragment>
-      <div className={styles.header}>
+      <div data-testid={"header"} className={styles.header}>
         <InstallMetamaskInstructions
           open={installMetamaskDialogOpen}
           setOpen={setInstallMetamaskDialogOpen}
@@ -65,12 +66,17 @@ function Header({ token, setToken, playlists }) {
         <div className={styles["header-wallet-section"]}>
           {token === null ? (
             <AccountBalanceWalletIcon
+              data-testid={"header-wallet-icon"}
               style={iconStyle}
               onClick={authenticate}
             />
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <LogoutIcon style={iconStyle} onClick={disconnect} />
+              <LogoutIcon
+                data-testid={"header-logout-icon"}
+                style={iconStyle}
+                onClick={disconnect}
+              />
               <div className={styles["header-sidebar-expand-button"]}>
                 <MenuIcon style={iconStyle} onClick={handleMenuIconClick} />
               </div>
@@ -78,7 +84,7 @@ function Header({ token, setToken, playlists }) {
           )}
         </div>
       </div>
-      <CollapsableMenu open={openMenu} playlists={playlists} />
+      {token && <CollapsableMenu open={openMenu} playlists={playlists} />}
     </React.Fragment>
   );
 }

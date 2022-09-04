@@ -17,7 +17,10 @@ function PurchaseStatusCard({ purchase }) {
   };
 
   return (
-    <div className={styles["purchase-status-card"]}>
+    <div
+      data-testid={"purchase-status-card"}
+      className={styles["purchase-status-card"]}
+    >
       <div
         style={{
           backgroundImage: `url(${purchase.song.cover ?? defaultSongImage})`,
@@ -44,7 +47,10 @@ function PurchaseStatusCard({ purchase }) {
           <div style={{ fontSize: typography.normal, marginRight: "5px" }}>
             Status
           </div>
-          <div style={{ fontSize: typography.normal, color: getStatusColor() }}>
+          <div
+            data-testid={"purchase-status-indicator"}
+            style={{ fontSize: typography.normal, color: getStatusColor() }}
+          >
             {purchase.status}
           </div>
         </div>
@@ -56,7 +62,7 @@ function PurchaseStatusCard({ purchase }) {
         />
         <AnchorButton
           text={"Owner transaction"}
-          link={purchase.purchaseTransactionLink}
+          link={purchase.ownerTransactionLink}
         />
       </div>
     </div>

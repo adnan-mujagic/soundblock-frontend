@@ -30,15 +30,22 @@ function CustomDropdown({
   return (
     <div style={{ marginTop: selectedOptionExists ? "0" : "24px" }}>
       {selectedOptionExists && (
-        <div style={{ fontSize: typography.tiny, margin: "10px 0" }}>
+        <div
+          data-testid="selected-option"
+          style={{ fontSize: typography.tiny, margin: "10px 0" }}
+        >
           {selectedOption}
         </div>
       )}
       <CustomButtonFilled text={placeholder} onClick={handleClick} />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        {options.map((option) => {
+        {options.map((option, idx) => {
           return (
-            <MenuItem key={option} onClick={() => handleSelect(option)}>
+            <MenuItem
+              data-testid={`item-${idx}`}
+              key={option}
+              onClick={() => handleSelect(option)}
+            >
               {option}
             </MenuItem>
           );

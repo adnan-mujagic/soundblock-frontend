@@ -37,8 +37,9 @@ function Item({ text, icon, route }) {
 
 function CollapsableMenu({ open, playlists }) {
   return (
-    <Collapse in={open}>
+    <Collapse data-testid="collapsable-menu" in={open}>
       <div
+        data-testid="removable"
         className={styles["removable"]}
         style={{ padding: "20px", borderBottom: `1px solid ${colors.border}` }}
       >

@@ -4,7 +4,7 @@ import styles from "./SoldSong.module.scss";
 
 function SoldSong({ soldItem }) {
   return (
-    <div className={styles["sold-song"]}>
+    <div data-testid="sold-song" className={styles["sold-song"]}>
       <div
         style={{
           aspectRatio: "1/1",
@@ -18,7 +18,12 @@ function SoldSong({ soldItem }) {
         className="image-container"
       ></div>
       <div style={{ flex: "0.5" }}>
-        <p className={styles["number-of-sales"]}># SALES {soldItem.count}</p>
+        <p
+          data-testid={"number-of-sales"}
+          className={styles["number-of-sales"]}
+        >
+          # SALES {soldItem.count}
+        </p>
         <p className={styles["sold-song-default-paragraph"]}>
           {soldItem.song.name}
         </p>
@@ -29,7 +34,10 @@ function SoldSong({ soldItem }) {
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png"
               style={{ height: "20px", marginRight: "8px" }}
             />
-            <p style={{ margin: 0, fontSize: "16px" }}>
+            <p
+              data-testid={"total-earned"}
+              style={{ margin: 0, fontSize: "16px" }}
+            >
               {soldItem.totalEarned}
             </p>
           </div>

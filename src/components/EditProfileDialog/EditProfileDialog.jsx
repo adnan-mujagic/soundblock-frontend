@@ -10,7 +10,7 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import CustomButtonFilled from "../CustomButtonFilled";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DifferenceIndicator from "../DifferenceIndicator";
-import styles from "./EditProfile.module.scss";
+import styles from "./EditProfileDialog.module.scss";
 
 function EditProfileDialog({
   open,
@@ -45,7 +45,7 @@ function EditProfileDialog({
   };
 
   const handleUpdate = async () => {
-    const response = await fetchDataWithAuth("/users", "PUT", userData);
+    await fetchDataWithAuth("/users", "PUT", userData);
     getUser();
     setOpen(false);
   };
@@ -68,6 +68,7 @@ function EditProfileDialog({
       <DialogContent>
         <DifferenceIndicator current={initialState} next={userData} />
         <CustomTextField
+          testId="username-text-field"
           placeholder={"Username..."}
           variant={"outlined"}
           text={userData["username"]}

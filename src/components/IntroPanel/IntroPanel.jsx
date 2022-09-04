@@ -12,6 +12,7 @@ function IntroPanel({
 }) {
   return (
     <div
+      data-testid="intro-panel"
       className={styles["intro-panel"]}
       style={{
         flexDirection: imagePosition === "left" ? "row-reverse" : "row",
@@ -31,6 +32,7 @@ function IntroPanel({
         )}
       </div>
       <div
+        data-testid="intro-panel-image"
         className={styles["image-mobile"]}
         style={{
           flex: 0.5,
