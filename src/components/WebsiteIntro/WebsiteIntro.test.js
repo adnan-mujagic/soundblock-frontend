@@ -4,5 +4,5 @@ import WebsiteIntro from "./WebsiteIntro";
 it("Test website intro", () => {
   const { getAllByTestId } = render(<WebsiteIntro />);
 
-  expect(getAllByTestId("intro-panel").length).toBe(5);
+  expect(getAllByTestId("intro-panel").length).toBe(7);
 });
