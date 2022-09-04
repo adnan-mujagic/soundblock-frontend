@@ -23,11 +23,17 @@ function AccountHeader({ artistAddress, username, imageUrl, numberOfSongs }) {
       <div className={styles["user-data"]}>
         {shortenString(!!username ? username : artistAddress, 20)}
         {!!username && (
-          <div className={styles["account-address-bar"]}>
+          <div
+            data-testid="account-address-bar"
+            className={styles["account-address-bar"]}
+          >
             {shortenString(artistAddress, 20)}
           </div>
         )}
-        <div className={styles["number-of-songs"]}>
+        <div
+          data-testid="number-of-songs"
+          className={styles["number-of-songs"]}
+        >
           Number of songs: {numberOfSongs}
         </div>
       </div>

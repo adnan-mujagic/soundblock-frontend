@@ -84,9 +84,6 @@ function Header({ token, setToken, playlists }) {
           )}
         </div>
       </div>
-      {process.env.NODE_ENV !== "production" && token === null && (
-        <button onClick={() => authenticate(false)}>TEST</button>
-      )}
       {token && <CollapsableMenu open={openMenu} playlists={playlists} />}
     </React.Fragment>
   );
