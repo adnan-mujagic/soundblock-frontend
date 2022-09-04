@@ -7,6 +7,7 @@ import InsertLinkIcon from "@mui/icons-material/InsertLink";
 function AnchorButton({ style, text, link }) {
   return (
     <a
+      data-testid="anchor-button"
       style={{
         ...style,
         display: "flex",
