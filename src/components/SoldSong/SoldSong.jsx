@@ -4,7 +4,7 @@ import styles from "./SoldSong.module.scss";
 
 function SoldSong({ soldItem }) {
   return (
-    <div className={styles["sold-song"]}>
+    <div data-testid="sold-song" className={styles["sold-song"]}>
       <div
         style={{
           aspectRatio: "1/1",

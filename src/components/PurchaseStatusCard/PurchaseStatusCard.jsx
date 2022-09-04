@@ -62,7 +62,7 @@ function PurchaseStatusCard({ purchase }) {
         />
         <AnchorButton
           text={"Owner transaction"}
-          link={purchase.purchaseTransactionLink}
+          link={purchase.ownerTransactionLink}
         />
       </div>
     </div>

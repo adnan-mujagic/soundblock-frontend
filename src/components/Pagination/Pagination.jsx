@@ -14,7 +14,6 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
 
   const handleFirstPage = () => {
     setPage(1);
-    console.log("THIS EXECUTES");
   };
 
   const handlePreviousPage = () => {

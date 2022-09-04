@@ -6,7 +6,7 @@ it("Test sidebar", () => {
   const playlists = [
     { id: "0", name: "best songs" },
     { id: "1", name: "popular now" },
-    { id: "1", name: "old" },
+    { id: "2", name: "old" },
   ];
 
   const audioDetails = { source: "some_source" };

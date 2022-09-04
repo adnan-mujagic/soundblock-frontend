@@ -22,6 +22,8 @@ const getPurchaseWithStatus = (status) => {
       name: "Faded",
       price: 0.001,
     },
+    purchaseTransactionLink: "somewhere/on/etherscan.io",
+    ownerTransactionLink: "also/on/etherscan.io",
   };
 };
 
