@@ -19,11 +19,11 @@ const setup = (loggedIn = false) => {
 
   const header = utils.getByTestId("header");
 
-  return { ...utils, setToken, header };
+  return { ...utils, header };
 };
 
 it("Test header when not logged in", () => {
-  const { setToken, getByTestId, queryByTestId } = setup();
+  const { getByTestId, queryByTestId } = setup();
 
   expect(getByTestId("header-wallet-icon")).toBeInTheDocument();
   expect(queryByTestId("header-logout-icon")).not.toBeInTheDocument();
@@ -31,7 +31,7 @@ it("Test header when not logged in", () => {
 });
 
 it("Test header when logged in", () => {
-  const { setToken, getByTestId, queryByTestId } = setup(true);
+  const { getByTestId, queryByTestId } = setup(true);
 
   expect(getByTestId("header-logout-icon")).toBeInTheDocument();
   expect(getByTestId("collapsable-menu")).toBeInTheDocument();

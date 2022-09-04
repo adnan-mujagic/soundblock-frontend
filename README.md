@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Before Using
 
-Make sure you have Node verions 16 installed. Then run the following command to install all the third party dependencies:
+Make sure you have Node version 16 installed. Then run the following command to install all the third party dependencies:
 
 ### `npm install`
 

@@ -26,7 +26,7 @@ function Header({ token, setToken, playlists }) {
   const authenticate = async () => {
     try {
       const { signer } = await connect();
-      let signerAddress = await signer.getAddress();
+      const signerAddress = await signer.getAddress();
 
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,

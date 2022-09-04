@@ -15,13 +15,13 @@ const setup = () => {
 };
 
 it("Test file upload", async () => {
-  const { getByTestId, file, setFile, fileUploadInput } = setup();
+  const { setFile, fileUploadInput } = setup();
 
   const fileToUpload = new File(["foo"], "foo.mp3", { type: "audio/mpeg" });
 
   user.upload(fileUploadInput, fileToUpload);
   await waitFor(() => {
-    expect(setFile).toHaveBeenCalled();
+    expect(setFile).toHaveBeenCalledWith(fileToUpload);
   });
 });
 

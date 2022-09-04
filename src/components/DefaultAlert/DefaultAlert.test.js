@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import DefaultAlert from "./DefaultAlert";
 
@@ -37,9 +37,7 @@ it("Test alert closes when close is clicked", () => {
 
   expect(closeButton).toBeInTheDocument();
 
-  act(() => {
-    closeButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
+  fireEvent.click(closeButton, { bubbles: true });
 
   expect(setOpen).toHaveBeenCalledWith(false);
 });

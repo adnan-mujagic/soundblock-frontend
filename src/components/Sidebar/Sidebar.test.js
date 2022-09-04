@@ -4,9 +4,9 @@ import Sidebar from "./Sidebar";
 
 it("Test sidebar", () => {
   const playlists = [
-    { id: "0", name: "best songs" },
-    { id: "1", name: "popular now" },
-    { id: "2", name: "old" },
+    { _id: "0", name: "best songs" },
+    { _id: "1", name: "popular now" },
+    { _id: "2", name: "old" },
   ];
 
   const audioDetails = { source: "some_source" };

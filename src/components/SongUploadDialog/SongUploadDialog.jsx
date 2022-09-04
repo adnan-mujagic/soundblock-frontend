@@ -110,7 +110,7 @@ function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
             </p>
           )}
           <CustomTextField
-            testId="song-price"
+            testId={"song-price"}
             variant="outlined"
             placeholder="Song price (ETH)"
             text={songPrice}

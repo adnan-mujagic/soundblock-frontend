@@ -1,20 +1,18 @@
 import { fireEvent, render } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import Pagination from "./Pagination";
 
 const setup = (totalItems = 5, page = 1) => {
   const setPage = jest.fn();
-  const utils = render(
+  const { queryByTestId } = render(
     <Pagination totalItems={totalItems} page={page} setPage={setPage} />
   );
-  const pagination = utils.queryByTestId("pagination");
+  const pagination = queryByTestId("pagination");
 
   const controls = ["first", "previous", "next", "last"].map((control) =>
-    utils.queryByTestId(`${control}-page-icon-button`)
+    queryByTestId(`${control}-page-icon-button`)
   );
 
   return {
-    ...utils,
     setPage,
     pagination,
     controls,
