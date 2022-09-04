@@ -3,9 +3,10 @@ import colors from "../../utils/colors";
 import EastIcon from "@mui/icons-material/East";
 import styles from "./DifferenceIndicator.module.scss";
 
-function Line({ text, backgroundColor = "white" }) {
+function Line({ text, backgroundColor = "white", testId = null }) {
   return (
     <div
+      data-testid={testId}
       style={{
         backgroundColor: backgroundColor,
         padding: "5px",
@@ -24,7 +25,10 @@ function DifferenceIndicator({ current, next }) {
   };
 
   return (
-    <div className={styles["difference-indicator"]}>
+    <div
+      data-testid="difference-indicator"
+      className={styles["difference-indicator"]}
+    >
       <div className={styles["current"]}>
         {Object.keys(current).map((key) => (
           <Line key={key} text={`${key}: "${current[key]}"`} />
@@ -36,6 +40,7 @@ function DifferenceIndicator({ current, next }) {
       <div className={styles["next"]}>
         {Object.keys(current).map((key) => (
           <Line
+            testId={`change-line-${key}`}
             key={key}
             text={`${key}: "${next[key]}"`}
             backgroundColor={hasChanged(key) ? colors.lightgreen : "white"}

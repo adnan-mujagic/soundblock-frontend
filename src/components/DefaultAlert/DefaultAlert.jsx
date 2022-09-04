@@ -14,6 +14,7 @@ function DefaultAlert({ message, open, setOpen }) {
   const action = (
     <React.Fragment>
       <IconButton
+        data-testid="default-alert-action"
         size="small"
         aria-label="close"
         color="inherit"
@@ -26,6 +27,7 @@ function DefaultAlert({ message, open, setOpen }) {
 
   return (
     <Snackbar
+      data-testid={"default-alert"}
       open={open}
       autoHideDuration={message.length * 100}
       onClose={handleClose}
@@ -34,12 +36,5 @@ function DefaultAlert({ message, open, setOpen }) {
     />
   );
 }
-
-const defaultAlertStyle = {
-  position: "absolute",
-  zIndex: "10",
-  top: "16px",
-  right: "16px",
-};
 
 export default DefaultAlert;

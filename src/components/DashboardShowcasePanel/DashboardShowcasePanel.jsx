@@ -19,7 +19,7 @@ function DashboardShowcasePanel({
   return (
     <div className={styles["dashboard-showcase-panel"]}>
       <div className={styles["dashboard-header"]}>
-        <div>{title}</div>
+        <div data-testid={"dashboard-showcase-panel-title"}>{title}</div>
         <div>
           <CustomButtonFilled
             text={moreInfoLabel}
@@ -27,7 +27,10 @@ function DashboardShowcasePanel({
           />
         </div>
       </div>
-      <div className={styles["dashboard-song-container"]}>
+      <div
+        data-testid={"dashboard-song-container"}
+        className={styles["dashboard-song-container"]}
+      >
         {songs.map((song) => {
           return (
             <SongCard

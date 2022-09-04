@@ -33,13 +33,9 @@ function EditPlaylist({
 
   const handleUpdate = async () => {
     if (name !== playlist.name) {
-      const response = await fetchDataWithAuth(
-        `/playlists/${playlist._id}`,
-        "PUT",
-        {
-          name: name,
-        }
-      );
+      await fetchDataWithAuth(`/playlists/${playlist._id}`, "PUT", {
+        name: name,
+      });
     }
     getOwnPlaylists();
     getPlaylistInfo();
@@ -62,6 +58,7 @@ function EditPlaylist({
       <DialogTitle>Edit Playlist</DialogTitle>
       <DialogContent>
         <CustomTextField
+          testId="playlist-name-text-field"
           placeholder={"Playlist name..."}
           variant="outlined"
           text={name}
@@ -88,7 +85,11 @@ function EditPlaylist({
         >
           Danger Zone
         </div>
-        <button className={styles["outlined-button"]} onClick={handleDelete}>
+        <button
+          data-testid={"delete-playlist-button"}
+          className={styles["outlined-button"]}
+          onClick={handleDelete}
+        >
           <DeleteIcon />
           Delete
         </button>

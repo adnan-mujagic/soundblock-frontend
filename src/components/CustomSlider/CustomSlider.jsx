@@ -5,6 +5,7 @@ import colors from "../../utils/colors";
 function CustomSlider({ value, onChange }) {
   return (
     <Slider
+      data-testid={"slider"}
       value={value}
       onChange={onChange}
       sx={{
