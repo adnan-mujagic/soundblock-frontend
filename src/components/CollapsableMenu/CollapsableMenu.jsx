@@ -37,33 +37,39 @@ function Item({ text, icon, route }) {
 
 function CollapsableMenu({ open, playlists }) {
   return (
-    <Collapse in={open}>
+    <Collapse data-testid="collapsable-menu" in={open}>
       <div
+        data-testid="removable"
         className={styles["removable"]}
         style={{ padding: "20px", borderBottom: `1px solid ${colors.border}` }}
       >
         <Item
+          data-testid="search"
           text={"Search"}
           route={"/search"}
           icon={<SearchIcon style={iconStyle} />}
         />
         <Item text={"Home"} route={"/"} icon={<HomeIcon style={iconStyle} />} />
         <Item
+          data-testid="explore"
           text={"Explore"}
           route={"/explore"}
           icon={<ExploreIcon style={iconStyle} />}
         />
         <Item
+          data-testid="purchases"
           text={"Purchases"}
           route={"/purchases"}
           icon={<LibraryMusicIcon style={iconStyle} />}
         />
         <Item
+          data-testid="account"
           text={"Account"}
           route={"/account"}
           icon={<AccountCircleIcon style={iconStyle} />}
         />
         <Item
+          data-testid="purchase-status"
           text={"Status"}
           route={"/purchase-status"}
           icon={<MonitorHeartIcon style={iconStyle} />}
