@@ -4,7 +4,7 @@ import styles from "./Loading.module.scss";
 
 function Loading({ margin = false }) {
   return (
-    <div>
+    <div data-testid="loading">
       <MusicNoteIcon
         className={margin ? styles["load-with-margin"] : styles.load}
       />

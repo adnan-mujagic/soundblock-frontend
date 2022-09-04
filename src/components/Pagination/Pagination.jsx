@@ -14,6 +14,7 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
 
   const handleFirstPage = () => {
     setPage(1);
+    console.log("THIS EXECUTES");
   };
 
   const handlePreviousPage = () => {
@@ -33,21 +34,37 @@ function Pagination({ totalItems, page, setPage, limit = 5, setLimit }) {
   }
 
   return (
-    <div className={styles["pagination"]}>
+    <div data-testid="pagination" className={styles["pagination"]}>
       <div className={styles["removable"]}>
         Showing page {page} of {getLastPage()}
       </div>
 
-      <IconButton disabled={page === 1} onClick={handleFirstPage}>
+      <IconButton
+        data-testid="first-page-icon-button"
+        disabled={page === 1}
+        onClick={handleFirstPage}
+      >
         <FirstPageIcon />
       </IconButton>
-      <IconButton disabled={page === 1} onClick={handlePreviousPage}>
+      <IconButton
+        data-testid="previous-page-icon-button"
+        disabled={page === 1}
+        onClick={handlePreviousPage}
+      >
         <ChevronLeftIcon />
       </IconButton>
-      <IconButton disabled={page === getLastPage()} onClick={handleNextPage}>
+      <IconButton
+        data-testid="next-page-icon-button"
+        disabled={page === getLastPage()}
+        onClick={handleNextPage}
+      >
         <ChevronRightIcon />
       </IconButton>
-      <IconButton disabled={page === getLastPage()} onClick={handleLastPage}>
+      <IconButton
+        data-testid="last-page-icon-button"
+        disabled={page === getLastPage()}
+        onClick={handleLastPage}
+      >
         <LastPageIcon />
       </IconButton>
     </div>

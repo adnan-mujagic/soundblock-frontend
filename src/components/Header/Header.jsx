@@ -23,15 +23,10 @@ function Header({ token, setToken, playlists }) {
     setOpenMenu(!openMenu);
   };
 
-  const authenticate = async (withMetamask = true) => {
+  const authenticate = async () => {
     try {
-      let signerAddress;
-      if (withMetamask) {
-        const { signer } = await connect();
-        signerAddress = await signer.getAddress();
-      } else {
-        signerAddress = "123test";
-      }
+      const { signer } = await connect();
+      let signerAddress = await signer.getAddress();
 
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,
@@ -54,7 +49,7 @@ function Header({ token, setToken, playlists }) {
 
   return (
     <React.Fragment>
-      <div className={styles.header}>
+      <div data-testid={"header"} className={styles.header}>
         <InstallMetamaskInstructions
           open={installMetamaskDialogOpen}
           setOpen={setInstallMetamaskDialogOpen}
@@ -71,12 +66,17 @@ function Header({ token, setToken, playlists }) {
         <div className={styles["header-wallet-section"]}>
           {token === null ? (
             <AccountBalanceWalletIcon
+              data-testid={"header-wallet-icon"}
               style={iconStyle}
               onClick={authenticate}
             />
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <LogoutIcon style={iconStyle} onClick={disconnect} />
+              <LogoutIcon
+                data-testid={"header-logout-icon"}
+                style={iconStyle}
+                onClick={disconnect}
+              />
               <div className={styles["header-sidebar-expand-button"]}>
                 <MenuIcon style={iconStyle} onClick={handleMenuIconClick} />
               </div>
