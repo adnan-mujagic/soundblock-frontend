@@ -54,7 +54,7 @@ function EditPlaylist({
   };
 
   return (
-    <Dialog open={open} fullWidth={true}>
+    <Dialog data-testid={"edit-playlist"} open={open} fullWidth={true}>
       <DialogTitle>Edit Playlist</DialogTitle>
       <DialogContent>
         <CustomTextField

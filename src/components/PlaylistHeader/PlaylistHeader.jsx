@@ -23,7 +23,10 @@ function PlaylistHeader({ playlist, getOwnPlaylists, getPlaylistInfo }) {
             .filter((song) => song.image !== null)
             .map((song) => song.image)}
         />
-        <div className={styles["playlist-header-title"]}>
+        <div
+          data-testid="playlist-header-title"
+          className={styles["playlist-header-title"]}
+        >
           {playlist.name}
           <div className={styles["playlist-header-owner"]}>
             by{" "}
