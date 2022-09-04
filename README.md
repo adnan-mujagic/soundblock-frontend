@@ -3,6 +3,10 @@
 Soundblock is a website that provides a user interface for interacting with and partially uploading music to the blockchain/IPFS.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Build Information
+
+![example workflow](https://github.com/adnan-mujagic/soundblock-frontend/actions/workflows/github-actions.yml/badge.svg)
+
 ## Before Using
 
 Make sure you have node installed. Then run the following command to install all the third party dependencies:
