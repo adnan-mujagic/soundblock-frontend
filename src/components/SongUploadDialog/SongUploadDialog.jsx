@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import upload, { ipfsGatewayBaseUrl } from "../../utils/ipfsApi";
+import { songCategories } from "../../utils/songCategories";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
 import CustomDropdown from "../CustomDropdown";
@@ -120,7 +121,7 @@ function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
             placeholder={"Select category"}
             selectedOption={songCategory}
             setSelectedOption={setSongCategory}
-            options={["Pop", "Rock", "Classic", "Soul", "R & B", "House"]}
+            options={songCategories.map((category) => category.name)}
           />
           <FileUpload file={file} setFile={setFile} />
         </DialogContent>

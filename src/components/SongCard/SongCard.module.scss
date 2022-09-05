@@ -9,6 +9,41 @@
 .artist-username {
   color: var(--green);
   font-size: 16px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.song-card-top-right-popup {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.song-card-bottom-right-popup {
+  display: none;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+}
+
+.song-card:hover {
+  background-color: var(--lightgreen);
+  transition: 1.7s;
+}
+
+.song-card:hover .song-card-top-right-popup {
+  display: block;
+}
+
+.song-card:hover .song-card-bottom-right-popup {
+  display: block;
+}
+
+.song-card-status-track {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 750px) {
