@@ -20,6 +20,7 @@ import useAudio from "../../hooks/useAudio";
 import { useNavigate } from "react-router-dom";
 
 function PlaylistDatatableRow({
+  generateQueue,
   idx,
   song,
   audio,
@@ -27,7 +28,6 @@ function PlaylistDatatableRow({
   audioDetails,
   setAudioDetails,
   handleRemove,
-  generateSongQueue,
 }) {
   const navigate = useNavigate();
   const { source, isPlaying } = audioDetails;
@@ -41,7 +41,9 @@ function PlaylistDatatableRow({
 
   const handlePlayAndGenerateQueue = () => {
     handlePlay();
-    generateSongQueue(song._id);
+    if (source !== ownSongLocation) {
+      generateQueue(song._id);
+    }
   };
 
   const onRemoveRequest = () => {
@@ -112,6 +114,7 @@ function PlaylistDatatableRow({
 }
 
 function PlaylistsDatatable({
+  generateQueue,
   songs,
   audio,
   setAudio,
@@ -119,10 +122,13 @@ function PlaylistsDatatable({
   setAudioDetails,
   playlistId,
   refreshSongs,
-  setQueue,
 }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
+
+  const generateQueueWithPlaylist = (songId) => {
+    generateQueue(songId, songs);
+  };
 
   const onRequestSort = (event, cellId) => {
     if (orderBy === cellId) {
@@ -157,21 +163,6 @@ function PlaylistsDatatable({
 
   let sortedSongs = songs.sort(getComparator(order, orderBy));
 
-  const generateSongQueue = (playedSongId) => {
-    const indexOfPlayedSong = sortedSongs
-      .map((song) => song._id)
-      .indexOf(playedSongId);
-    const nextChunk = sortedSongs.slice(indexOfPlayedSong + 1);
-
-    const previousChunk = sortedSongs.slice(0, indexOfPlayedSong);
-
-    const generatedSongQueue = nextChunk.concat(previousChunk);
-
-    console.log(generatedSongQueue);
-
-    setQueue(generatedSongQueue);
-  };
-
   return (
     <div className={styles["playlists-datatable"]}>
       <TableHead
@@ -181,7 +172,7 @@ function PlaylistsDatatable({
       />
       {sortedSongs.map((song, idx) => (
         <PlaylistDatatableRow
-          generateSongQueue={generateSongQueue}
+          generateQueue={generateQueueWithPlaylist}
           key={idx}
           idx={idx + 1}
           song={song}

@@ -21,7 +21,9 @@ function AudioOptionsController({
   setAudioDetails,
   audio,
   queue,
-  setQueue,
+  previous,
+  next,
+  randomNext,
 }) {
   const { source, image, name } = audioDetails;
   const [replayOn, setReplayOn] = useState(false);
@@ -58,7 +60,11 @@ function AudioOptionsController({
   };
 
   const handleRewind = () => {
-    audio.currentTime = 0;
+    if (audio.currentTime < 2) {
+      previous();
+    } else {
+      audio.currentTime = 0;
+    }
   };
 
   const handleOnShuffleChange = () => {
@@ -93,28 +99,10 @@ function AudioOptionsController({
       console.log("Replay is on... returning");
       return;
     }
-
-    if (queue && !queue.length) {
-      setAudioDetails((previousDetails) => {
-        return { ...previousDetails, isPlaying: false };
-      });
+    if (shuffleOn) {
+      randomNext();
     } else {
-      console.log("There are songs in the queue", queue);
-      let poppedSong = queue[0];
-      console.log("Popping the song...", poppedSong);
-      audio.src = poppedSong.songLocation;
-      audio.load();
-      audio.play();
-      setAudioDetails({
-        source: poppedSong.songLocation,
-        name: poppedSong.name,
-        image: poppedSong.image || defaultSongImage,
-        isPlaying: true,
-      });
-
-      let remainingQueue = queue.slice(1);
-      console.log("Remaining songs in the queue", remainingQueue);
-      setQueue(remainingQueue);
+      next();
     }
   };
 

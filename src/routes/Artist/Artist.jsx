@@ -21,6 +21,9 @@ function Artist({
   queue,
   setQueue,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const { id } = useParams();
   const [artist, setArtist] = useState(null);
@@ -110,6 +113,9 @@ function Artist({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

@@ -22,6 +22,9 @@ function Explore({
   queue,
   setQueue,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
@@ -101,6 +104,9 @@ function Explore({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

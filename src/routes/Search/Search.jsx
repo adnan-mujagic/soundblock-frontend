@@ -17,6 +17,9 @@ function Search({
   audioDetails,
   setAudioDetails,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const [songs, setSongs] = useState([]);
   const [total, setTotal] = useState(0);
@@ -74,6 +77,9 @@ function Search({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

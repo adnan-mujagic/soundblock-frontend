@@ -27,6 +27,9 @@ function Account({
   setToken,
   playlists,
   getOwnPlaylists,
+  next,
+  previous,
+  randomNext,
 }) {
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -163,6 +166,9 @@ function Account({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

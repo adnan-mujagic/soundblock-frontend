@@ -10,14 +10,18 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./Playlist.module.scss";
 
 function Playlist({
+  queue,
+  setQueue,
+  generateQueue,
+  previous,
+  next,
+  randomNext,
   audio,
   setAudio,
   audioDetails,
   setAudioDetails,
   token,
   setToken,
-  queue,
-  setQueue,
   playlists,
   getOwnPlaylists,
 }) {
@@ -50,7 +54,7 @@ function Playlist({
           )}
           {playlist ? (
             <PlaylistsDatatable
-              setQueue={setQueue}
+              generateQueue={generateQueue}
               songs={playlist.songs}
               audio={audio}
               setAudio={setAudio}
@@ -68,6 +72,9 @@ function Playlist({
       <AudioOptionsController
         queue={queue}
         setQueue={setQueue}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
         audio={audio}
         audioDetails={audioDetails}
         setAudioDetails={setAudioDetails}

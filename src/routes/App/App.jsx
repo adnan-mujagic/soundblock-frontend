@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import useQueue from "../../hooks/useQueue";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import SessionStorage from "../../utils/SessionStorage";
 import Account from "../Account";
@@ -24,7 +25,19 @@ function App() {
 
   const [audio, setAudio] = useState(new Audio());
   const [queue, setQueue] = useState([]);
+  const [playedSongs, setPlayedSongs] = useState([]);
   const [playlists, setPlaylists] = useState([]);
+
+  const { generateQueue, previous, next, randomNext } = useQueue(
+    queue,
+    setQueue,
+    playedSongs,
+    setPlayedSongs,
+    audio,
+    setAudio,
+    audioDetails,
+    setAudioDetails
+  );
 
   useEffect(() => {
     getUserPlaylists();
@@ -57,6 +70,10 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               playlists={playlists}
+              generateQueue={generateQueue}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -74,6 +91,9 @@ function App() {
               setToken={setToken}
               playlists={playlists}
               getOwnPlaylists={getUserPlaylists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -91,6 +111,9 @@ function App() {
               setToken={setToken}
               playlists={playlists}
               getOwnPlaylists={getUserPlaylists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -107,6 +130,9 @@ function App() {
               token={token}
               setToken={setToken}
               playlists={playlists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -123,6 +149,9 @@ function App() {
               token={token}
               setToken={setToken}
               playlists={playlists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -132,6 +161,10 @@ function App() {
             <Playlist
               queue={queue}
               setQueue={setQueue}
+              generateQueue={generateQueue}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
               audio={audio}
               setAudio={setAudio}
               audioDetails={audioDetails}
@@ -156,6 +189,9 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               playlists={playlists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
@@ -170,6 +206,9 @@ function App() {
               token={token}
               setToken={setToken}
               playlists={playlists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
             />
           }
         ></Route>
