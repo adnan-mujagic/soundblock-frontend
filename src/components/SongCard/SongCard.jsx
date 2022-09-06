@@ -1,7 +1,4 @@
-import getColorFromString from "../../utils/getColorFromString";
-import typography from "../../utils/typography";
 import styles from "./SongCard.module.scss";
-import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";

@@ -17,36 +17,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import EmptyContent from "../EmptyContent/EmptyContent";
 import useAudio from "../../hooks/useAudio";
-
-function PlaylistDatatableOverlay({
-  isPlaying,
-  handlePlay,
-  handlePause,
-  handleRemove,
-}) {
-  return (
-    <div className={styles["playlist-datatable-overlay"]}>
-      <div style={{ marginLeft: "10px" }}>
-        {!isPlaying ? (
-          <CustomIconButton onClick={handlePlay}>
-            <PlayArrowIcon />
-          </CustomIconButton>
-        ) : (
-          <CustomIconButton onClick={handlePause}>
-            <PauseIcon />
-          </CustomIconButton>
-        )}
-      </div>
-      <div style={{ marginRight: "10px" }}>
-        <Tooltip title="Remove from playlist">
-          <IconButton onClick={handleRemove}>
-            <CloseIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-    </div>
-  );
-}
+import { useNavigate } from "react-router-dom";
 
 function PlaylistDatatableRow({
   idx,
@@ -58,6 +29,7 @@ function PlaylistDatatableRow({
   handleRemove,
   generateSongQueue,
 }) {
+  const navigate = useNavigate();
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
   const [handlePlay, handlePause] = useAudio(
@@ -76,16 +48,33 @@ function PlaylistDatatableRow({
     handleRemove(song._id);
   };
 
+  const handleArtistClick = () => {
+    const artistId = song.artist[0]._id;
+    if (artistId) {
+      navigate(`/artists/${artistId}`);
+    }
+  };
+
   return (
     <div className={styles["playlist-datatable-row"]}>
-      {
-        <PlaylistDatatableOverlay
-          handlePlay={handlePlayAndGenerateQueue}
-          handlePause={handlePause}
-          isPlaying={ownSongLocation === source && isPlaying}
-          handleRemove={onRemoveRequest}
-        />
-      }
+      <div className={styles["playlist-datatable-overlay-left"]}>
+        {!isPlaying || source !== ownSongLocation ? (
+          <CustomIconButton onClick={handlePlayAndGenerateQueue}>
+            <PlayArrowIcon />
+          </CustomIconButton>
+        ) : (
+          <CustomIconButton onClick={handlePause}>
+            <PauseIcon />
+          </CustomIconButton>
+        )}
+      </div>
+      <div className={styles["playlist-datatable-overlay-right"]}>
+        <Tooltip title="Remove from playlist">
+          <IconButton onClick={onRemoveRequest}>
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
       <div style={{ ...tableCellStyles, flex: 0.1 }}>{idx}</div>
       <div style={{ ...tableCellStyles, flex: 1 }}>
         <div
@@ -110,8 +99,13 @@ function PlaylistDatatableRow({
           color: getColorFromString(song.artist[0].walletAddress),
         }}
       >
-        {song.artist[0].username ||
-          shortenString(song.artist[0].walletAddress, 20)}
+        <div
+          onClick={handleArtistClick}
+          style={{ cursor: "pointer", width: "fit-content" }}
+        >
+          {song.artist[0].username ||
+            shortenString(song.artist[0].walletAddress, 20)}
+        </div>
       </div>
     </div>
   );

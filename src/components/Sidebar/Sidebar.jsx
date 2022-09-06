@@ -73,7 +73,6 @@ function Sidebar({ audioDetails, playlists }) {
         <MonitorHeartIcon style={iconStyle} />
         Purchase Status
       </div>
-      <Separator />
       {playlists?.map((playlist) => {
         return (
           <div
