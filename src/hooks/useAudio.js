@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { defaultSongImage } from "../utils/defaultImage";
 
 export default function useAudio(song, audio, setAudio, setAudioDetails) {

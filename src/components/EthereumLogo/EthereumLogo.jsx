@@ -7,6 +7,7 @@ function EthereumLogo({ height = 20 }) {
       style={{
         height: `${height}px`,
       }}
+      alt="Ethereum logo"
     />
   );
 }

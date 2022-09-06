@@ -17,6 +17,7 @@ function AnchorButton({ style, text, link }) {
         color: colors.text,
       }}
       target={"_blank"}
+      rel="noreferrer"
       href={link}
     >
       <InsertLinkIcon style={{ marginRight: "5px" }} />

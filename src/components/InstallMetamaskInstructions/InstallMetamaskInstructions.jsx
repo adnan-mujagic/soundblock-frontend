@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, IconButton, Tooltip } from "@mui/material";
+import { Dialog, IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import colors from "../../utils/colors";
 import typography from "../../utils/typography";
@@ -26,6 +26,7 @@ function InstallMetamaskInstructions({ open, setOpen }) {
             instructions at the link given below.
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://metamask.io/"
               className={styles["metamask-link"]}
             >

@@ -7,6 +7,7 @@ function Badge({ title, backgroundColor, link = null, label = null }) {
     <a
       href={link}
       target="_blank"
+      rel="noreferrer"
       style={{
         cursor: link ? "pointer" : "default",
         display: "flex",

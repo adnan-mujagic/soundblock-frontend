@@ -16,7 +16,6 @@ import CustomTextField from "../CustomTextField/CustomTextField";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import FileUpload from "../FileUpload";
 import Loading from "../Loading/Loading";
-import styles from "./SongUploadDialog.module.scss";
 
 function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
   const [file, setFile] = useState(null);

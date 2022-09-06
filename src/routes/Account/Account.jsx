@@ -28,7 +28,6 @@ function Account({
   playlists,
   getOwnPlaylists,
 }) {
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState(null);
@@ -40,7 +39,6 @@ function Account({
   }, []);
 
   const getUser = async () => {
-    setLoading(true);
     const response = await fetchDataWithAuth("/users", "GET");
     if (response?.data) {
       setUser(response.data);
@@ -48,7 +46,6 @@ function Account({
     await updateUserSongs(response.data._id);
     setMessage(response.message);
     setSnackbarOpen(true);
-    setLoading(false);
   };
 
   const handleEditProfile = () => {

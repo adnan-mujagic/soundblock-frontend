@@ -6,7 +6,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import colors from "../../utils/colors";
-import Separator from "../Separator/Separator";
 import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
 import typography from "../../utils/typography";
