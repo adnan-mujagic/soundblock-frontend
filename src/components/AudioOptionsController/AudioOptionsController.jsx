@@ -63,15 +63,13 @@ function AudioOptionsController({
     if (audio.currentTime < 2 && queue && queue.length > 0) {
       previous();
     } else {
-      console.log(
-        "Rewind called later than 2 seconds into the song, or the queue doesn't exist"
-      );
       audio.currentTime = 0;
     }
   };
 
   const handleOnShuffleChange = () => {
-    setShuffleOn(!shuffleOn);
+    const changedShuffleOn = !shuffleOn;
+    setShuffleOn(changedShuffleOn);
   };
 
   const handleOnReplayChange = () => {
@@ -100,7 +98,6 @@ function AudioOptionsController({
   const handleSongEnded = () => {
     if (replayOn || !queue || !queue.length) {
       audio.currentTime = audio.duration;
-      console.log("Replay is on, or there is no queue");
     } else if (shuffleOn) {
       randomNext();
     } else {

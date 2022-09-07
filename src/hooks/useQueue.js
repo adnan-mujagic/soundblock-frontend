@@ -11,6 +11,7 @@ export default function useQueue(
   setAudioDetails
 ) {
   const generateQueue = (playedSongId, songList) => {
+    console.log("Using generateQueue() method");
     const indexOfPlayedSong = songList
       .map((song) => song._id)
       .indexOf(playedSongId);
@@ -51,6 +52,7 @@ export default function useQueue(
   };
 
   const next = () => {
+    console.log("Using next() method");
     const playedSongIds = playedSongs.map((playedSong) => playedSong._id);
     console.log("Played song ids are: ", playedSongIds);
 
@@ -80,6 +82,7 @@ export default function useQueue(
   };
 
   const previous = () => {
+    console.log("Using previous() method");
     const hasPrevious = playedSongs.length >= 2;
 
     if (hasPrevious) {
@@ -95,6 +98,7 @@ export default function useQueue(
   };
 
   const randomNext = () => {
+    console.log("Using randomNext() method");
     const songSelectionPool = queue.filter(
       (song) => !playedSongs.includes(song)
     );
@@ -104,7 +108,7 @@ export default function useQueue(
       );
       const winner = getRandomElement(songSelectionPool);
       setPlayedSongs([...playedSongs, winner]);
-      console.log("Winner is: ", winner);
+      console.log("Winner is: ", winner.name);
       handlePlay(winner);
     } else {
       console.log(

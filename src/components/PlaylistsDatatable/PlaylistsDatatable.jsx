@@ -32,7 +32,7 @@ function PlaylistDatatableRow({
   const navigate = useNavigate();
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
-  const [handlePlay, handlePause, backgroundAudio] = useAudio(
+  const [handlePlay, handlePause] = useAudio(
     song,
     audio,
     setAudio,
@@ -40,10 +40,6 @@ function PlaylistDatatableRow({
   );
 
   const handlePlayAndGenerateQueue = () => {
-    console.log("Playing song with name", song.name);
-    console.log(
-      `Background loaded audio source for this song is ${backgroundAudio.src}, but the actual source is ${ownSongLocation}`
-    );
     handlePlay();
     if (source !== ownSongLocation) {
       generateQueue(song._id);

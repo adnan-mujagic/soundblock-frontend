@@ -58,7 +58,6 @@ export default function useAudio(
   };
 
   const replaceWithNewAudioAndStartPlaying = () => {
-    console.log(`Replacing ${audio.src} with ${backgroundAudio.src}`);
     backgroundAudio.play();
     backgroundAudio.volume = audio.volume;
     backgroundAudio.loop = audio.loop;
@@ -76,5 +75,5 @@ export default function useAudio(
     }
   };
 
-  return [handlePlay, handlePause, backgroundAudio];
+  return [handlePlay, handlePause];
 }
