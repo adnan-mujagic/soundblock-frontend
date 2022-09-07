@@ -56,7 +56,7 @@ function AudioOptionsController({
   };
 
   const handleSkip = () => {
-    audio.currentTime = audio.duration;
+    handleSongEnded();
   };
 
   const handleRewind = () => {
@@ -99,10 +99,9 @@ function AudioOptionsController({
 
   const handleSongEnded = () => {
     if (replayOn || !queue || !queue.length) {
+      audio.currentTime = audio.duration;
       console.log("Replay is on, or there is no queue");
-      return;
-    }
-    if (shuffleOn) {
+    } else if (shuffleOn) {
       randomNext();
     } else {
       next();

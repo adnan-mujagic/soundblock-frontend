@@ -32,7 +32,7 @@ function PlaylistDatatableRow({
   const navigate = useNavigate();
   const { source, isPlaying } = audioDetails;
   const ownSongLocation = song.songLocation;
-  const [handlePlay, handlePause] = useAudio(
+  const [handlePlay, handlePause, backgroundAudio] = useAudio(
     song,
     audio,
     setAudio,
@@ -41,6 +41,9 @@ function PlaylistDatatableRow({
 
   const handlePlayAndGenerateQueue = () => {
     console.log("Playing song with name", song.name);
+    console.log(
+      `Background loaded audio source for this song is ${backgroundAudio.src}, but the actual source is ${ownSongLocation}`
+    );
     handlePlay();
     if (source !== ownSongLocation) {
       generateQueue(song._id);
@@ -158,11 +161,12 @@ function PlaylistsDatatable({
     );
   }
 
-  let sortedSongs = songs.sort(getComparator(order, orderBy));
-  console.log("Sorted songs are: ", sortedSongs);
-
   const generateQueueWithPlaylist = (songId) => {
-    generateQueue(songId, sortedSongs);
+    generateQueue(songId, getSortedSongs());
+  };
+
+  const getSortedSongs = () => {
+    return [...songs].sort(getComparator(order, orderBy));
   };
 
   return (
@@ -172,7 +176,7 @@ function PlaylistsDatatable({
         orderBy={orderBy}
         onRequestSort={onRequestSort}
       />
-      {sortedSongs.map((song, idx) => (
+      {getSortedSongs().map((song, idx) => (
         <PlaylistDatatableRow
           generateQueue={generateQueueWithPlaylist}
           key={idx}

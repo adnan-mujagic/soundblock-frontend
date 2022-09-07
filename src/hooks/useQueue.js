@@ -57,7 +57,11 @@ export default function useQueue(
     const nextSong = queue.find((song) => !playedSongIds.includes(song._id));
 
     if (nextSong) {
-      console.log("Found next song to play: ", nextSong.name);
+      console.log(
+        "Found next song to play: ",
+        nextSong.name,
+        nextSong.loadingAudio
+      );
       let newPlayed = [...playedSongs, nextSong];
       console.log(
         "New played songs: ",
@@ -133,8 +137,9 @@ export default function useQueue(
       audio.currentTime = 0;
       return;
     }
-    currentSong.loadingAudio.pause();
-    currentSong.loadingAudio.currentTime = 0;
+
+    resetAudio(audio);
+    resetAudio(currentSong.loadingAudio);
     // set up new song (copy current volume, and loop)
     const nextAudio = nextSong.loadingAudio;
     nextAudio.volume = audio.volume;
@@ -149,6 +154,11 @@ export default function useQueue(
       image: image || defaultSongImage,
       isPlaying: true,
     });
+  };
+
+  const resetAudio = (audio) => {
+    audio.pause();
+    audio.currentTime = 0;
   };
 
   return { generateQueue, next, previous, randomNext };
