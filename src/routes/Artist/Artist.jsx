@@ -85,6 +85,7 @@ function Artist({
                   })
                   .map((expandedSong) => (
                     <SongCard
+                      setQueue={setQueue}
                       key={expandedSong._id}
                       audio={audio}
                       setAudio={setAudio}

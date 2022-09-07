@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { defaultSongImage } from "../utils/defaultImage";
 
 export default function useQueue(
@@ -11,15 +10,7 @@ export default function useQueue(
   audioDetails,
   setAudioDetails
 ) {
-  const location = useLocation();
-  const allowedPath = new RegExp("/playlists/[a-z0-9]{24}");
-  const isAllowedPath = allowedPath.test(location.pathname);
-
   const generateQueue = (playedSongId, songList) => {
-    if (!isAllowedPath) {
-      console.log("Method generateQueue() is not allowed on this path");
-      return;
-    }
     const indexOfPlayedSong = songList
       .map((song) => song._id)
       .indexOf(playedSongId);
@@ -60,10 +51,6 @@ export default function useQueue(
   };
 
   const next = () => {
-    if (!isAllowedPath) {
-      console.log("Method next() is not allowed on this path, returing");
-      return;
-    }
     const playedSongIds = playedSongs.map((playedSong) => playedSong._id);
     console.log("Played song ids are: ", playedSongIds);
 
@@ -89,13 +76,6 @@ export default function useQueue(
   };
 
   const previous = () => {
-    if (!isAllowedPath) {
-      console.log(
-        "Method previous() is not allowed on this path, replaying current song by default"
-      );
-      audio.currentTime = 0;
-      return;
-    }
     const hasPrevious = playedSongs.length >= 2;
 
     if (hasPrevious) {
@@ -111,10 +91,6 @@ export default function useQueue(
   };
 
   const randomNext = () => {
-    if (!isAllowedPath) {
-      console.log("Method randomNext() is not allowed on this path, returing");
-      return;
-    }
     const songSelectionPool = queue.filter(
       (song) => !playedSongs.includes(song)
     );

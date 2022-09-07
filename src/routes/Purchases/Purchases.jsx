@@ -94,6 +94,7 @@ function Purchases({
                     setAudioDetails={setAudioDetails}
                     playlists={playlists}
                     getOwnPlaylists={getOwnPlaylists}
+                    setQueue={setQueue}
                   />
                 </div>
               )}

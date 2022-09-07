@@ -21,6 +21,7 @@ function SongCard({
   audioDetails,
   setAudioDetails,
   song,
+  setQueue,
   canBuy = false,
   showViewArtist = true,
 }) {
@@ -31,7 +32,8 @@ function SongCard({
     song,
     audio,
     setAudio,
-    setAudioDetails
+    setAudioDetails,
+    setQueue
   );
 
   const navigate = useNavigate();

@@ -40,6 +40,7 @@ function PlaylistDatatableRow({
   );
 
   const handlePlayAndGenerateQueue = () => {
+    console.log("Playing song with name", song.name);
     handlePlay();
     if (source !== ownSongLocation) {
       generateQueue(song._id);
@@ -126,10 +127,6 @@ function PlaylistsDatatable({
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
 
-  const generateQueueWithPlaylist = (songId) => {
-    generateQueue(songId, songs);
-  };
-
   const onRequestSort = (event, cellId) => {
     if (orderBy === cellId) {
       if (order === "asc") {
@@ -162,6 +159,11 @@ function PlaylistsDatatable({
   }
 
   let sortedSongs = songs.sort(getComparator(order, orderBy));
+  console.log("Sorted songs are: ", sortedSongs);
+
+  const generateQueueWithPlaylist = (songId) => {
+    generateQueue(songId, sortedSongs);
+  };
 
   return (
     <div className={styles["playlists-datatable"]}>

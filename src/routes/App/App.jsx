@@ -209,6 +209,7 @@ function App() {
               previous={previous}
               next={next}
               randomNext={randomNext}
+              setQueue={setQueue}
             />
           }
         ></Route>

@@ -31,6 +31,7 @@ function Home({
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             playlists={playlists}
+            setQueue={setQueue}
           />
           <AudioOptionsController
             queue={queue}

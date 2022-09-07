@@ -75,6 +75,7 @@ function Explore({
                 songsToExplore.map((song, index) => {
                   return (
                     <SongCard
+                      setQueue={setQueue}
                       audio={audio}
                       setAudio={setAudio}
                       audioDetails={audioDetails}

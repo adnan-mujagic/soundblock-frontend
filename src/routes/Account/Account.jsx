@@ -30,6 +30,7 @@ function Account({
   next,
   previous,
   randomNext,
+  setQueue,
 }) {
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -113,6 +114,7 @@ function Account({
                     let { ownedSongs, ...rest } = user;
                     return (
                       <SongCard
+                        setQueue={setQueue}
                         audio={audio}
                         setAudio={setAudio}
                         audioDetails={audioDetails}

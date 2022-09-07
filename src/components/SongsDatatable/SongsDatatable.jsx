@@ -112,13 +112,15 @@ function TableRow({
   audioDetails,
   setAudioDetails,
   handleExpandMore,
+  setQueue,
 }) {
   const navigate = useNavigate();
   const [handlePlay, handlePause] = useAudio(
     song,
     audio,
     setAudio,
-    setAudioDetails
+    setAudioDetails,
+    setQueue
   );
 
   let ownSongLocation = song.songLocation;
@@ -191,6 +193,7 @@ function SongsDatatable({
   setAudioDetails,
   playlists,
   getOwnPlaylists,
+  setQueue,
 }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
@@ -251,6 +254,7 @@ function SongsDatatable({
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             handleExpandMore={handleExpandMore}
+            setQueue={setQueue}
           />
         ))}
       </div>

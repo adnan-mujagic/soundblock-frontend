@@ -20,6 +20,7 @@ function Search({
   previous,
   next,
   randomNext,
+  setQueue,
 }) {
   const [songs, setSongs] = useState([]);
   const [total, setTotal] = useState(0);
@@ -55,6 +56,7 @@ function Search({
                     song={song}
                     canBuy={!song.isPurchased}
                     showViewArtist={true}
+                    setQueue={setQueue}
                   />
                 ))}
               </div>

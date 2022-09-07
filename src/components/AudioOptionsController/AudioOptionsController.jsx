@@ -60,9 +60,12 @@ function AudioOptionsController({
   };
 
   const handleRewind = () => {
-    if (audio.currentTime < 2) {
+    if (audio.currentTime < 2 && queue && queue.length > 0) {
       previous();
     } else {
+      console.log(
+        "Rewind called later than 2 seconds into the song, or the queue doesn't exist"
+      );
       audio.currentTime = 0;
     }
   };
@@ -95,8 +98,8 @@ function AudioOptionsController({
   };
 
   const handleSongEnded = () => {
-    if (replayOn) {
-      console.log("Replay is on... returning");
+    if (replayOn || !queue || !queue.length) {
+      console.log("Replay is on, or there is no queue");
       return;
     }
     if (shuffleOn) {
@@ -154,12 +157,14 @@ function AudioOptionsController({
 
       <div className={styles["options-wrapper"]}>
         <div className={styles["options-top"]}>
-          <IconButton
-            onClick={handleOnShuffleChange}
-            style={{ color: shuffleOn ? colors.green : null }}
-          >
-            <ShuffleIcon />
-          </IconButton>
+          {queue && queue.length > 0 && (
+            <IconButton
+              onClick={handleOnShuffleChange}
+              style={{ color: shuffleOn ? colors.green : null }}
+            >
+              <ShuffleIcon />
+            </IconButton>
+          )}
           <IconButton onClick={handleRewind}>
             <FirstPageIcon />
           </IconButton>
