@@ -42,6 +42,7 @@ function SongUploadDialog({ open, setOpen, updateUserSongs, userId }) {
         price: parseFloat(songPrice),
         image: songImage !== null && songImage !== "" ? songImage : null,
         category: songCategory,
+        cid: cid,
       });
       setAlertOpen(true);
       setAlertMessage(response.message);
