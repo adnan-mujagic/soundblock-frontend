@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import Pagination from "../../components/Pagination";
 import PurchaseStatusCard from "../../components/PurchaseStatusCard";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./PurchaseStatus.module.scss";
 
@@ -28,11 +29,16 @@ function PurchaseStatus({
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
     getUserPurchases();
   }, [page]);
 
   const getUserPurchases = async () => {
+    if (!token) {
+      return;
+    }
     setLoading(true);
     const response = await fetchDataWithAuth(
       `/users/songs/getPurchasedSongs?page=${page}&limit=${limit}`,
@@ -51,7 +57,12 @@ function PurchaseStatus({
 
   return (
     <div>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["purchase-status-container"]}>
         <DefaultAlert
           message={alertMessage}

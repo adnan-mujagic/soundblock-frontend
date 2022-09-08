@@ -11,13 +11,15 @@ import styles from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
 import InstallMetamaskInstructions from "../InstallMetamaskInstructions";
 import CollapsableMenu from "../CollapsableMenu";
+import Loading from "../Loading/Loading";
+import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 
-function Header({ token, setToken, playlists }) {
+function Header({ token, setToken, playlists, audio, setPlaylists }) {
   const navigate = useNavigate();
   const [installMetamaskDialogOpen, setInstallMetamaskDialogOpen] =
     useState(false);
-
   const [openMenu, setOpenMenu] = useState(false);
+  const [loginStatus, setLoginStatus] = useState("");
 
   const handleMenuIconClick = () => {
     setOpenMenu(!openMenu);
@@ -25,31 +27,56 @@ function Header({ token, setToken, playlists }) {
 
   const authenticate = async () => {
     try {
+      setLoginStatus("Getting Metamask wallet address...");
       const { signer } = await connect();
       const signerAddress = await signer.getAddress();
 
+      setLoginStatus("Authenticating wallet address...");
       const data = await fetchData(
         `/users/authenticate/${signerAddress}`,
         "POST"
       );
       SessionStorage.setToken(data.token);
+      setLoginStatus("Getting user playlists...");
+      await getUserPlaylists();
       setToken(data.token);
     } catch (error) {
       if (error.message === "Metamask required") {
         setInstallMetamaskDialogOpen(true);
       }
     }
+    setLoginStatus("");
+  };
+
+  const getUserPlaylists = async () => {
+    const response = await fetchDataWithAuth(
+      "/users/playlists/getPlaylists",
+      "GET"
+    );
+    if (response.data) {
+      setPlaylists(response.data);
+    }
   };
 
   const disconnect = () => {
+    audio.pause();
     SessionStorage.removeToken();
     setToken(null);
     navigate("/");
   };
 
+  const LoggingInAlert = ({ status }) => {
+    return (
+      <div className={styles["logging-in-alert"]}>
+        <Loading /> <span className={styles["loggin-in-text"]}>{status}</span>
+      </div>
+    );
+  };
+
   return (
     <React.Fragment>
       <div data-testid={"header"} className={styles.header}>
+        {loginStatus && <LoggingInAlert status={loginStatus} />}
         <InstallMetamaskInstructions
           open={installMetamaskDialogOpen}
           setOpen={setInstallMetamaskDialogOpen}
@@ -57,7 +84,7 @@ function Header({ token, setToken, playlists }) {
         <div
           className={styles["header-title"]}
           onClick={() => {
-            window.location = "/";
+            navigate("/");
           }}
         >
           <MusicNoteIcon style={iconStyle} />

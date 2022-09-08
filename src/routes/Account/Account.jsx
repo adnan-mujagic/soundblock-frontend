@@ -17,6 +17,7 @@ import AudioOptionsController from "../../components/AudioOptionsController";
 import SoldSongs from "../../components/SoldSongs";
 import EditProfileDialog from "../../components/EditProfileDialog";
 import AccountHeader from "../../components/AccountHeader";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 
 function Account({
   audio,
@@ -38,8 +39,12 @@ function Account({
   const [songUploadModalOpen, setSongUploadModalOpen] = useState(false);
   const [editProfileDialogOpen, setEditProfileDialogOpen] = useState(false);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
-    getUser();
+    if (token) {
+      getUser();
+    }
   }, []);
 
   const getUser = async () => {
@@ -76,7 +81,12 @@ function Account({
           setOpen={setSnackbarOpen}
         />
       )}
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["content-wrapper"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content-wrapper"]}>
@@ -157,7 +167,7 @@ function Account({
                   currentImage={user.image}
                 />
               </div>
-              <SoldSongs />
+              {token && <SoldSongs />}
             </div>
           ) : (
             <Loading />

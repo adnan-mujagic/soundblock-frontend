@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import SongCard from "../../components/SongCard";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import dateToGreeting from "../../utils/dateToGreeting";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
@@ -31,8 +32,13 @@ function Explore({
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
     async function getSongsToExplore() {
+      if (!token) {
+        return;
+      }
       setLoading(true);
       const response = await fetchDataWithAuth(
         "/songs/getSongsToExplore",
@@ -50,7 +56,12 @@ function Explore({
 
   return (
     <div className={styles.explore}>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["content-wrapper"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         {message && (

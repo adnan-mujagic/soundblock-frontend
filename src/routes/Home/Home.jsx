@@ -17,10 +17,17 @@ function Home({
   previous,
   next,
   randomNext,
+  setPlaylists,
 }) {
   return (
     <div className={styles.home}>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+        setPlaylists={setPlaylists}
+      />
       {token === null ? (
         <WebsiteIntro />
       ) : (
