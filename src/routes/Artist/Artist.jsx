@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import Pagination from "../../components/Pagination";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import SongCard from "../../components/SongCard";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import styles from "./Artist.module.scss";
@@ -32,6 +33,8 @@ function Artist({
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
     getArtist();
   }, []);
@@ -41,11 +44,17 @@ function Artist({
   }, [page, limit]);
 
   const getArtist = async () => {
+    if (!token) {
+      return;
+    }
     const { data } = await fetchDataWithAuth("/users/" + id, "GET");
     setArtist(data);
   };
 
   const getArtistSongs = async () => {
+    if (!token) {
+      return;
+    }
     const { data, count } = await fetchDataWithAuth(
       `/songs/getByArtist?artistId=${id}&page=${page}&limit=${limit}`,
       "GET"
@@ -56,7 +65,12 @@ function Artist({
 
   return (
     <div className={styles["artist"]}>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["artist-content"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["artist-main-content"]}>

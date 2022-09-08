@@ -70,6 +70,7 @@ function App() {
               queue={queue}
               setQueue={setQueue}
               playlists={playlists}
+              setPlaylists={setPlaylists}
               previous={previous}
               next={next}
               randomNext={randomNext}

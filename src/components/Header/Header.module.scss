@@ -29,6 +29,24 @@
   display: none;
 }
 
+.logging-in-alert {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 24px;
+  z-index: 10;
+  background-color: white;
+  box-shadow: -1px 0px 10px 3px rgba(0, 0, 0, 0.33);
+}
+
+.loggin-in-text {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 750px) {
   .header-sidebar-expand-button {
     display: flex;

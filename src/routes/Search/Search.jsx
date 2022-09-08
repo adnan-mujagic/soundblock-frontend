@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import SongCard from "../../components/SongCard";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import typography from "../../utils/typography";
 import styles from "./Search.module.scss";
 
@@ -27,9 +28,16 @@ function Search({
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
+  useAuthenticatedRoute(token);
+
   return (
     <div>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["search-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["main-content"]}>

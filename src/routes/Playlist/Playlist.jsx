@@ -6,6 +6,7 @@ import Loading from "../../components/Loading/Loading";
 import PlaylistHeader from "../../components/PlaylistHeader";
 import PlaylistsDatatable from "../../components/PlaylistsDatatable";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./Playlist.module.scss";
 
@@ -28,11 +29,16 @@ function Playlist({
   const { id } = useParams();
   const [playlist, setPlaylist] = useState(null);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
     getPlaylistInfo();
   }, [id]);
 
   const getPlaylistInfo = async () => {
+    if (!token) {
+      return;
+    }
     const response = await fetchDataWithAuth("/playlists/" + id, "GET");
     if (response?.data) {
       setPlaylist(response.data);
@@ -41,7 +47,12 @@ function Playlist({
 
   return (
     <div>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["playlist-route-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         <div className={styles["playlist-content"]}>

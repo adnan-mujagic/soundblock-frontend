@@ -11,6 +11,7 @@ import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
 import AudioOptionsController from "../../components/AudioOptionsController";
+import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 
 function Purchases({
   audio,
@@ -32,8 +33,13 @@ function Purchases({
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState(null);
 
+  useAuthenticatedRoute(token);
+
   useEffect(() => {
     async function getPurchases() {
+      if (!token) {
+        return;
+      }
       setLoading(true);
       const response = await fetchDataWithAuth(
         "/users/songs/getPurchasedSongs",
@@ -55,7 +61,12 @@ function Purchases({
 
   return (
     <div className={styles.purchases}>
-      <Header token={token} setToken={setToken} playlists={playlists} />
+      <Header
+        token={token}
+        setToken={setToken}
+        playlists={playlists}
+        audio={audio}
+      />
       <div className={styles["content-container"]}>
         <Sidebar audioDetails={audioDetails} playlists={playlists} />
         {message && (
