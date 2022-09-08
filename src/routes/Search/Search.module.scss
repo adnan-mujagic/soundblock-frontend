@@ -12,7 +12,7 @@
 .song-container {
   display: grid;
   grid-gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 290px));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
 }
 
 @media screen and (max-width: 750px) {

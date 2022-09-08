@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AccountHeader from "../../components/AccountHeader";
 import AudioOptionsController from "../../components/AudioOptionsController";
-import ContentType from "../../components/ContentType/ContentType";
 import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Pagination from "../../components/Pagination";
@@ -22,6 +21,9 @@ function Artist({
   queue,
   setQueue,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const { id } = useParams();
   const [artist, setArtist] = useState(null);
@@ -83,6 +85,7 @@ function Artist({
                   })
                   .map((expandedSong) => (
                     <SongCard
+                      setQueue={setQueue}
                       key={expandedSong._id}
                       audio={audio}
                       setAudio={setAudio}
@@ -111,6 +114,9 @@ function Artist({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

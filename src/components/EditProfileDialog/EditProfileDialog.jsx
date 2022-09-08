@@ -10,7 +10,6 @@ import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import CustomButtonFilled from "../CustomButtonFilled";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import DifferenceIndicator from "../DifferenceIndicator";
-import styles from "./EditProfileDialog.module.scss";
 
 function EditProfileDialog({
   open,

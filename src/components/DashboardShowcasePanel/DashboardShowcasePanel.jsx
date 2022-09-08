@@ -13,6 +13,7 @@ function DashboardShowcasePanel({
   audioDetails,
   setAudioDetails,
   moreInfoLabel = "View more like this...",
+  setQueue,
   icon = null,
 }) {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function DashboardShowcasePanel({
               setAudio={setAudio}
               audioDetails={audioDetails}
               setAudioDetails={setAudioDetails}
+              setQueue={setQueue}
             />
           );
         })}

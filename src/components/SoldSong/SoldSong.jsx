@@ -33,6 +33,7 @@ function SoldSong({ soldItem }) {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png"
               style={{ height: "20px", marginRight: "8px" }}
+              alt="Ethereum logo"
             />
             <p
               data-testid={"total-earned"}

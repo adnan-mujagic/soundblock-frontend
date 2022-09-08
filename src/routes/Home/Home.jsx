@@ -14,6 +14,9 @@ function Home({
   queue,
   setQueue,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   return (
     <div className={styles.home}>
@@ -28,6 +31,7 @@ function Home({
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             playlists={playlists}
+            setQueue={setQueue}
           />
           <AudioOptionsController
             queue={queue}
@@ -36,6 +40,9 @@ function Home({
             setAudio={setAudio}
             setAudioDetails={setAudioDetails}
             audioDetails={audioDetails}
+            previous={previous}
+            next={next}
+            randomNext={randomNext}
           />
         </React.Fragment>
       )}

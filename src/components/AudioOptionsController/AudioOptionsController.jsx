@@ -21,7 +21,9 @@ function AudioOptionsController({
   setAudioDetails,
   audio,
   queue,
-  setQueue,
+  previous,
+  next,
+  randomNext,
 }) {
   const { source, image, name } = audioDetails;
   const [replayOn, setReplayOn] = useState(false);
@@ -54,15 +56,20 @@ function AudioOptionsController({
   };
 
   const handleSkip = () => {
-    audio.currentTime = audio.duration;
+    handleSongEnded();
   };
 
   const handleRewind = () => {
-    audio.currentTime = 0;
+    if (audio.currentTime < 2 && queue && queue.length > 0) {
+      previous();
+    } else {
+      audio.currentTime = 0;
+    }
   };
 
   const handleOnShuffleChange = () => {
-    setShuffleOn(!shuffleOn);
+    const changedShuffleOn = !shuffleOn;
+    setShuffleOn(changedShuffleOn);
   };
 
   const handleOnReplayChange = () => {
@@ -89,32 +96,12 @@ function AudioOptionsController({
   };
 
   const handleSongEnded = () => {
-    if (replayOn) {
-      console.log("Replay is on... returning");
-      return;
-    }
-
-    if (queue && !queue.length) {
-      setAudioDetails((previousDetails) => {
-        return { ...previousDetails, isPlaying: false };
-      });
+    if (replayOn || !queue || !queue.length) {
+      audio.currentTime = audio.duration;
+    } else if (shuffleOn) {
+      randomNext();
     } else {
-      console.log("There are songs in the queue", queue);
-      let poppedSong = queue[0];
-      console.log("Popping the song...", poppedSong);
-      audio.src = poppedSong.songLocation;
-      audio.load();
-      audio.play();
-      setAudioDetails({
-        source: poppedSong.songLocation,
-        name: poppedSong.name,
-        image: poppedSong.image || defaultSongImage,
-        isPlaying: true,
-      });
-
-      let remainingQueue = queue.slice(1);
-      console.log("Remaining songs in the queue", remainingQueue);
-      setQueue(remainingQueue);
+      next();
     }
   };
 
@@ -166,12 +153,14 @@ function AudioOptionsController({
 
       <div className={styles["options-wrapper"]}>
         <div className={styles["options-top"]}>
-          <IconButton
-            onClick={handleOnShuffleChange}
-            style={{ color: shuffleOn ? colors.green : null }}
-          >
-            <ShuffleIcon />
-          </IconButton>
+          {queue && queue.length > 0 && (
+            <IconButton
+              onClick={handleOnShuffleChange}
+              style={{ color: shuffleOn ? colors.green : null }}
+            >
+              <ShuffleIcon />
+            </IconButton>
+          )}
           <IconButton onClick={handleRewind}>
             <FirstPageIcon />
           </IconButton>

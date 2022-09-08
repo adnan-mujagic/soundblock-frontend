@@ -23,6 +23,9 @@ function Purchases({
   setQueue,
   playlists,
   getOwnPlaylists,
+  previous,
+  next,
+  randomNext,
 }) {
   const [purchases, setPurchases] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -91,6 +94,7 @@ function Purchases({
                     setAudioDetails={setAudioDetails}
                     playlists={playlists}
                     getOwnPlaylists={getOwnPlaylists}
+                    setQueue={setQueue}
                   />
                 </div>
               )}
@@ -110,6 +114,9 @@ function Purchases({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

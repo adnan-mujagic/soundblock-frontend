@@ -22,6 +22,9 @@ function Explore({
   queue,
   setQueue,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
@@ -72,6 +75,7 @@ function Explore({
                 songsToExplore.map((song, index) => {
                   return (
                     <SongCard
+                      setQueue={setQueue}
                       audio={audio}
                       setAudio={setAudio}
                       audioDetails={audioDetails}
@@ -101,6 +105,9 @@ function Explore({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

@@ -17,6 +17,9 @@ function PurchaseStatus({
   token,
   setToken,
   playlists,
+  previous,
+  next,
+  randomNext,
 }) {
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -83,6 +86,9 @@ function PurchaseStatus({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import shortenString from "../../utils/shortenString";
 import styles from "./SongsDatatable.module.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -14,6 +14,7 @@ import SongActionsDialog from "../SongActionsDialog";
 import { defaultSongImage } from "../../utils/defaultImage";
 import getColorFromString from "../../utils/getColorFromString";
 import useAudio from "../../hooks/useAudio";
+import { useNavigate } from "react-router-dom";
 
 export const headCells = [
   {
@@ -103,17 +104,39 @@ export function TableHead({ order, orderBy, onRequestSort }) {
   );
 }
 
-function TableRowOverlay({
-  isPlaying,
-  handlePlay,
-  handlePause,
+function TableRow({
   song,
+  idx,
+  audio,
+  setAudio,
+  audioDetails,
+  setAudioDetails,
   handleExpandMore,
+  setQueue,
 }) {
+  const navigate = useNavigate();
+  const [handlePlay, handlePause] = useAudio(
+    song,
+    audio,
+    setAudio,
+    setAudioDetails,
+    setQueue
+  );
+
+  let ownSongLocation = song.songLocation;
+  let { isPlaying, source } = audioDetails;
+
+  const handleArtistClick = () => {
+    const artistId = song.artist[0]._id;
+    if (artistId) {
+      navigate(`/artists/${artistId}`);
+    }
+  };
+
   return (
-    <div className={styles["table-row-overlay"]}>
-      <div>
-        {!isPlaying ? (
+    <div className={styles["table-row"]}>
+      <div className={styles["table-row-overlay-left"]}>
+        {!isPlaying || ownSongLocation !== source ? (
           <CustomIconButton onClick={handlePlay}>
             <PlayArrowIcon />
           </CustomIconButton>
@@ -123,43 +146,11 @@ function TableRowOverlay({
           </CustomIconButton>
         )}
       </div>
-      <div>
+      <div className={styles["table-row-overlay-right"]}>
         <IconButton onClick={(event) => handleExpandMore(event, song)}>
           <MoreHorizIcon />
         </IconButton>
       </div>
-    </div>
-  );
-}
-
-function TableRow({
-  song,
-  idx,
-  audio,
-  setAudio,
-  audioDetails,
-  setAudioDetails,
-  handleExpandMore,
-}) {
-  const [handlePlay, handlePause] = useAudio(
-    song,
-    audio,
-    setAudio,
-    setAudioDetails
-  );
-
-  let ownSongLocation = song.songLocation;
-  let { isPlaying, source } = audioDetails;
-
-  return (
-    <div className={styles["table-row"]}>
-      <TableRowOverlay
-        isPlaying={source === ownSongLocation && isPlaying}
-        handlePlay={handlePlay}
-        handlePause={handlePause}
-        handleExpandMore={handleExpandMore}
-        song={song}
-      />
       <div style={{ ...tableCellStyles, flex: 0.1 }}>{idx}</div>
       <div style={{ ...tableCellStyles, flex: 1 }}>
         <div
@@ -182,8 +173,13 @@ function TableRow({
           color: getColorFromString(song.artist[0].walletAddress),
         }}
       >
-        {song.artist[0]?.username ||
-          shortenString(song.artist[0].walletAddress, 20)}
+        <div
+          onClick={handleArtistClick}
+          style={{ cursor: "pointer", width: "fit-content" }}
+        >
+          {song.artist[0]?.username ||
+            shortenString(song.artist[0].walletAddress, 20)}
+        </div>
       </div>
     </div>
   );
@@ -197,6 +193,7 @@ function SongsDatatable({
   setAudioDetails,
   playlists,
   getOwnPlaylists,
+  setQueue,
 }) {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(headCells[1].id);
@@ -257,6 +254,7 @@ function SongsDatatable({
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
             handleExpandMore={handleExpandMore}
+            setQueue={setQueue}
           />
         ))}
       </div>

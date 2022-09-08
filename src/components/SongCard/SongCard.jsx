@@ -1,7 +1,4 @@
-import getColorFromString from "../../utils/getColorFromString";
-import typography from "../../utils/typography";
 import styles from "./SongCard.module.scss";
-import SongCardOverlay from "../SongCardOverlay/SongCardOverlay";
 import DefaultAlert from "../DefaultAlert/DefaultAlert";
 import { useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
@@ -10,7 +7,13 @@ import { ethers } from "ethers";
 import shortenString from "../../utils/shortenString";
 import { defaultSongImage } from "../../utils/defaultImage";
 import useAudio from "../../hooks/useAudio";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import { useNavigate } from "react-router-dom";
+import CustomButtonFilled from "../CustomButtonFilled";
+import colors from "../../utils/colors";
+import { songCategories } from "../../utils/songCategories";
+import Badge from "../Badge";
 
 function SongCard({
   audio,
@@ -18,6 +21,7 @@ function SongCard({
   audioDetails,
   setAudioDetails,
   song,
+  setQueue,
   canBuy = false,
   showViewArtist = true,
 }) {
@@ -28,13 +32,23 @@ function SongCard({
     song,
     audio,
     setAudio,
-    setAudioDetails
+    setAudioDetails,
+    setQueue
   );
 
   const navigate = useNavigate();
 
   const handleArtistClick = () => {
     navigate("/artists/" + song.artist[0]._id);
+  };
+
+  const getUploadStatusColor = (uploadStatus) => {
+    if (uploadStatus === "SUCCESSFUL") {
+      return colors.green;
+    } else if (uploadStatus === "ERROR") {
+      return colors.error;
+    }
+    return colors.warning;
   };
 
   let { isPlaying, source } = audioDetails;
@@ -77,6 +91,34 @@ function SongCard({
 
   return (
     <div className={styles["song-card"]}>
+      <div className={styles["song-card-top-right-popup"]}>
+        {ownSongLocation === source && isPlaying ? (
+          <PauseCircleIcon
+            onClick={handlePause}
+            style={{
+              cursor: "pointer",
+              fontSize: "60",
+              color: colors.green,
+            }}
+          />
+        ) : (
+          <PlayCircleIcon
+            onClick={handlePlay}
+            style={{
+              cursor: "pointer",
+              fontSize: "60",
+              color: colors.green,
+            }}
+          />
+        )}
+      </div>
+
+      <div className={styles["song-card-bottom-right-popup"]}>
+        {canBuy && !purchasing && (
+          <CustomButtonFilled text={"Buy"} onClick={handleBuy} />
+        )}
+      </div>
+
       {message && (
         <DefaultAlert
           message={message}
@@ -94,20 +136,38 @@ function SongCard({
             borderRadius: "8px",
             marginBottom: "16px",
           }}
-        >
-          <SongCardOverlay
-            canBuy={canBuy && !purchasing}
-            showPlayPause={!!ownSongLocation}
-            isPlaying={ownSongLocation === source && isPlaying}
-            handlePlay={handlePlay}
-            handlePause={handlePause}
-            handleBuy={handleBuy}
-            handleArtistClick={handleArtistClick}
-            showViewArtist={showViewArtist}
-          />
-        </div>
+        ></div>
       </div>
       <div className="song-card-info">
+        <div className={styles["song-card-status-track"]}>
+          {song.uploadStatus && (
+            <Badge
+              label="Status"
+              title={
+                song.uploadStatus.charAt(0) +
+                song.uploadStatus.slice(1).toLowerCase()
+              }
+              backgroundColor={getUploadStatusColor(song.uploadStatus)}
+            />
+          )}
+          {song.transactionLink && (
+            <Badge
+              title="Transaction"
+              link={song.transactionLink}
+              backgroundColor={colors.green}
+            />
+          )}
+          {song.category && (
+            <Badge
+              title={song.category}
+              backgroundColor={
+                songCategories.find(
+                  (category) => category.name === song.category
+                )?.color || colors.green
+              }
+            />
+          )}
+        </div>
         {song?.price && (
           <div style={{ display: "flex", alignItems: "center" }}>
             <img

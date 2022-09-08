@@ -1,6 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import React from "react";
 import colors from "../../utils/colors";
+import { songCategories } from "../../utils/songCategories";
 import typography from "../../utils/typography";
 import CustomButtonFilled from "../CustomButtonFilled";
 
@@ -32,7 +33,18 @@ function CustomDropdown({
       {selectedOptionExists && (
         <div
           data-testid="selected-option"
-          style={{ fontSize: typography.tiny, margin: "10px 0" }}
+          style={{
+            fontSize: typography.tiny,
+            margin: "10px 0",
+            padding: "5px",
+            borderRadius: "4px",
+            color: "white",
+            width: "fit-content",
+            backgroundColor:
+              songCategories.find(
+                (category) => category.name === selectedOption
+              )?.color || colors.green,
+          }}
         >
           {selectedOption}
         </div>

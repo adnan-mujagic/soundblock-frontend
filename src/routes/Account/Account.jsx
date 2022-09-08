@@ -27,8 +27,11 @@ function Account({
   setToken,
   playlists,
   getOwnPlaylists,
+  next,
+  previous,
+  randomNext,
+  setQueue,
 }) {
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState(null);
@@ -40,7 +43,6 @@ function Account({
   }, []);
 
   const getUser = async () => {
-    setLoading(true);
     const response = await fetchDataWithAuth("/users", "GET");
     if (response?.data) {
       setUser(response.data);
@@ -48,7 +50,6 @@ function Account({
     await updateUserSongs(response.data._id);
     setMessage(response.message);
     setSnackbarOpen(true);
-    setLoading(false);
   };
 
   const handleEditProfile = () => {
@@ -113,6 +114,7 @@ function Account({
                     let { ownedSongs, ...rest } = user;
                     return (
                       <SongCard
+                        setQueue={setQueue}
                         audio={audio}
                         setAudio={setAudio}
                         audioDetails={audioDetails}
@@ -166,6 +168,9 @@ function Account({
         audio={audio}
         setAudioDetails={setAudioDetails}
         audioDetails={audioDetails}
+        previous={previous}
+        next={next}
+        randomNext={randomNext}
       />
     </div>
   );

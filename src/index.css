@@ -10,6 +10,7 @@ body {
 
 :root {
   --green: rgb(67, 181, 129);
+  --lightgreen: rgb(176, 255, 219);
   --border: rgb(216, 216, 216);
   --error: crimson;
   --warning: orange;

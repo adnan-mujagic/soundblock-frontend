@@ -3,26 +3,39 @@
 }
 
 .playlist-datatable-row {
+  position: relative;
   display: flex;
   position: relative;
   font-size: 16px;
 }
 
-.playlist-datatable-overlay {
+.playlist-datatable-overlay-left {
   position: absolute;
-  height: 100%;
-  width: 100%;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  transition: 0.15s;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  display: none;
 }
 
-.playlist-datatable-overlay:hover {
-  opacity: 1;
-  background-color: rgba(32, 32, 32, 0.3);
+.playlist-datatable-overlay-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  display: none;
+}
+
+.playlist-datatable-row:hover .playlist-datatable-overlay-left {
+  display: block;
+}
+
+.playlist-datatable-row:hover .playlist-datatable-overlay-right {
+  display: block;
+}
+
+.playlist-datatable-row:hover {
+  background-color: var(--border);
+  transition: 0.5s;
 }
 
 @media screen and (max-width: 750px) {

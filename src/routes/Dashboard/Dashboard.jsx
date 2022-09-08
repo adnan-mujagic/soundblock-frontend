@@ -12,6 +12,7 @@ function Dashboard({
   audioDetails,
   setAudioDetails,
   playlists,
+  setQueue,
 }) {
   const [purchasedSongs, setPurchasedSongs] = useState([]);
   const [songsToExplore, setSongsToExplore] = useState([]);
@@ -53,6 +54,7 @@ function Dashboard({
             setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
+            setQueue={setQueue}
           />
         )}
         {songsToExplore.length > 0 ? (
@@ -64,6 +66,7 @@ function Dashboard({
             setAudio={setAudio}
             audioDetails={audioDetails}
             setAudioDetails={setAudioDetails}
+            setQueue={setQueue}
           />
         ) : (
           <div>It's quiet for now!</div>
