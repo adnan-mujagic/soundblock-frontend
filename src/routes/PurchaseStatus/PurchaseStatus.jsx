@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import AdaptedDataTable, {
+  getColumnsWithImage,
+} from "../../components/AdaptedDataTable/AdaptedDataTable";
+import AnchorButton from "../../components/AnchorButton/AnchorButton";
 import AudioOptionsController from "../../components/AudioOptionsController";
+import Badge from "../../components/Badge";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Pagination from "../../components/Pagination";
-import PurchaseStatusCard from "../../components/PurchaseStatusCard";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
+import colors from "../../utils/colors";
+import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./PurchaseStatus.module.scss";
 
@@ -55,6 +61,57 @@ function PurchaseStatus({
     setAlertOpen(true);
   };
 
+  const data = purchases?.data?.map((item) => ({
+    id: item.song._id,
+    name: item.song.name,
+    price: item.song.price,
+    status: item.status,
+    image: item.song.image ?? defaultSongImage,
+    ownerTransactionLink: item.ownerTransactionLink,
+    purchaseTransactionLink: item.purchaseTransactionLink,
+  }));
+
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Price",
+      selector: (row) => row.price,
+      sortable: true,
+    },
+    {
+      name: "Status",
+      cell: (row) => {
+        return (
+          <Badge
+            title={row.status}
+            backgroundColor={
+              row.status === "SUCCESSFUL" ? colors.green : colors.error
+            }
+          />
+        );
+      },
+      sortable: true,
+    },
+    {
+      name: "Owner transaction link",
+      cell: (row) => {
+        return <AnchorButton text={""} link={row.ownerTransactionLink} />;
+      },
+    },
+    {
+      name: "Purchase transaction link",
+      cell: (row) => {
+        return <AnchorButton text={""} link={row.purchaseTransactionLink} />;
+      },
+    },
+  ];
+
+  console.log(data);
+
   return (
     <div>
       <Header
@@ -76,11 +133,10 @@ function PurchaseStatus({
             <Loading />
           ) : (
             <React.Fragment>
-              <div className={styles["purchase-status-grid"]}>
-                {purchases?.data?.map((item) => (
-                  <PurchaseStatusCard key={item._id} purchase={item} />
-                ))}
-              </div>
+              <AdaptedDataTable
+                data={data}
+                columns={getColumnsWithImage("image", columns)}
+              />
               {purchases && (
                 <Pagination
                   totalItems={purchases.count}

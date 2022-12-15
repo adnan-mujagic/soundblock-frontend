@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
+import AdaptedDataTable, {
+  getColumnsWithImage,
+} from "../AdaptedDataTable/AdaptedDataTable";
 import Loading from "../Loading/Loading";
 import Pagination from "../Pagination";
-import SoldSong from "../SoldSong/SoldSong";
 import styles from "./SoldSongs.module.scss";
 
 function SoldSongs() {
@@ -33,15 +36,39 @@ function SoldSongs() {
     return null;
   }
 
+  const columns = [
+    {
+      name: "Number of sales",
+      selector: (row) => row.numberOfSales,
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Earnings",
+      selector: (row) => row.earnings,
+      sortable: true,
+    },
+  ];
+
+  const data = soldSongs?.soldItems?.map(({ count, song, totalEarned }) => ({
+    id: song._id,
+    numberOfSales: count,
+    name: song.name,
+    image: song.image ?? defaultSongImage,
+    earnings: totalEarned,
+  }));
+
   return (
     <div className={styles["sold-songs"]}>
-      <div className={styles["sold-songs-title"]}>Top selling songs</div>
-      <div className={styles["sold-songs-container"]}>
-        {soldSongs?.soldItems?.map((soldItem) => (
-          <SoldSong key={soldItem.song._id} soldItem={soldItem} />
-        ))}
-      </div>
-
+      <AdaptedDataTable
+        title="Top-selling songs"
+        columns={getColumnsWithImage("image", columns)}
+        data={data}
+      />
       <Pagination
         totalItems={soldSongs.count}
         page={page}
