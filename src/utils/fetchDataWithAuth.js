@@ -1,7 +1,7 @@
 import SessionStorage from "./SessionStorage";
 
 export default async function fetchDataWithAuth(urlSuffix, method, body) {
-  let url = `https://obscure-brook-90945.herokuapp.com/api${urlSuffix}`;
+  let url = `https://soundblock-backend-production.up.railway.app/api${urlSuffix}`;
 
   console.log("Fetching from this url: " + url);
   try {

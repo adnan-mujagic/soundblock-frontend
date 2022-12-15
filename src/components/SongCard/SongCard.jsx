@@ -23,7 +23,6 @@ function SongCard({
   song,
   setQueue,
   canBuy = false,
-  showViewArtist = true,
 }) {
   const [message, setMessage] = useState(null);
   const [purchasing, setPurchasing] = useState(false);

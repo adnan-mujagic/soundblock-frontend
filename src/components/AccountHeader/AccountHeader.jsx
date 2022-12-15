@@ -3,6 +3,7 @@ import getDefaultUserImageUrl from "../../utils/getDefaultUserImageUrl";
 import PropTypes from "prop-types";
 import styles from "./AccountHeader.module.scss";
 import shortenString from "../../utils/shortenString";
+import colors from "../../utils/colors";
 
 function AccountHeader({ artistAddress, username, imageUrl, numberOfSongs }) {
   return (
@@ -16,8 +17,9 @@ function AccountHeader({ artistAddress, username, imageUrl, numberOfSongs }) {
           backgroundPosition: "center",
           backgroundSize: "cover",
           height: "200px",
-          borderRadius: "50%",
+          borderRadius: "8px",
           marginBottom: "20px",
+          boxShadow: "4px 4px 22px 0px rgba(0,0,0,0.56)",
         }}
       />
       <div className={styles["user-data"]}>
