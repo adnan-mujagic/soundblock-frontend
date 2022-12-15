@@ -6,6 +6,8 @@ import AnchorButton from "../AnchorButton";
 import EthereumLogo from "../EthereumLogo";
 import styles from "./PurchaseStatusCard.module.scss";
 
+// DEPRECATED
+
 function PurchaseStatusCard({ purchase }) {
   const getStatusColor = () => {
     if (purchase.status === "SUCCESSFUL") {

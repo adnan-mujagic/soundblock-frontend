@@ -2,6 +2,8 @@ import React from "react";
 import { defaultSongImage } from "../../utils/defaultImage";
 import styles from "./SoldSong.module.scss";
 
+// DEPRECATED
+
 function SoldSong({ soldItem }) {
   return (
     <div data-testid="sold-song" className={styles["sold-song"]}>
