@@ -7,7 +7,6 @@ import Account from "../Account";
 import Artist from "../Artist";
 import Dashboard from "../Dashboard";
 import Explore from "../Explore";
-import Home from "../Home";
 import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
 import PurchaseStatus from "../PurchaseStatus";
