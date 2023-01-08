@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import ContentType from "../../components/ContentType/ContentType";
 import DashboardShowcasePanel from "../../components/DashboardShowcasePanel";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import styles from "./Dashboard.module.scss";
 
@@ -11,7 +10,6 @@ function Dashboard({
   setAudio,
   audioDetails,
   setAudioDetails,
-  playlists,
   setQueue,
 }) {
   const [purchasedSongs, setPurchasedSongs] = useState([]);

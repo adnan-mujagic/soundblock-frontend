@@ -3,31 +3,17 @@ import AdaptedDataTable, {
   getColumnsWithImage,
 } from "../../components/AdaptedDataTable/AdaptedDataTable";
 import AnchorButton from "../../components/AnchorButton/AnchorButton";
-import AudioOptionsController from "../../components/AudioOptionsController";
 import Badge from "../../components/Badge";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
-import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
 import Pagination from "../../components/Pagination";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import colors from "../../utils/colors";
 import { defaultSongImage } from "../../utils/defaultImage";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
-import styles from "./PurchaseStatus.module.scss";
 
-function PurchaseStatus({
-  audio,
-  audioDetails,
-  setAudioDetails,
-  token,
-  setToken,
-  playlists,
-  previous,
-  next,
-  randomNext,
-}) {
+function PurchaseStatus({ token }) {
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -110,53 +96,32 @@ function PurchaseStatus({
     },
   ];
 
-  console.log(data);
-
   return (
     <div>
-      <Header
-        token={token}
-        setToken={setToken}
-        playlists={playlists}
-        audio={audio}
+      <DefaultAlert
+        message={alertMessage}
+        open={alertOpen}
+        setOpen={setAlertOpen}
       />
-      <div className={styles["purchase-status-container"]}>
-        <DefaultAlert
-          message={alertMessage}
-          open={alertOpen}
-          setOpen={setAlertOpen}
-        />
-        <Sidebar audioDetails={audioDetails} playlists={playlists} />
-        <div className={styles["purchase-status-content"]}>
-          <ContentType contentType={"Purchase Status"} />
-          {loading ? (
-            <Loading />
-          ) : (
-            <React.Fragment>
-              <AdaptedDataTable
-                data={data}
-                columns={getColumnsWithImage("image", columns)}
-              />
-              {purchases && (
-                <Pagination
-                  totalItems={purchases.count}
-                  page={page}
-                  setPage={setPage}
-                  limit={limit}
-                />
-              )}
-            </React.Fragment>
+      <ContentType contentType={"Purchase Status"} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <React.Fragment>
+          <AdaptedDataTable
+            data={data}
+            columns={getColumnsWithImage("image", columns)}
+          />
+          {purchases && (
+            <Pagination
+              totalItems={purchases.count}
+              page={page}
+              setPage={setPage}
+              limit={limit}
+            />
           )}
-        </div>
-      </div>
-      <AudioOptionsController
-        audio={audio}
-        setAudioDetails={setAudioDetails}
-        audioDetails={audioDetails}
-        previous={previous}
-        next={next}
-        randomNext={randomNext}
-      />
+        </React.Fragment>
+      )}
     </div>
   );
 }

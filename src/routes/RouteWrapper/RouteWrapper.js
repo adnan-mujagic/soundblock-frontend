@@ -115,22 +115,7 @@ function RouteWrapper({
             />
             <Route
               path="/purchase-status"
-              element={
-                <PurchaseStatus
-                  queue={queue}
-                  setQueue={setQueue}
-                  audio={audio}
-                  setAudio={setAudio}
-                  audioDetails={audioDetails}
-                  setAudioDetails={setAudioDetails}
-                  token={token}
-                  setToken={setToken}
-                  playlists={playlists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
-                />
-              }
+              element={<PurchaseStatus token={token} />}
             />
             <Route
               path="/playlists/:id"
@@ -187,21 +172,6 @@ function RouteWrapper({
                   next={next}
                   randomNext={randomNext}
                   setQueue={setQueue}
-                />
-              }
-            />
-            <Route
-              path="/rw/purchases"
-              element={
-                <Purchases
-                  audio={audio}
-                  setAudio={setAudio}
-                  audioDetails={setAudioDetails}
-                  setAudioDetails={setAudioDetails}
-                  token={token}
-                  setQueue={setQueue}
-                  playlists={playlists}
-                  getOwnPlaylists={getOwnPlaylists}
                 />
               }
             />

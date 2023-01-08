@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AudioOptionsController from "../../components/AudioOptionsController/AudioOptionsController";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
-import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import SongCard from "../../components/SongCard";
 import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import dateToGreeting from "../../utils/dateToGreeting";
@@ -19,13 +16,7 @@ function Explore({
   audioDetails,
   setAudioDetails,
   token,
-  setToken,
-  queue,
   setQueue,
-  playlists,
-  previous,
-  next,
-  randomNext,
 }) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);

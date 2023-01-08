@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import fetchDataWithAuth from "../../utils/fetchDataWithAuth";
 import typography from "../../utils/typography";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
-import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading/Loading";
-import styles from "./Purchases.module.scss";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import ContentType from "../../components/ContentType/ContentType";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
 import dateToGreeting from "../../utils/dateToGreeting";
 import SongsDatatable from "../../components/SongsDatatable";
-import AudioOptionsController from "../../components/AudioOptionsController";
 import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
+import styles from "./Purchases.module.scss";
 
 function Purchases({
   audio,
