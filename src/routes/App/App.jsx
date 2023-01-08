@@ -216,7 +216,7 @@ function App() {
         ></Route>
 
         <Route
-          path="/rw"
+          path="/rw/purchases"
           element={
             <RouteWrapper
               queue={queue}
@@ -233,7 +233,18 @@ function App() {
               next={next}
               randomNext={randomNext}
               contentType={"Purchases"}
-              content={<div>hello world</div>}
+              content={
+                <Purchases
+                  audio={audio}
+                  setAudio={setAudio}
+                  audioDetails={setAudioDetails}
+                  setAudioDetails={setAudioDetails}
+                  token={token}
+                  setQueue={setQueue}
+                  playlists={playlists}
+                  getOwnPlaylists={getUserPlaylists}
+                />
+              }
             />
           }
         ></Route>
