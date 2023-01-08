@@ -49,7 +49,6 @@ function RouteWrapper({
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
-                  playlists={playlists}
                   setQueue={setQueue}
                 />
               }
@@ -58,19 +57,14 @@ function RouteWrapper({
               path="/purchases"
               element={
                 <Purchases
-                  queue={queue}
-                  setQueue={setQueue}
                   audio={audio}
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
                   token={token}
-                  setToken={setToken}
+                  setQueue={setQueue}
                   playlists={playlists}
                   getOwnPlaylists={getOwnPlaylists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
                 />
               }
             />
@@ -78,19 +72,12 @@ function RouteWrapper({
               path="/explore"
               element={
                 <Explore
-                  queue={queue}
-                  setQueue={setQueue}
                   audio={audio}
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
                   token={token}
-                  setToken={setToken}
-                  playlists={playlists}
-                  getOwnPlaylists={getOwnPlaylists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
+                  setQueue={setQueue}
                 />
               }
             />
@@ -98,18 +85,12 @@ function RouteWrapper({
               path="/account"
               element={
                 <Account
-                  queue={queue}
-                  setQueue={setQueue}
                   audio={audio}
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
                   token={token}
-                  setToken={setToken}
-                  playlists={playlists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
+                  setQueue={setQueue}
                 />
               }
             />
@@ -121,19 +102,12 @@ function RouteWrapper({
               path="/playlists/:id"
               element={
                 <Playlist
-                  queue={queue}
-                  setQueue={setQueue}
                   generateQueue={generateQueue}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
                   audio={audio}
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
                   token={token}
-                  setToken={setToken}
-                  playlists={playlists}
                   getOwnPlaylists={getOwnPlaylists}
                 />
               }
@@ -143,17 +117,11 @@ function RouteWrapper({
               element={
                 <Artist
                   token={token}
-                  setToken={setToken}
                   audio={audio}
                   setAudio={setAudio}
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
-                  queue={queue}
                   setQueue={setQueue}
-                  playlists={playlists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
                 />
               }
             />
@@ -166,11 +134,6 @@ function RouteWrapper({
                   audioDetails={audioDetails}
                   setAudioDetails={setAudioDetails}
                   token={token}
-                  setToken={setToken}
-                  playlists={playlists}
-                  previous={previous}
-                  next={next}
-                  randomNext={randomNext}
                   setQueue={setQueue}
                 />
               }
