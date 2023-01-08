@@ -41,37 +41,34 @@ function Dashboard({
   };
 
   return (
-    <div className={styles.dashboard}>
-      <Sidebar audioDetails={audioDetails} playlists={playlists} />
-      <div className={styles["dashboard-wrapper"]}>
-        <ContentType contentType={"Dashboard"} />
-        {purchasedSongs.length > 0 && (
-          <DashboardShowcasePanel
-            title={"Your purchased songs..."}
-            songs={purchasedSongs}
-            moreInfoLink={"/purchases"}
-            audio={audio}
-            setAudio={setAudio}
-            audioDetails={audioDetails}
-            setAudioDetails={setAudioDetails}
-            setQueue={setQueue}
-          />
-        )}
-        {songsToExplore.length > 0 ? (
-          <DashboardShowcasePanel
-            title={"Explore new songs..."}
-            songs={songsToExplore}
-            moreInfoLink={"/explore"}
-            audio={audio}
-            setAudio={setAudio}
-            audioDetails={audioDetails}
-            setAudioDetails={setAudioDetails}
-            setQueue={setQueue}
-          />
-        ) : (
-          <div>It's quiet for now!</div>
-        )}
-      </div>
+    <div>
+      <ContentType contentType={"Dashboard"} />
+      {purchasedSongs.length > 0 && (
+        <DashboardShowcasePanel
+          title={"Your purchased songs..."}
+          songs={purchasedSongs}
+          moreInfoLink={"/purchases"}
+          audio={audio}
+          setAudio={setAudio}
+          audioDetails={audioDetails}
+          setAudioDetails={setAudioDetails}
+          setQueue={setQueue}
+        />
+      )}
+      {songsToExplore.length > 0 ? (
+        <DashboardShowcasePanel
+          title={"Explore new songs..."}
+          songs={songsToExplore}
+          moreInfoLink={"/explore"}
+          audio={audio}
+          setAudio={setAudio}
+          audioDetails={audioDetails}
+          setAudioDetails={setAudioDetails}
+          setQueue={setQueue}
+        />
+      ) : (
+        <div>It's quiet for now!</div>
+      )}
     </div>
   );
 }

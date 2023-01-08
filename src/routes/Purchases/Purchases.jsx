@@ -56,6 +56,7 @@ function Purchases({
 
   return (
     <div>
+      <ContentType contentType={"Purchases"} />
       {message && (
         <DefaultAlert
           message={message}
