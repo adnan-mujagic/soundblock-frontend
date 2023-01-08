@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AudioOptionsController from "../../components/AudioOptionsController/AudioOptionsController";
 import ContentType from "../../components/ContentType/ContentType";
 import DefaultAlert from "../../components/DefaultAlert/DefaultAlert";
 import EmptyContent from "../../components/EmptyContent/EmptyContent";
-import Header from "../../components/Header";
 import Loading from "../../components/Loading/Loading";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import SongCard from "../../components/SongCard";
 import useAuthenticatedRoute from "../../hooks/useAuthenticatedRoute";
 import dateToGreeting from "../../utils/dateToGreeting";
@@ -19,13 +16,7 @@ function Explore({
   audioDetails,
   setAudioDetails,
   token,
-  setToken,
-  queue,
   setQueue,
-  playlists,
-  previous,
-  next,
-  randomNext,
 }) {
   const [songsToExplore, setSongsToExplore] = useState([]);
   const [message, setMessage] = useState(null);
@@ -56,70 +47,50 @@ function Explore({
 
   return (
     <div className={styles.explore}>
-      <Header
-        token={token}
-        setToken={setToken}
-        playlists={playlists}
-        audio={audio}
-      />
-      <div className={styles["content-wrapper"]}>
-        <Sidebar audioDetails={audioDetails} playlists={playlists} />
-        {message && (
-          <DefaultAlert
-            message={message}
-            open={alertOpen}
-            setOpen={setAlertOpen}
+      {message && (
+        <DefaultAlert
+          message={message}
+          open={alertOpen}
+          setOpen={setAlertOpen}
+        />
+      )}
+
+      <ContentType contentType={"Explore"} />
+      <div style={{ fontSize: typography.header, marginTop: "20px" }}>
+        {`Good ${dateToGreeting()}, here are some new songs to explore...`}
+        <div
+          className={
+            songsToExplore?.length > 0
+              ? styles["explore-container"]
+              : styles["explore-container-empty"]
+          }
+        >
+          {songsToExplore && !loading ? (
+            songsToExplore.map((song, index) => {
+              return (
+                <SongCard
+                  setQueue={setQueue}
+                  audio={audio}
+                  setAudio={setAudio}
+                  audioDetails={audioDetails}
+                  setAudioDetails={setAudioDetails}
+                  key={index}
+                  song={song}
+                  canBuy={!!song?.price}
+                />
+              );
+            })
+          ) : (
+            <Loading />
+          )}
+        </div>
+        {!loading && songsToExplore?.length <= 0 && (
+          <EmptyContent
+            message="Looks like there is nothing to explore currently..."
+            isAnimated={true}
           />
         )}
-        <div className={styles["main-content-wrapper"]}>
-          <ContentType contentType={"Explore"} />
-          <div style={{ fontSize: typography.header, marginTop: "20px" }}>
-            {`Good ${dateToGreeting()}, here are some new songs to explore...`}
-            <div
-              className={
-                songsToExplore?.length > 0
-                  ? styles["explore-container"]
-                  : styles["explore-container-empty"]
-              }
-            >
-              {songsToExplore && !loading ? (
-                songsToExplore.map((song, index) => {
-                  return (
-                    <SongCard
-                      setQueue={setQueue}
-                      audio={audio}
-                      setAudio={setAudio}
-                      audioDetails={audioDetails}
-                      setAudioDetails={setAudioDetails}
-                      key={index}
-                      song={song}
-                      canBuy={!!song?.price}
-                    />
-                  );
-                })
-              ) : (
-                <Loading />
-              )}
-            </div>
-            {!loading && songsToExplore?.length <= 0 && (
-              <EmptyContent
-                message="Looks like there is nothing to explore currently..."
-                isAnimated={true}
-              />
-            )}
-          </div>
-        </div>
       </div>
-      <AudioOptionsController
-        queue={queue}
-        setQueue={setQueue}
-        audio={audio}
-        setAudioDetails={setAudioDetails}
-        audioDetails={audioDetails}
-        previous={previous}
-        next={next}
-        randomNext={randomNext}
-      />
     </div>
   );
 }
