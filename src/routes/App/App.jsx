@@ -11,6 +11,7 @@ import Home from "../Home";
 import Playlist from "../Playlist";
 import Purchases from "../Purchases/Purchases";
 import PurchaseStatus from "../PurchaseStatus";
+import RouteWrapper from "../RouteWrapper/RouteWrapper";
 import Search from "../Search";
 import styles from "./App.module.scss";
 
@@ -210,6 +211,29 @@ function App() {
               next={next}
               randomNext={randomNext}
               setQueue={setQueue}
+            />
+          }
+        ></Route>
+
+        <Route
+          path="/rw"
+          element={
+            <RouteWrapper
+              queue={queue}
+              setQueue={setQueue}
+              audio={audio}
+              setAudio={setAudio}
+              audioDetails={audioDetails}
+              setAudioDetails={setAudioDetails}
+              token={token}
+              setToken={setToken}
+              playlists={playlists}
+              getOwnPlaylists={getUserPlaylists}
+              previous={previous}
+              next={next}
+              randomNext={randomNext}
+              contentType={"Purchases"}
+              content={<div>hello world</div>}
             />
           }
         ></Route>
